@@ -1,9 +1,10 @@
-package com.github.liosha2007.android;
+package com.github.liosha2007.android.recipes.craft;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
+
+import com.github.liosha2007.android.R;
 
 public class HelloAndroidActivity extends Activity {
 
