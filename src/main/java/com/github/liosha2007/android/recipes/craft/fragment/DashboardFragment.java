@@ -1,19 +1,22 @@
 package com.github.liosha2007.android.recipes.craft.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.fragment.BaseFragment;
+import com.github.liosha2007.android.recipes.craft.controller.DashboardController;
 
 /**
  * Created by liosha on 21.04.2014.
  */
 public class DashboardFragment extends BaseFragment {
+    public DashboardFragment() {
+        super(R.layout.layout_dashboard, new DashboardController());
+    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState, R.layout.layout_dashboard);
+    public void onViewCreated(View view) {
+        // TODO: Initialize here
+        return;
     }
 }

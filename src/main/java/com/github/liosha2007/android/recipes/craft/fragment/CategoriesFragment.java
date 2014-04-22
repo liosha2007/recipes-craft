@@ -1,19 +1,22 @@
 package com.github.liosha2007.android.recipes.craft.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.fragment.BaseFragment;
+import com.github.liosha2007.android.recipes.craft.controller.CategoriesController;
 
 /**
  * Created by liosha on 21.04.2014.
  */
-public class CategoriesFragment extends BaseFragment {
+public class CategoriesFragment extends BaseFragment<CategoriesController> {
+    public CategoriesFragment() {
+        super(R.layout.layout_categories, new CategoriesController());
+    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState, R.layout.layout_categories);
+    public void onViewCreated(View view) {
+        // TODO: Initialize here
+        return;
     }
 }

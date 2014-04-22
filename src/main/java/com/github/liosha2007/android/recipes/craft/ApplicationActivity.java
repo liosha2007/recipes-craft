@@ -13,14 +13,20 @@ import com.github.liosha2007.android.recipes.craft.fragment.DashboardFragment;
  * Created by liosha on 21.04.2014.
  */
 public class ApplicationActivity extends com.github.liosha2007.android.library.application.ApplicationActivity {
+    public ApplicationActivity() {
+        super(R.layout.layout_main, R.id.viewPager);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        ConfigureLog4J.configure();
-        initialize(R.layout.layout_main, R.id.viewPager);
 
-        FragmentManager.adapter.addFragment(Fragments.DASHBOARD_FRAGMENT, new DashboardFragment());
-        FragmentManager.adapter.addFragment(Fragments.CATEGORIES_FRAGMENT, new CategoriesFragment());
+    }
+
+    @Override
+    protected void onFragmentCreate(FragmentManager adapter) {
+        adapter.addFragment(Fragments.DASHBOARD_FRAGMENT, new DashboardFragment());
+        adapter.addFragment(Fragments.CATEGORIES_FRAGMENT, new CategoriesFragment());
     }
 
 //    @Override
