@@ -1,6 +1,7 @@
 package com.github.liosha2007.android.recipes.craft.fragment;
 
 import android.view.View;
+import android.widget.Button;
 
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.fragment.BaseFragment;
@@ -9,14 +10,36 @@ import com.github.liosha2007.android.recipes.craft.controller.DashboardControlle
 /**
  * Created by liosha on 21.04.2014.
  */
-public class DashboardFragment extends BaseFragment {
+public class DashboardFragment extends BaseFragment<DashboardController> {
     public DashboardFragment() {
         super(R.layout.layout_dashboard, new DashboardController());
     }
 
     @Override
     public void onViewCreated(View view) {
-        // TODO: Initialize here
-        return;
+        view(R.id.items).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.onItemsClicked();
+            }
+        });
+        view(R.id.categories).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.onCategoriesClicked();
+            }
+        });
+        view(R.id.mods).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.onModsClicked();
+            }
+        });
+        view(R.id.favorites).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.onFavoritesClicked();
+            }
+        });
     }
 }

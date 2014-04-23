@@ -32,8 +32,8 @@ public class ApplicationActivity extends com.github.liosha2007.android.library.a
     protected void onFragmentCreate(FragmentManager adapter) {
         adapter.addFragment(Fragments.FAVORITES_FRAGMENT, new FavoritesFragment());
         adapter.addFragment(Fragments.DASHBOARD_FRAGMENT, new DashboardFragment());
-        adapter.addFragment(Fragments.CATEGORIES_FRAGMENT, new CategoriesFragment());
         adapter.addFragment(Fragments.ITEMS_FRAGMENT, new ItemsFragment());
+        adapter.addFragment(Fragments.CATEGORIES_FRAGMENT, new CategoriesFragment());
         adapter.addFragment(Fragments.MODS_FRAGMENT, new ModsFragment());
         adapter.addFragment(Fragments.SEARCH_FRAGMENT, new SearchFragment());
 //        adapter.addFragment(Fragments.SETTINGS_FRAGMENT, new SettingsFragment());

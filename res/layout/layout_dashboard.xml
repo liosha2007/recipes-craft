@@ -41,11 +41,86 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Оценить приложение"
-                    android:id="@+id/textView2"
+                    android:id="@+id/play"
                     android:textColor="#ff3e57e8"
                     android:linksClickable="true"
                     android:singleLine="true" />
             </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Очень очень очень длииинное описание программы"
+            android:id="@+id/textView3"
+            android:padding="3dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText"
+                android:layout_weight=".9"
+                android:autoText="false"
+                android:hint="Поиск" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Найти"
+                android:id="@+id/search" />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Список всех предметов"
+            android:id="@+id/items" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="По категориям"
+            android:id="@+id/categories" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="По модам"
+            android:id="@+id/mods" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Избранные рецепты"
+            android:id="@+id/favorites" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|bottom">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView2"
+                android:src="@drawable/criper"
+                android:layout_weight=".1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="v1.0.0"
+                android:id="@+id/textView4" />
+
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
