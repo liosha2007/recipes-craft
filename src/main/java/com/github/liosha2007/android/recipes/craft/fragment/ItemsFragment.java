@@ -16,8 +16,6 @@ import com.github.liosha2007.android.recipes.craft.ApplicationActivity;
 import com.github.liosha2007.android.recipes.craft.controller.ItemsController;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -49,7 +47,7 @@ public class ItemsFragment extends BaseFragment<ItemsController> {
      * @param items
      */
     public void showItems(List<Item> items) {
-        final ListView listview = (ListView) view.findViewById(R.id.itemsList);
+        final ListView listview = (ListView) view.findViewById(R.id.categories_list);
         adapter = new ItemsArrayAdapter(ApplicationActivity.activity, items);
         listview.setAdapter(adapter);
 
@@ -94,7 +92,7 @@ public class ItemsFragment extends BaseFragment<ItemsController> {
                 LayoutInflater inflater = com.github.liosha2007.android.recipes.craft.ApplicationActivity.activity.getLayoutInflater();
                 rowView = inflater.inflate(R.layout.layout_items_row, null, true);
                 holder = new ViewHolder();
-                holder.textView = Utils.view(rowView, R.id.secondLine);
+                holder.textView = Utils.view(rowView, R.id.second_line);
                 holder.imageView = Utils.view(rowView, R.id.icon);
                 rowView.setTag(holder);
             } else {
@@ -102,7 +100,7 @@ public class ItemsFragment extends BaseFragment<ItemsController> {
             }
 
             holder.textView.setText(items.get(position).getName());
-            holder.imageView.setImageDrawable(ApplicationActivity.loadImageFromAssets(items.get(position).getIcon()));
+            holder.imageView.setImageDrawable(Utils.loadImageFromAssets(ApplicationActivity.activity, items.get(position).getIcon()));
 
             return rowView;
         }

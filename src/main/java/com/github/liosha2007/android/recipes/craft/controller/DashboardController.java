@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import com.github.liosha2007.android.library.controller.BaseController;
 import com.github.liosha2007.android.library.fragment.FragmentManager;
+import com.github.liosha2007.android.library.interfaces.IBackPressed;
+import com.github.liosha2007.android.recipes.craft.ApplicationActivity;
 import com.github.liosha2007.android.recipes.craft.common.Fragments;
 import com.github.liosha2007.android.recipes.craft.fragment.DashboardFragment;
 
@@ -13,8 +15,14 @@ import com.github.liosha2007.android.recipes.craft.fragment.DashboardFragment;
 public class DashboardController extends BaseController<DashboardFragment> {
     @Override
     public void onViewCreated(Bundle savedInstanceState) {
-        // TODO: Initialize here
-        return;
+        // Update back pressed
+        ApplicationActivity.setBackPressed(new IBackPressed() {
+            @Override
+            public boolean onBackPressed() {
+                ApplicationActivity.activity.finish();
+                return true;
+            }
+        });
     }
 
     public void onItemsClicked() {

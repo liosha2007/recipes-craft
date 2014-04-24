@@ -59,19 +59,4 @@ public class ApplicationActivity extends com.github.liosha2007.android.library.a
         DBHelper.releaseHelper();
         super.onDestroy();
     }
-
-    public static Drawable loadImageFromAssets(String assetsPath){
-        InputStream inputStream = null;
-        try {
-            // get input stream
-            inputStream = activity.getAssets().open(assetsPath);
-            // load image as Drawable
-            return Drawable.createFromStream(inputStream, null);
-        } catch (Exception e) {
-            Utils.err(e.getMessage());
-        } finally {
-            Utils.closeStreams(inputStream);
-        }
-        return null;
-    }
 }

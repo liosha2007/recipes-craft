@@ -51,3 +51,12 @@ while (iter.hasNext()) {
 ```
 
 http://habrahabr.ru/post/143431/
+
+
+Hide Keyboard (change flag InputMethodManager.HIDE_IMPLICIT_ONLY to 0)
+```
+        InputMethodManager imm = (InputMethodManager) ApplicationActivity.activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view(R.id.searchString).getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
+```
+
+

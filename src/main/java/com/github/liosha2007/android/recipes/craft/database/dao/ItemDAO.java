@@ -22,7 +22,7 @@ public class ItemDAO extends BaseDaoImpl<Item, Integer> {
         try {
             return this.queryForAll();
         } catch (Exception e) {
-            Utils.err(e.getMessage());
+            Utils.err("error getting all items: " + e.getMessage());
         }
         return null;
     }

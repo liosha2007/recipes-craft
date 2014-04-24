@@ -6,7 +6,7 @@
     android:padding="6dip" >
 
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/category_icon"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_alignParentBottom="true"
@@ -21,7 +21,7 @@
         android:layout_height="26dip"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/icon"
+        android:layout_toRightOf="@id/category_icon"
         android:ellipsize="marquee"
         android:singleLine="true"
         android:text="Description"
@@ -34,7 +34,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_toRightOf="@id/icon"
+        android:layout_toRightOf="@id/category_icon"
         android:gravity="center_vertical"
         android:text="Example application"
         android:textSize="16sp"

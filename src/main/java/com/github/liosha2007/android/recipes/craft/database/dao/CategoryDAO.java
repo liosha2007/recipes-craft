@@ -20,7 +20,7 @@ public class CategoryDAO extends BaseDaoImpl<Category, Integer> {
         try {
             return this.queryForAll();
         } catch (Exception e) {
-            Utils.err(e.getMessage());
+            Utils.err("error getting all categories: " + e.getMessage());
         }
         return null;
     }
