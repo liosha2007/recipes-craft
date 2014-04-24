@@ -15,7 +15,7 @@ import com.github.liosha2007.android.recipes.craft.fragment.SearchFragment;
 public class SearchController extends BaseController<SearchFragment> {
 
     @Override
-    public void onShowed() {
+    public void onShow() {
         // Update back pressed
         ApplicationActivity.setBackPressed(new IBackPressed() {
             @Override

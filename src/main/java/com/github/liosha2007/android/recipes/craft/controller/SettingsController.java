@@ -15,7 +15,7 @@ import com.github.liosha2007.android.recipes.craft.fragment.SettingsFragment;
 public class SettingsController extends BaseController<SettingsFragment> {
 
     @Override
-    public void onShowed() {
+    public void onShow() {
         // Update back pressed
         ApplicationActivity.setBackPressed(new IBackPressed() {
             @Override

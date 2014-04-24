@@ -16,7 +16,7 @@ import com.github.liosha2007.android.recipes.craft.fragment.RecipeFragment;
 public class DashboardController extends BaseController<DashboardFragment> {
 
     @Override
-    public void onShowed() {
+    public void onShow() {
         // Update back pressed
         ApplicationActivity.setBackPressed(new IBackPressed() {
             @Override

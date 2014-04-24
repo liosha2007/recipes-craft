@@ -19,7 +19,7 @@ import java.util.List;
 public class ModsController extends BaseController<ModsFragment> {
 
     @Override
-    public void onShowed() {
+    public void onShow() {
         // Update back pressed
         ApplicationActivity.setBackPressed(new IBackPressed() {
             @Override

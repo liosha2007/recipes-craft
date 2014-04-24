@@ -19,7 +19,7 @@ import java.util.List;
 public class CategoriesController extends BaseController<CategoriesFragment> {
 
     @Override
-    public void onShowed() {
+    public void onShow() {
         // Update back pressed
         ApplicationActivity.setBackPressed(new IBackPressed() {
             @Override

@@ -15,11 +15,12 @@ import com.github.liosha2007.android.recipes.craft.fragment.RecipeFragment;
 public class RecipeController extends BaseController<RecipeFragment> {
 
     @Override
-    public void onShowed() {
+    public void onShow() {
         // Update back pressed
         ApplicationActivity.setBackPressed(new IBackPressed() {
             @Override
             public boolean onBackPressed() {
+                FragmentManager.adapter.removeFragment(Fragments.RECIPE_FRAGMENT);
                 FragmentManager.adapter.setCurrentItem(Fragments.DASHBOARD_FRAGMENT);
                 return true;
             }

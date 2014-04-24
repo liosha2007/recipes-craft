@@ -19,7 +19,7 @@ import java.util.List;
 public class FavoritesController extends BaseController<FavoritesFragment> {
 
     @Override
-    public void onShowed() {
+    public void onShow() {
         // Update back pressed
         ApplicationActivity.setBackPressed(new IBackPressed() {
             @Override
