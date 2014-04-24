@@ -32,6 +32,4 @@ public class ItemsController extends BaseController<ItemsFragment> {
         fragment.clearItems();
         fragment.showItems(items);
     }
-
-
 }

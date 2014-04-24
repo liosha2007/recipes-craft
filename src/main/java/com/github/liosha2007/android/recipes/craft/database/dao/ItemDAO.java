@@ -27,8 +27,17 @@ public class ItemDAO extends BaseDaoImpl<Item, Integer> {
         return null;
     }
 
+    @Override
+    public int refresh(Item data) {
+        try {
+            return super.refresh(data);
+        } catch (Exception e){
+            Utils.err("can not resresh item: " + e.getMessage());
+            return -1;
+        }
+    }
 
-    //    // http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_3.html#SEC37
+//    // http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_3.html#SEC37
 //    public List<Goal> getGoalByName(String name)  throws SQLException{
 //        QueryBuilder<Goal, String> queryBuilder = queryBuilder();
 //        queryBuilder.where().eq(Goal.GOAL_NAME_FIELD_NAME, "First goal");

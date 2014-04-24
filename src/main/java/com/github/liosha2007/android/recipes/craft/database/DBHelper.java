@@ -7,10 +7,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.github.liosha2007.android.library.application.ApplicationActivity;
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.database.dao.CategoryDAO;
+import com.github.liosha2007.android.recipes.craft.database.dao.FavoriteDAO;
 import com.github.liosha2007.android.recipes.craft.database.dao.ItemDAO;
 import com.github.liosha2007.android.recipes.craft.database.dao.ModDAO;
 import com.github.liosha2007.android.recipes.craft.database.dao.RecipeDAO;
 import com.github.liosha2007.android.recipes.craft.database.domain.Category;
+import com.github.liosha2007.android.recipes.craft.database.domain.Favorite;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.database.domain.Mod;
 import com.github.liosha2007.android.recipes.craft.database.domain.Recipe;
@@ -44,6 +46,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     private static CategoryDAO categoryDAO = null;
     private static ModDAO modDAO = null;
     private static RecipeDAO recipeDAO = null;
+    private static FavoriteDAO favoriteDAO = null;
 
     public DBHelper(Context context){
         super(context,DATABASE_NAME, null, DATABASE_VERSION);
@@ -56,6 +59,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Category.class);
             TableUtils.createTable(connectionSource, Mod.class);
             TableUtils.createTable(connectionSource, Recipe.class);
+            TableUtils.createTable(connectionSource, Favorite.class);
 
             // TODO: Create test data
 
@@ -100,6 +104,11 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             crTable.setResult(craftingTable);
             getRecipeDAO().create(crTable);
 
+            // Favorites
+            Favorite favorite = new Favorite();
+            favorite.setItem(craftingTable);
+            getFavoriteDAO().create(favorite);
+
         } catch (SQLException e){
             Utils.err("error creating DB " + DATABASE_NAME + ": " + e.getMessage());
         }
@@ -112,6 +121,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, Category.class, true);
             TableUtils.dropTable(connectionSource, Mod.class, true);
             TableUtils.dropTable(connectionSource, Recipe.class, true);
+            TableUtils.dropTable(connectionSource, Favorite.class, true);
             onCreate(db, connectionSource);
         } catch (SQLException e){
             Utils.err("error upgrading db " + DATABASE_NAME + "from ver " + oldVer + " to ver " + newVer + ": " + e.getMessage());
@@ -164,6 +174,15 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             return (recipeDAO == null) ? (recipeDAO = new RecipeDAO(dbHelper.getConnectionSource(), Recipe.class)) : recipeDAO;
         } catch (Exception e){
             Utils.err("error creating recipe dao: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public static FavoriteDAO getFavoriteDAO() {
+        try {
+            return (favoriteDAO == null) ? (favoriteDAO = new FavoriteDAO(dbHelper.getConnectionSource(), Favorite.class)) : favoriteDAO;
+        } catch (Exception e){
+            Utils.err("error creating favorite dao: " + e.getMessage());
             return null;
         }
     }

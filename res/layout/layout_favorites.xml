@@ -47,11 +47,18 @@
             </LinearLayout>
 
         </LinearLayout>
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Избранное" />
+        <ListView
+            android:id="@+id/favorites_list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight=".9"
+            android:choiceMode="singleChoice"></ListView>
+
+        <EditText
+            android:id="@+id/favorites_quick_search"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:autoText="false"
+            android:hint="Поиск" />
         </LinearLayout>
 </LinearLayout>
