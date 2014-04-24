@@ -19,7 +19,7 @@ import java.util.List;
 public class CategoriesController extends BaseController<CategoriesFragment> {
 
     @Override
-    public void onViewCreated(Bundle savedInstanceState) {
+    public void onShowed() {
         // Update back pressed
         ApplicationActivity.setBackPressed(new IBackPressed() {
             @Override
@@ -28,6 +28,10 @@ public class CategoriesController extends BaseController<CategoriesFragment> {
                 return true;
             }
         });
+    }
+
+    @Override
+    public void onViewCreated(Bundle savedInstanceState) {
         //
         List<Category> items = DBHelper.getCategoryDAO().getAllCategories();
         fragment.clearCategories();

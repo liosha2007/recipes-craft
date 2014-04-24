@@ -13,8 +13,9 @@ import com.github.liosha2007.android.recipes.craft.fragment.SearchFragment;
  * Created by liosha on 22.04.2014.
  */
 public class SearchController extends BaseController<SearchFragment> {
+
     @Override
-    public void onViewCreated(Bundle savedInstanceState) {
+    public void onShowed() {
         // Update back pressed
         ApplicationActivity.setBackPressed(new IBackPressed() {
             @Override
@@ -23,6 +24,9 @@ public class SearchController extends BaseController<SearchFragment> {
                 return true;
             }
         });
+    }
 
+    @Override
+    public void onViewCreated(Bundle savedInstanceState) {
     }
 }

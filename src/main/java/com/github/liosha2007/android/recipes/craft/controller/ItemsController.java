@@ -17,8 +17,9 @@ import java.util.List;
  * Created by liosha on 22.04.2014.
  */
 public class ItemsController extends BaseController<ItemsFragment> {
+
     @Override
-    public void onViewCreated(Bundle savedInstanceState) {
+    public void onShowed() {
         // Update back pressed
         ApplicationActivity.setBackPressed(new IBackPressed() {
             @Override
@@ -27,6 +28,9 @@ public class ItemsController extends BaseController<ItemsFragment> {
                 return true;
             }
         });
+    }
+    @Override
+    public void onViewCreated(Bundle savedInstanceState) {
         //
         List<Item> items = DBHelper.getItemDAO().getAllItems();
         fragment.clearItems();

@@ -8,13 +8,15 @@ import com.github.liosha2007.android.library.interfaces.IBackPressed;
 import com.github.liosha2007.android.recipes.craft.ApplicationActivity;
 import com.github.liosha2007.android.recipes.craft.common.Fragments;
 import com.github.liosha2007.android.recipes.craft.fragment.DashboardFragment;
+import com.github.liosha2007.android.recipes.craft.fragment.RecipeFragment;
 
 /**
  * Created by liosha on 22.04.2014.
  */
 public class DashboardController extends BaseController<DashboardFragment> {
+
     @Override
-    public void onViewCreated(Bundle savedInstanceState) {
+    public void onShowed() {
         // Update back pressed
         ApplicationActivity.setBackPressed(new IBackPressed() {
             @Override
@@ -23,6 +25,10 @@ public class DashboardController extends BaseController<DashboardFragment> {
                 return true;
             }
         });
+    }
+
+    @Override
+    public void onViewCreated(Bundle savedInstanceState) {
     }
 
     public void onItemsClicked() {
@@ -39,5 +45,10 @@ public class DashboardController extends BaseController<DashboardFragment> {
 
     public void onFavoritesClicked() {
         FragmentManager.adapter.setCurrentItem(Fragments.FAVORITES_FRAGMENT);
+    }
+
+    public void onSearchClick() {
+        FragmentManager.adapter.addFragment(Fragments.RECIPE_FRAGMENT, new RecipeFragment());
+        FragmentManager.adapter.setCurrentItem(Fragments.RECIPE_FRAGMENT);
     }
 }

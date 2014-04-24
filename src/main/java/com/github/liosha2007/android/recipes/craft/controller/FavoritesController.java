@@ -17,8 +17,9 @@ import java.util.List;
  * Created by liosha on 22.04.2014.
  */
 public class FavoritesController extends BaseController<FavoritesFragment> {
+
     @Override
-    public void onViewCreated(Bundle savedInstanceState) {
+    public void onShowed() {
         // Update back pressed
         ApplicationActivity.setBackPressed(new IBackPressed() {
             @Override
@@ -27,9 +28,16 @@ public class FavoritesController extends BaseController<FavoritesFragment> {
                 return true;
             }
         });
+    }
+
+    @Override
+    public void onViewCreated(Bundle savedInstanceState) {
         //
-        List<Favorite> items = DBHelper.getFavoriteDAO().getAllFavorites();
+        List<Favorite> favorites = DBHelper.getFavoriteDAO().getAllFavorites();
         fragment.clearFavorites();
-        fragment.showFavorites(items);
+        for (Favorite favorite : favorites){
+            DBHelper.getItemDAO().refresh(favorite.getItem());
+        }
+        fragment.showFavorites(favorites);
     }
 }

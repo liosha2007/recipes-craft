@@ -17,8 +17,9 @@ import java.util.List;
  * Created by liosha on 22.04.2014.
  */
 public class ModsController extends BaseController<ModsFragment> {
+
     @Override
-    public void onViewCreated(Bundle savedInstanceState) {
+    public void onShowed() {
         // Update back pressed
         ApplicationActivity.setBackPressed(new IBackPressed() {
             @Override
@@ -27,6 +28,10 @@ public class ModsController extends BaseController<ModsFragment> {
                 return true;
             }
         });
+    }
+
+    @Override
+    public void onViewCreated(Bundle savedInstanceState) {
         //
         List<Mod> items = DBHelper.getModDAO().getAllMods();
         fragment.clearMods();

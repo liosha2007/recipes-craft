@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.fragment.BaseFragment;
+import com.github.liosha2007.android.library.fragment.FragmentManager;
 import com.github.liosha2007.android.recipes.craft.ApplicationActivity;
+import com.github.liosha2007.android.recipes.craft.common.Fragments;
 import com.github.liosha2007.android.recipes.craft.controller.DashboardController;
 
 /**
@@ -43,6 +45,13 @@ public class DashboardFragment extends BaseFragment<DashboardController> {
             @Override
             public void onClick(View v) {
                 controller.onFavoritesClicked();
+            }
+        });
+
+        view(R.id.search).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.onSearchClick();
             }
         });
     }

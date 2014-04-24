@@ -33,6 +33,7 @@ public class FavoritesFragment extends BaseFragment<FavoritesController> {
     @Override
     public void onViewCreated(View view) {
         // Initialize fragment UI elements
+        return;
     }
 
     /**
@@ -102,7 +103,6 @@ public class FavoritesFragment extends BaseFragment<FavoritesController> {
             }
 
             Item item = favorites.get(position).getItem();
-            DBHelper.getItemDAO().refresh(item);
             holder.textView.setText(item.getName());
             holder.imageView.setImageDrawable(Utils.loadImageFromAssets(com.github.liosha2007.android.library.application.ApplicationActivity.activity, item.getIcon()));
 
