@@ -48,7 +48,7 @@ public class CategoriesFragment extends BaseFragment<CategoriesController> {
      * @param categories
      */
     public void showCategories(List<Category> categories) {
-        final ListView listview = (ListView) view.findViewById(R.id.categories_list);
+        final ListView listview = (ListView) view.findViewById(R.id.mods_list);
         adapter = new CategoriesArrayAdapter(ApplicationActivity.activity, categories);
         listview.setAdapter(adapter);
 
@@ -94,7 +94,7 @@ public class CategoriesFragment extends BaseFragment<CategoriesController> {
                 rowView = inflater.inflate(R.layout.layout_categories_row, null, true);
                 holder = new ViewHolder();
                 holder.textView = Utils.view(rowView, R.id.second_line);
-                holder.imageView = Utils.view(rowView, R.id.category_icon);
+                holder.imageView = Utils.view(rowView, R.id.mods_icon);
                 rowView.setTag(holder);
             } else {
                 holder = (ViewHolder) rowView.getTag();

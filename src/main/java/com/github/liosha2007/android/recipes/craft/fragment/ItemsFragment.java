@@ -47,7 +47,7 @@ public class ItemsFragment extends BaseFragment<ItemsController> {
      * @param items
      */
     public void showItems(List<Item> items) {
-        final ListView listview = (ListView) view.findViewById(R.id.categories_list);
+        final ListView listview = Utils.view(view, R.id.items_list);
         adapter = new ItemsArrayAdapter(ApplicationActivity.activity, items);
         listview.setAdapter(adapter);
 
@@ -93,7 +93,7 @@ public class ItemsFragment extends BaseFragment<ItemsController> {
                 rowView = inflater.inflate(R.layout.layout_items_row, null, true);
                 holder = new ViewHolder();
                 holder.textView = Utils.view(rowView, R.id.second_line);
-                holder.imageView = Utils.view(rowView, R.id.icon);
+                holder.imageView = Utils.view(rowView, R.id.items_icon);
                 rowView.setTag(holder);
             } else {
                 holder = (ViewHolder) rowView.getTag();

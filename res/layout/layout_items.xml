@@ -51,14 +51,14 @@
         </LinearLayout>
 
         <ListView
-            android:id="@+id/categories_list"
+            android:id="@+id/items_list"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight=".9"
             android:choiceMode="singleChoice"></ListView>
 
         <EditText
-            android:id="@+id/categories_quick_search"
+            android:id="@+id/items_quick_search"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:autoText="false"

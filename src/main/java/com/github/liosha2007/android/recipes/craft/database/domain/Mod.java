@@ -7,16 +7,14 @@ import com.j256.ormlite.table.DatabaseTable;
 import java.util.UUID;
 
 /**
- * Created by liosha on 23.04.2014.
+ * Created by liosha on 24.04.2014.
  */
-@DatabaseTable(tableName = Item.TABLE_NAME)
-public class Item {
-    public static final String TABLE_NAME = "Items";
+@DatabaseTable(tableName = Mod.TABLE_NAME)
+public class Mod {
+    public static final String TABLE_NAME = "Mods";
     public static final String FIELD_ID = "_Id";
     public static final String FIELD_NAME = "Name";
     public static final String FIELD_ICON = "Icon";
-    public static final String FIELD_CATEGORY = "Category";
-    public static final String FIELD_MOD = "Mod";
 
     @DatabaseField(generatedId = true, columnName = FIELD_ID, unique = true, canBeNull = false)
     private Integer id;
@@ -24,12 +22,8 @@ public class Item {
     private String name;
     @DatabaseField(dataType = DataType.STRING, columnName = FIELD_ICON)
     private String icon;
-    @DatabaseField(foreign = true, columnName = FIELD_CATEGORY)
-    private Category category;
-    @DatabaseField(foreign = true, columnName = FIELD_MOD)
-    private Mod mod;
 
-    public Item() {
+    public Mod() {
     }
 
     public Integer getId() {
@@ -54,21 +48,5 @@ public class Item {
 
     public void setIcon(String icon) {
         this.icon = icon;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Mod getMod() {
-        return mod;
-    }
-
-    public void setMod(Mod mod) {
-        this.mod = mod;
     }
 }

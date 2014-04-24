@@ -7,7 +7,11 @@ import com.github.liosha2007.android.library.fragment.FragmentManager;
 import com.github.liosha2007.android.library.interfaces.IBackPressed;
 import com.github.liosha2007.android.recipes.craft.ApplicationActivity;
 import com.github.liosha2007.android.recipes.craft.common.Fragments;
+import com.github.liosha2007.android.recipes.craft.database.DBHelper;
+import com.github.liosha2007.android.recipes.craft.database.domain.Mod;
 import com.github.liosha2007.android.recipes.craft.fragment.ModsFragment;
+
+import java.util.List;
 
 /**
  * Created by liosha on 22.04.2014.
@@ -23,6 +27,9 @@ public class ModsController extends BaseController<ModsFragment> {
                 return true;
             }
         });
-
+        //
+        List<Mod> items = DBHelper.getModDAO().getAllMods();
+        fragment.clearMods();
+        fragment.showMods(items);
     }
 }

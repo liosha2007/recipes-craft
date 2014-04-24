@@ -13,14 +13,11 @@ import java.util.UUID;
 public class Category {
     public static final String TABLE_NAME = "Category";
     public static final String FIELD_ID = "_Id";
-    public static final String FIELD_UUID = "Uuid";
     public static final String FIELD_NAME = "Name";
     public static final String FIELD_ICON = "Icon";
 
     @DatabaseField(generatedId = true, columnName = FIELD_ID, unique = true, canBeNull = false)
     private Integer id;
-    @DatabaseField(dataType = DataType.UUID, columnName = FIELD_UUID, unique = true, canBeNull = false)
-    private UUID uuid;
     @DatabaseField(dataType = DataType.STRING, columnName = FIELD_NAME, unique = true, canBeNull = false)
     private String name;
     @DatabaseField(dataType = DataType.STRING, columnName = FIELD_ICON)
@@ -35,14 +32,6 @@ public class Category {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
     }
 
     public String getName() {

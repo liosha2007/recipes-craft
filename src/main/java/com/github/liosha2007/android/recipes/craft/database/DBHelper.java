@@ -8,8 +8,12 @@ import com.github.liosha2007.android.library.application.ApplicationActivity;
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.database.dao.CategoryDAO;
 import com.github.liosha2007.android.recipes.craft.database.dao.ItemDAO;
+import com.github.liosha2007.android.recipes.craft.database.dao.ModDAO;
+import com.github.liosha2007.android.recipes.craft.database.dao.RecipeDAO;
 import com.github.liosha2007.android.recipes.craft.database.domain.Category;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
+import com.github.liosha2007.android.recipes.craft.database.domain.Mod;
+import com.github.liosha2007.android.recipes.craft.database.domain.Recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -38,6 +42,8 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     private static DBHelper dbHelper;
     private static ItemDAO itemDAO = null;
     private static CategoryDAO categoryDAO = null;
+    private static ModDAO modDAO = null;
+    private static RecipeDAO recipeDAO = null;
 
     public DBHelper(Context context){
         super(context,DATABASE_NAME, null, DATABASE_VERSION);
@@ -48,34 +54,51 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         try {
             TableUtils.createTable(connectionSource, Item.class);
             TableUtils.createTable(connectionSource, Category.class);
+            TableUtils.createTable(connectionSource, Mod.class);
+            TableUtils.createTable(connectionSource, Recipe.class);
 
             // TODO: Create test data
 
+            // Categories
             Category materials = new Category();
             materials.setName("Материалы");
 //            materials.setIcon("mods/common/icon.png");
-            materials.setUuid(UUID.randomUUID());
             getCategoryDAO().create(materials);
 
             Category instruments = new Category();
             instruments.setName("Инструменты");
 //            instruments.setIcon("mods/common/icon.png");
-            instruments.setUuid(UUID.randomUUID());
             getCategoryDAO().create(instruments);
 
+            // Mods
+            Mod standard = new Mod();
+            standard.setName("Minecraft");
+            standard.setIcon("mods/common/icon.png");
+            getModDAO().create(standard);
+
+            // Items
             Item dub = new Item();
             dub.setName("Дуб");
             dub.setIcon("mods/common/items/5.png");
-            dub.setUuid(UUID.randomUUID());
             dub.setCategory(materials);
+            dub.setMod(standard);
             getItemDAO().create(dub);
 
             Item craftingTable = new Item();
             craftingTable.setName("Верстак");
             craftingTable.setIcon("mods/common/items/6.png");
-            craftingTable.setUuid(UUID.randomUUID());
             craftingTable.setCategory(instruments);
+            craftingTable.setMod(standard);
             getItemDAO().create(craftingTable);
+
+            // Recipes
+            Recipe crTable = new Recipe();
+            crTable.setP1x1(dub);
+            crTable.setP1x2(dub);
+            crTable.setP2x1(dub);
+            crTable.setP2x2(dub);
+            crTable.setResult(craftingTable);
+            getRecipeDAO().create(crTable);
 
         } catch (SQLException e){
             Utils.err("error creating DB " + DATABASE_NAME + ": " + e.getMessage());
@@ -87,6 +110,8 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         try{
             TableUtils.dropTable(connectionSource, Item.class, true);
             TableUtils.dropTable(connectionSource, Category.class, true);
+            TableUtils.dropTable(connectionSource, Mod.class, true);
+            TableUtils.dropTable(connectionSource, Recipe.class, true);
             onCreate(db, connectionSource);
         } catch (SQLException e){
             Utils.err("error upgrading db " + DATABASE_NAME + "from ver " + oldVer + " to ver " + newVer + ": " + e.getMessage());
@@ -121,6 +146,24 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             return (categoryDAO == null) ? (categoryDAO = new CategoryDAO(dbHelper.getConnectionSource(), Category.class)) : categoryDAO;
         } catch (Exception e){
             Utils.err("error creating item dao: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public static ModDAO getModDAO() {
+        try {
+            return (modDAO == null) ? (modDAO = new ModDAO(dbHelper.getConnectionSource(), Mod.class)) : modDAO;
+        } catch (Exception e){
+            Utils.err("error creating mod dao: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public static RecipeDAO getRecipeDAO() {
+        try {
+            return (recipeDAO == null) ? (recipeDAO = new RecipeDAO(dbHelper.getConnectionSource(), Recipe.class)) : recipeDAO;
+        } catch (Exception e){
+            Utils.err("error creating recipe dao: " + e.getMessage());
             return null;
         }
     }
