@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -12,7 +13,9 @@ import android.widget.TextView;
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.library.fragment.BaseFragment;
+import com.github.liosha2007.android.library.fragment.FragmentManager;
 import com.github.liosha2007.android.recipes.craft.ApplicationActivity;
+import com.github.liosha2007.android.recipes.craft.common.Fragments;
 import com.github.liosha2007.android.recipes.craft.controller.ItemsController;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 
@@ -51,24 +54,19 @@ public class ItemsFragment extends BaseFragment<ItemsController> {
         adapter = new ItemsArrayAdapter(ApplicationActivity.activity, items);
         listview.setAdapter(adapter);
 
-//        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, final View view,
-//                                    int position, long id) {
-//                final String item = (String) parent.getItemAtPosition(position);
-//                view.animate().setDuration(2000).alpha(0)
-//                        .withEndAction(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                list.remove(item);
-//                                adapter.notifyDataSetChanged();
-//                                view.setAlpha(1);
-//                            }
-//                        });
-//            }
-//
-//        });
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+                Object o = Utils.view(view, R.id.items_title).getTag();
+                if (o instanceof Integer){
+                    controller.onItemClicked((Integer) o);
+                } else {
+                    Utils.err("not found ID in item tag");
+                }
+            }
+
+        });
     }
 
     static class ViewHolder {
@@ -92,7 +90,7 @@ public class ItemsFragment extends BaseFragment<ItemsController> {
                 LayoutInflater inflater = com.github.liosha2007.android.recipes.craft.ApplicationActivity.activity.getLayoutInflater();
                 rowView = inflater.inflate(R.layout.layout_items_row, null, true);
                 holder = new ViewHolder();
-                holder.textView = Utils.view(rowView, R.id.second_line);
+                holder.textView = Utils.view(rowView, R.id.items_title);
                 holder.imageView = Utils.view(rowView, R.id.items_icon);
                 rowView.setTag(holder);
             } else {
@@ -100,6 +98,7 @@ public class ItemsFragment extends BaseFragment<ItemsController> {
             }
 
             holder.textView.setText(items.get(position).getName());
+            holder.textView.setTag(items.get(position).getId());
             holder.imageView.setImageDrawable(Utils.loadImageFromAssets(ApplicationActivity.activity, items.get(position).getIcon()));
 
             return rowView;

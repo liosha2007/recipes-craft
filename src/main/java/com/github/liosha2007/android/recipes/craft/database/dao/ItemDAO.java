@@ -37,6 +37,14 @@ public class ItemDAO extends BaseDaoImpl<Item, Integer> {
         }
     }
 
+    public Item queryForId(Integer id) {
+        try {
+            return super.queryForId(id);
+        } catch (Exception e) {
+            Utils.err("can't load item by id " + id + ": " + e.getMessage());
+        }
+        return null;
+    }
 //    // http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_3.html#SEC37
 //    public List<Goal> getGoalByName(String name)  throws SQLException{
 //        QueryBuilder<Goal, String> queryBuilder = queryBuilder();

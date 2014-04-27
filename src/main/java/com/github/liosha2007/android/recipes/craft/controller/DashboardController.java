@@ -48,7 +48,6 @@ public class DashboardController extends BaseController<DashboardFragment> {
     }
 
     public void onSearchClick() {
-        FragmentManager.adapter.addFragment(Fragments.RECIPE_FRAGMENT, new RecipeFragment());
-        FragmentManager.adapter.setCurrentItem(Fragments.RECIPE_FRAGMENT);
+
     }
 }

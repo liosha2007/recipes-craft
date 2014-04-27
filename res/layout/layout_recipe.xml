@@ -81,8 +81,41 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Tab 1"
-                            android:textSize="20sp" />
+                            android:text=""
+                            android:textSize="20sp"
+                            android:id="@+id/result_item_name"/>
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:layout_gravity="center_horizontal"
+                            android:id="@+id/result_item_icon" />
+
+                        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/ll_country"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent">
+
+                                <ScrollView
+                                    android:id="@+id/ScrollView11"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:fillViewport="true">
+
+                                    <LinearLayout
+                                        android:id="@+id/accordion_layout"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="fill_parent"
+                                        android:background="#FFFFFF"
+                                        android:orientation="vertical"
+                                        android:stretchColumns="0,1" />
+                                </ScrollView>
+                            </LinearLayout>
+                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -130,13 +163,13 @@
                             android:choiceMode="singleChoice"></ListView>
 
                         <!--<ScrollView-->
-                            <!--android:layout_width="fill_parent"-->
-                            <!--android:layout_height="fill_parent">-->
+                        <!--android:layout_width="fill_parent"-->
+                        <!--android:layout_height="fill_parent">-->
 
-                            <!--<TextView-->
-                                <!--android:layout_width="fill_parent"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:text="Примерный текст примечания" />-->
+                        <!--<TextView-->
+                        <!--android:layout_width="fill_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Примерный текст примечания" />-->
                         <!--</ScrollView>-->
                     </LinearLayout>
 

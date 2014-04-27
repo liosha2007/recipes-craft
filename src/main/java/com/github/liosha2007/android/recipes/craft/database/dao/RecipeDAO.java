@@ -24,4 +24,13 @@ public class RecipeDAO extends BaseDaoImpl<Recipe, Integer> {
         }
         return null;
     }
+
+    public List<Recipe> getAllRecipesForItemId(Integer itemId) {
+        try {
+            return queryForEq(Recipe.FIELD_RESULT, itemId);
+        } catch (Exception e) {
+            Utils.err("Can't load recipes for item with id " + itemId + ": " + e.getMessage());
+        }
+        return null;
+    }
 }
