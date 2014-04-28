@@ -14,4 +14,5 @@ public class Fragments {
     public static final int RECIPE_FRAGMENT = Utils.makeID();
     public static final int SEARCH_FRAGMENT = Utils.makeID();
     public static final int SETTINGS_FRAGMENT = Utils.makeID();
+    public static final int CATEGORY_FRAGMENT = Utils.makeID();
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -48,28 +49,22 @@ public class CategoriesFragment extends BaseFragment<CategoriesController> {
      * @param categories
      */
     public void showCategories(List<Category> categories) {
-        final ListView listview = (ListView) view.findViewById(R.id.mods_list);
+        final ListView listview = (ListView) view.findViewById(R.id.categories_list);
         adapter = new CategoriesArrayAdapter(ApplicationActivity.activity, categories);
         listview.setAdapter(adapter);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-//        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, final View view,
-//                                    int position, long id) {
-//                final String item = (String) parent.getItemAtPosition(position);
-//                view.animate().setDuration(2000).alpha(0)
-//                        .withEndAction(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                list.remove(item);
-//                                adapter.notifyDataSetChanged();
-//                                view.setAlpha(1);
-//                            }
-//                        });
-//            }
-//
-//        });
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+                Object o = Utils.view(view, R.id.categories_item_title).getTag();
+                if (o instanceof Integer){
+                    controller.onCategoryClicked((Integer) o);
+                } else {
+                    Utils.err("not found ID in categories item tag");
+                }
+            }
+
+        });
     }
 
     static class ViewHolder {
@@ -93,14 +88,15 @@ public class CategoriesFragment extends BaseFragment<CategoriesController> {
                 LayoutInflater inflater = com.github.liosha2007.android.recipes.craft.ApplicationActivity.activity.getLayoutInflater();
                 rowView = inflater.inflate(R.layout.layout_categories_row, null, true);
                 holder = new ViewHolder();
-                holder.textView = Utils.view(rowView, R.id.second_line);
-                holder.imageView = Utils.view(rowView, R.id.mods_icon);
+                holder.textView = Utils.view(rowView, R.id.categories_item_title);
+                holder.imageView = Utils.view(rowView, R.id.categories_item_icon);
                 rowView.setTag(holder);
             } else {
                 holder = (ViewHolder) rowView.getTag();
             }
 
             holder.textView.setText(categories.get(position).getName());
+            holder.textView.setTag(categories.get(position).getId());
             holder.imageView.setImageDrawable(Utils.loadImageFromAssets(ApplicationActivity.activity, categories.get(position).getIcon()));
 
             return rowView;

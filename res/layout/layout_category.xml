@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Категории"
-                    android:id="@+id/categories_title"
+                    android:id="@+id/category_title"
                     android:textSize="22sp" />
 
                 <TextView
@@ -50,10 +50,10 @@
         </LinearLayout>
 
             <ListView
-                android:id="@+id/categories_list"
+                android:id="@+id/category_list"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight=".9"
-                android:choiceMode="singleChoice" />
+                android:choiceMode="singleChoice"></ListView>
         </LinearLayout>
 </LinearLayout>
