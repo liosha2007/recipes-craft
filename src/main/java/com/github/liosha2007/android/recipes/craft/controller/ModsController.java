@@ -18,6 +18,10 @@ import java.util.List;
  */
 public class ModsController extends BaseController<ModsFragment> {
 
+    public ModsController() {
+        super(new ModsFragment());
+    }
+
     @Override
     public void onShow() {
         // Update back pressed

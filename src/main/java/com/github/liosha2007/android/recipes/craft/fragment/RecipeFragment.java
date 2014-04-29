@@ -30,8 +30,8 @@ public class RecipeFragment extends BaseFragment<RecipeController> {
     private static final Integer ACCORDION_OPENED = Utils.makeID();
     private static final Integer ACCORDION_CLOSED = Utils.makeID();
 
-    public RecipeFragment(Item item) {
-        super(R.layout.layout_recipe, new RecipeController(item));
+    public RecipeFragment() {
+        super(R.layout.layout_recipe);
     }
 
     @Override

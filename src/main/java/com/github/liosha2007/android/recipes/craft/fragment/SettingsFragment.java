@@ -11,7 +11,7 @@ import com.github.liosha2007.android.recipes.craft.controller.SettingsController
  */
 public class SettingsFragment extends BaseFragment<SettingsController> {
     public SettingsFragment() {
-        super(R.layout.layout_settings, new SettingsController());
+        super(R.layout.layout_settings);
     }
 
     @Override

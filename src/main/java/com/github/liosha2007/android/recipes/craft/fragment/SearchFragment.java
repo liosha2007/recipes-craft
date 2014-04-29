@@ -11,7 +11,7 @@ import com.github.liosha2007.android.recipes.craft.controller.SearchController;
  */
 public class SearchFragment extends BaseFragment<SearchController> {
     public SearchFragment() {
-        super(R.layout.layout_search, new SearchController());
+        super(R.layout.layout_search);
     }
 
     @Override

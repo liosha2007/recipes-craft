@@ -11,7 +11,6 @@ import com.github.liosha2007.android.recipes.craft.common.Fragments;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.fragment.ItemsFragment;
-import com.github.liosha2007.android.recipes.craft.fragment.RecipeFragment;
 
 import java.util.List;
 
@@ -19,6 +18,10 @@ import java.util.List;
  * Created by liosha on 22.04.2014.
  */
 public class ItemsController extends BaseController<ItemsFragment> {
+
+    public ItemsController() {
+        super(new ItemsFragment());
+    }
 
     @Override
     public void onShow() {
@@ -31,6 +34,7 @@ public class ItemsController extends BaseController<ItemsFragment> {
             }
         });
     }
+
     @Override
     public void onViewCreated(Bundle savedInstanceState) {
         //
@@ -40,12 +44,11 @@ public class ItemsController extends BaseController<ItemsFragment> {
     }
 
     public void onItemClicked(Integer itemId) {
-        Item item = DBHelper.getItemDAO().queryForId(itemId);
-        if (item != null) {
-            FragmentManager.adapter.addFragment(Fragments.RECIPE_FRAGMENT, new RecipeFragment(item));
+        if (itemId != null) {
+            FragmentManager.adapter.addFragment(Fragments.RECIPE_FRAGMENT, new RecipeController(itemId).getFragment());
             FragmentManager.adapter.setCurrentItem(Fragments.RECIPE_FRAGMENT);
         } else {
-            Utils.deb("item is null when try to load and show it");
+            Utils.deb("itemId is null when try to load and show it");
         }
     }
 }

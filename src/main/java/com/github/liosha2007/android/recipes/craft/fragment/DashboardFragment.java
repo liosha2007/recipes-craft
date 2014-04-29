@@ -1,16 +1,9 @@
 package com.github.liosha2007.android.recipes.craft.fragment;
 
-import android.content.Context;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.fragment.BaseFragment;
-import com.github.liosha2007.android.library.fragment.FragmentManager;
-import com.github.liosha2007.android.recipes.craft.ApplicationActivity;
-import com.github.liosha2007.android.recipes.craft.common.Fragments;
 import com.github.liosha2007.android.recipes.craft.controller.DashboardController;
 
 /**
@@ -18,7 +11,7 @@ import com.github.liosha2007.android.recipes.craft.controller.DashboardControlle
  */
 public class DashboardFragment extends BaseFragment<DashboardController> {
     public DashboardFragment() {
-        super(R.layout.layout_dashboard, new DashboardController());
+        super(R.layout.layout_dashboard);
     }
 
     @Override

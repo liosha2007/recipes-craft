@@ -14,7 +14,6 @@ import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.library.fragment.BaseFragment;
 import com.github.liosha2007.android.recipes.craft.ApplicationActivity;
 import com.github.liosha2007.android.recipes.craft.controller.FavoritesController;
-import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.domain.Favorite;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 
@@ -27,7 +26,7 @@ public class FavoritesFragment extends BaseFragment<FavoritesController> {
     private FavoritesArrayAdapter adapter;
 
     public FavoritesFragment() {
-        super(R.layout.layout_favorites, new FavoritesController());
+        super(R.layout.layout_favorites);
     }
 
     @Override
@@ -47,6 +46,7 @@ public class FavoritesFragment extends BaseFragment<FavoritesController> {
 
     /**
      * Show favorites on list view
+     *
      * @param favorites
      */
     public void showFavorites(List<Favorite> favorites) {

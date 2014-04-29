@@ -8,12 +8,15 @@ import com.github.liosha2007.android.library.interfaces.IBackPressed;
 import com.github.liosha2007.android.recipes.craft.ApplicationActivity;
 import com.github.liosha2007.android.recipes.craft.common.Fragments;
 import com.github.liosha2007.android.recipes.craft.fragment.DashboardFragment;
-import com.github.liosha2007.android.recipes.craft.fragment.RecipeFragment;
 
 /**
  * Created by liosha on 22.04.2014.
  */
 public class DashboardController extends BaseController<DashboardFragment> {
+
+    public DashboardController() {
+        super(new DashboardFragment());
+    }
 
     @Override
     public void onShow() {

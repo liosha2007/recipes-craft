@@ -2,9 +2,7 @@ package com.github.liosha2007.android.recipes.craft.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
-import com.github.liosha2007.android.library.application.ApplicationActivity;
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.database.dao.CategoryDAO;
 import com.github.liosha2007.android.recipes.craft.database.dao.FavoriteDAO;
@@ -16,23 +14,12 @@ import com.github.liosha2007.android.recipes.craft.database.domain.Favorite;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.database.domain.Mod;
 import com.github.liosha2007.android.recipes.craft.database.domain.Recipe;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
-import org.apache.log4j.lf5.util.StreamUtils;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.SQLException;
-import java.util.UUID;
 
 /**
  * Created by liosha on 23.04.2014.
@@ -48,12 +35,12 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     private static RecipeDAO recipeDAO = null;
     private static FavoriteDAO favoriteDAO = null;
 
-    public DBHelper(Context context){
-        super(context,DATABASE_NAME, null, DATABASE_VERSION);
+    public DBHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource){
+    public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, Item.class);
             TableUtils.createTable(connectionSource, Category.class);
@@ -109,24 +96,25 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             favorite.setItem(craftingTable);
             getFavoriteDAO().create(favorite);
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             Utils.err("error creating DB " + DATABASE_NAME + ": " + e.getMessage());
         }
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVer, int newVer){
-        try{
+    public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVer, int newVer) {
+        try {
             TableUtils.dropTable(connectionSource, Item.class, true);
             TableUtils.dropTable(connectionSource, Category.class, true);
             TableUtils.dropTable(connectionSource, Mod.class, true);
             TableUtils.dropTable(connectionSource, Recipe.class, true);
             TableUtils.dropTable(connectionSource, Favorite.class, true);
             onCreate(db, connectionSource);
-        } catch (SQLException e){
+        } catch (SQLException e) {
             Utils.err("error upgrading db " + DATABASE_NAME + "from ver " + oldVer + " to ver " + newVer + ": " + e.getMessage());
         }
     }
+
     public static void setHelper(Context context) {
         dbHelper = OpenHelperManager.getHelper(context, DBHelper.class);
     }
@@ -137,7 +125,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     }
 
     @Override
-    public void close(){
+    public void close() {
         super.close();
         itemDAO = null;
     }
@@ -145,7 +133,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     public static ItemDAO getItemDAO() {
         try {
             return (itemDAO == null) ? (itemDAO = new ItemDAO(dbHelper.getConnectionSource(), Item.class)) : itemDAO;
-        } catch (Exception e){
+        } catch (Exception e) {
             Utils.err("error creating item dao: " + e.getMessage());
             return null;
         }
@@ -154,7 +142,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     public static CategoryDAO getCategoryDAO() {
         try {
             return (categoryDAO == null) ? (categoryDAO = new CategoryDAO(dbHelper.getConnectionSource(), Category.class)) : categoryDAO;
-        } catch (Exception e){
+        } catch (Exception e) {
             Utils.err("error creating item dao: " + e.getMessage());
             return null;
         }
@@ -163,7 +151,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     public static ModDAO getModDAO() {
         try {
             return (modDAO == null) ? (modDAO = new ModDAO(dbHelper.getConnectionSource(), Mod.class)) : modDAO;
-        } catch (Exception e){
+        } catch (Exception e) {
             Utils.err("error creating mod dao: " + e.getMessage());
             return null;
         }
@@ -172,7 +160,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     public static RecipeDAO getRecipeDAO() {
         try {
             return (recipeDAO == null) ? (recipeDAO = new RecipeDAO(dbHelper.getConnectionSource(), Recipe.class)) : recipeDAO;
-        } catch (Exception e){
+        } catch (Exception e) {
             Utils.err("error creating recipe dao: " + e.getMessage());
             return null;
         }
@@ -181,7 +169,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     public static FavoriteDAO getFavoriteDAO() {
         try {
             return (favoriteDAO == null) ? (favoriteDAO = new FavoriteDAO(dbHelper.getConnectionSource(), Favorite.class)) : favoriteDAO;
-        } catch (Exception e){
+        } catch (Exception e) {
             Utils.err("error creating favorite dao: " + e.getMessage());
             return null;
         }

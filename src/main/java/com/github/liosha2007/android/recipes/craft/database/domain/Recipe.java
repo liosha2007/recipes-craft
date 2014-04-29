@@ -1,10 +1,7 @@
 package com.github.liosha2007.android.recipes.craft.database.domain;
 
-import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-
-import java.util.UUID;
 
 /**
  * Created by liosha on 24.04.2014.

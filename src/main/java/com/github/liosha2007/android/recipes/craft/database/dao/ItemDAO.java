@@ -6,15 +6,13 @@ import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.support.ConnectionSource;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by liosha on 23.04.2014.
  */
 public class ItemDAO extends BaseDaoImpl<Item, Integer> {
-    public ItemDAO(ConnectionSource connectionSource, Class<Item> dataClass) throws SQLException{
+    public ItemDAO(ConnectionSource connectionSource, Class<Item> dataClass) throws SQLException {
         super(connectionSource, dataClass);
     }
 
@@ -31,7 +29,7 @@ public class ItemDAO extends BaseDaoImpl<Item, Integer> {
     public int refresh(Item data) {
         try {
             return super.refresh(data);
-        } catch (Exception e){
+        } catch (Exception e) {
             Utils.err("can not resresh item: " + e.getMessage());
             return -1;
         }

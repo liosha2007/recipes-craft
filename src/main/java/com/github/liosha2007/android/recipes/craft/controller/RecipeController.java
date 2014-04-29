@@ -23,10 +23,11 @@ public class RecipeController extends BaseController<RecipeFragment> {
     public static final String TAB_DESCRIPTION = UUID.randomUUID().toString();
     public static final String TAB_MATERIALS = UUID.randomUUID().toString();
     public static final String TAB_NOTES = UUID.randomUUID().toString();
-    private Item item;
+    private int itemId;
 
-    public RecipeController(Item item) {
-        this.item = item;
+    public RecipeController(int itemId) {
+        super(new RecipeFragment());
+        this.itemId = itemId;
     }
 
     @Override
@@ -44,8 +45,9 @@ public class RecipeController extends BaseController<RecipeFragment> {
 
     @Override
     public void onViewCreated(Bundle savedInstanceState) {
+        Item item = DBHelper.getItemDAO().queryForId(itemId);
         List<Recipe> recipes = DBHelper.getRecipeDAO().getAllRecipesForItemId(item.getId());
-        for (Recipe recipe : recipes){
+        for (Recipe recipe : recipes) {
             DBHelper.getItemDAO().refresh(recipe.getP1x1());
             DBHelper.getItemDAO().refresh(recipe.getP1x2());
             DBHelper.getItemDAO().refresh(recipe.getP1x3());
@@ -58,7 +60,7 @@ public class RecipeController extends BaseController<RecipeFragment> {
             DBHelper.getItemDAO().refresh(recipe.getResult());
             fragment.createAccordion(recipe.getResult(), recipes);
         }
-        if (recipes.size() == 0){
+        if (recipes.size() == 0) {
             fragment.showRecipeNotFound();
             fragment.showAdditionalItemInformation(item);
         }

@@ -10,9 +10,7 @@ import com.github.liosha2007.android.recipes.craft.ApplicationActivity;
 import com.github.liosha2007.android.recipes.craft.common.Fragments;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.domain.Category;
-import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.fragment.CategoriesFragment;
-import com.github.liosha2007.android.recipes.craft.fragment.CategoryFragment;
 
 import java.util.List;
 
@@ -20,6 +18,10 @@ import java.util.List;
  * Created by liosha on 22.04.2014.
  */
 public class CategoriesController extends BaseController<CategoriesFragment> {
+
+    public CategoriesController() {
+        super(new CategoriesFragment());
+    }
 
     @Override
     public void onShow() {
@@ -42,14 +44,11 @@ public class CategoriesController extends BaseController<CategoriesFragment> {
     }
 
     public void onCategoryClicked(Integer categoryId) {
-        Category category = DBHelper.getCategoryDAO().queryForId(categoryId);
-        if (category != null) {
-            List<Item> items = DBHelper.getItemDAO().queryForEq(Item.FIELD_CATEGORY, category);
-
-            FragmentManager.adapter.addFragment(Fragments.CATEGORY_FRAGMENT, new CategoryFragment(items));
+        if (categoryId != null) {
+            FragmentManager.adapter.addFragment(Fragments.CATEGORY_FRAGMENT, new CategoryController(categoryId).getFragment());
             FragmentManager.adapter.setCurrentItem(Fragments.CATEGORY_FRAGMENT);
         } else {
-            Utils.deb("category is null when try to load it and display associated items");
+            Utils.deb("categoryId is null");
         }
     }
 }

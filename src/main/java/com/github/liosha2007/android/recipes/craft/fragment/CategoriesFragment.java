@@ -26,7 +26,7 @@ public class CategoriesFragment extends BaseFragment<CategoriesController> {
     private CategoriesArrayAdapter adapter;
 
     public CategoriesFragment() {
-        super(R.layout.layout_categories, new CategoriesController());
+        super(R.layout.layout_categories);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class CategoriesFragment extends BaseFragment<CategoriesController> {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
                 Object o = Utils.view(view, R.id.categories_item_title).getTag();
-                if (o instanceof Integer){
+                if (o instanceof Integer) {
                     controller.onCategoryClicked((Integer) o);
                 } else {
                     Utils.err("not found ID in categories item tag");

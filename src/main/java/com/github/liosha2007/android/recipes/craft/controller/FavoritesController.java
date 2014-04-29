@@ -18,6 +18,10 @@ import java.util.List;
  */
 public class FavoritesController extends BaseController<FavoritesFragment> {
 
+    public FavoritesController() {
+        super(new FavoritesFragment());
+    }
+
     @Override
     public void onShow() {
         // Update back pressed
@@ -35,7 +39,7 @@ public class FavoritesController extends BaseController<FavoritesFragment> {
         //
         List<Favorite> favorites = DBHelper.getFavoriteDAO().getAllFavorites();
         fragment.clearFavorites();
-        for (Favorite favorite : favorites){
+        for (Favorite favorite : favorites) {
             DBHelper.getItemDAO().refresh(favorite.getItem());
         }
         fragment.showFavorites(favorites);

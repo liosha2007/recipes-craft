@@ -14,6 +14,10 @@ import com.github.liosha2007.android.recipes.craft.fragment.SearchFragment;
  */
 public class SearchController extends BaseController<SearchFragment> {
 
+    public SearchController() {
+        super(new SearchFragment());
+    }
+
     @Override
     public void onShow() {
         // Update back pressed

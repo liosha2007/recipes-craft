@@ -25,7 +25,7 @@ public class ModsFragment extends BaseFragment<ModsController> {
     private ModsArrayAdapter adapter;
 
     public ModsFragment() {
-        super(R.layout.layout_mods, new ModsController());
+        super(R.layout.layout_mods);
     }
 
     @Override
@@ -40,9 +40,9 @@ public class ModsFragment extends BaseFragment<ModsController> {
     }
 
     public void showMods(List<Mod> mods) {
-            final ListView listview = (ListView) view.findViewById(R.id.mods_list);
-            adapter = new ModsArrayAdapter(ApplicationActivity.activity, mods);
-            listview.setAdapter(adapter);
+        final ListView listview = (ListView) view.findViewById(R.id.mods_list);
+        adapter = new ModsArrayAdapter(ApplicationActivity.activity, mods);
+        listview.setAdapter(adapter);
 
 //        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //
@@ -62,40 +62,40 @@ public class ModsFragment extends BaseFragment<ModsController> {
 //            }
 //
 //        });
+    }
+
+    static class ViewHolder {
+        public ImageView imageView;
+        public TextView textView;
+    }
+
+    private class ModsArrayAdapter extends ArrayAdapter<Mod> {
+        protected List<Mod> mods;
+
+        public ModsArrayAdapter(Context context, List<Mod> mods) {
+            super(context, R.layout.layout_mods_row, mods);
+            this.mods = mods;
         }
 
-        static class ViewHolder {
-            public ImageView imageView;
-            public TextView textView;
-        }
-
-        private class ModsArrayAdapter extends ArrayAdapter<Mod> {
-            protected List<Mod> mods;
-
-            public ModsArrayAdapter(Context context, List<Mod> mods) {
-                super(context, R.layout.layout_mods_row, mods);
-                this.mods = mods;
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+            View rowView = convertView;
+            if (rowView == null) {
+                LayoutInflater inflater = com.github.liosha2007.android.recipes.craft.ApplicationActivity.activity.getLayoutInflater();
+                rowView = inflater.inflate(R.layout.layout_mods_row, null, true);
+                holder = new ViewHolder();
+                holder.textView = Utils.view(rowView, R.id.second_line);
+                holder.imageView = Utils.view(rowView, R.id.mods_icon);
+                rowView.setTag(holder);
+            } else {
+                holder = (ViewHolder) rowView.getTag();
             }
 
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                ViewHolder holder;
-                View rowView = convertView;
-                if (rowView == null) {
-                    LayoutInflater inflater = com.github.liosha2007.android.recipes.craft.ApplicationActivity.activity.getLayoutInflater();
-                    rowView = inflater.inflate(R.layout.layout_mods_row, null, true);
-                    holder = new ViewHolder();
-                    holder.textView = Utils.view(rowView, R.id.second_line);
-                    holder.imageView = Utils.view(rowView, R.id.mods_icon);
-                    rowView.setTag(holder);
-                } else {
-                    holder = (ViewHolder) rowView.getTag();
-                }
+            holder.textView.setText(mods.get(position).getName());
+            holder.imageView.setImageDrawable(Utils.loadImageFromAssets(ApplicationActivity.activity, mods.get(position).getIcon()));
 
-                holder.textView.setText(mods.get(position).getName());
-                holder.imageView.setImageDrawable(Utils.loadImageFromAssets(ApplicationActivity.activity, mods.get(position).getIcon()));
-
-                return rowView;
-            }
+            return rowView;
         }
+    }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -24,8 +25,8 @@ import java.util.List;
 public class CategoryFragment extends BaseFragment<CategoryController> {
     private CategoryArrayAdapter adapter;
 
-    public CategoryFragment(List<Item> items) {
-        super(R.layout.layout_category, new CategoryController(items));
+    public CategoryFragment() {
+        super(R.layout.layout_category);
     }
 
     @Override
@@ -51,25 +52,18 @@ public class CategoryFragment extends BaseFragment<CategoryController> {
         final ListView listview = (ListView) view.findViewById(R.id.category_list);
         adapter = new CategoryArrayAdapter(ApplicationActivity.activity, items);
         listview.setAdapter(adapter);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+                Object o = Utils.view(view, R.id.category_item_title).getTag();
+                if (o instanceof Integer) {
+                    controller.onItemClicked((Integer) o);
+                } else {
+                    Utils.err("not found ID in item tag");
+                }
+            }
 
-//        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, final View view,
-//                                    int position, long id) {
-//                final String item = (String) parent.getItemAtPosition(position);
-//                view.animate().setDuration(2000).alpha(0)
-//                        .withEndAction(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                list.remove(item);
-//                                adapter.notifyDataSetChanged();
-//                                view.setAlpha(1);
-//                            }
-//                        });
-//            }
-//
-//        });
+        });
     }
 
     static class ViewHolder {
@@ -101,6 +95,7 @@ public class CategoryFragment extends BaseFragment<CategoryController> {
             }
 
             holder.textView.setText(items.get(position).getName());
+            holder.textView.setTag(items.get(position).getId());
             holder.imageView.setImageDrawable(Utils.loadImageFromAssets(ApplicationActivity.activity, items.get(position).getIcon()));
 
             return rowView;

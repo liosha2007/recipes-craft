@@ -13,9 +13,7 @@ import android.widget.TextView;
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.library.fragment.BaseFragment;
-import com.github.liosha2007.android.library.fragment.FragmentManager;
 import com.github.liosha2007.android.recipes.craft.ApplicationActivity;
-import com.github.liosha2007.android.recipes.craft.common.Fragments;
 import com.github.liosha2007.android.recipes.craft.controller.ItemsController;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 
@@ -28,7 +26,7 @@ public class ItemsFragment extends BaseFragment<ItemsController> {
     private ItemsArrayAdapter adapter;
 
     public ItemsFragment() {
-        super(R.layout.layout_items, new ItemsController());
+        super(R.layout.layout_items);
     }
 
     @Override
@@ -47,6 +45,7 @@ public class ItemsFragment extends BaseFragment<ItemsController> {
 
     /**
      * Show items on list view
+     *
      * @param items
      */
     public void showItems(List<Item> items) {
@@ -59,7 +58,7 @@ public class ItemsFragment extends BaseFragment<ItemsController> {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
                 Object o = Utils.view(view, R.id.items_title).getTag();
-                if (o instanceof Integer){
+                if (o instanceof Integer) {
                     controller.onItemClicked((Integer) o);
                 } else {
                     Utils.err("not found ID in item tag");
