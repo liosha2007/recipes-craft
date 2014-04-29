@@ -45,7 +45,14 @@ public class ItemsController extends BaseController<ItemsFragment> {
 
     public void onItemClicked(Integer itemId) {
         if (itemId != null) {
-            FragmentManager.adapter.addFragment(Fragments.RECIPE_FRAGMENT, new RecipeController(itemId).getFragment());
+            FragmentManager.adapter.addFragment(Fragments.RECIPE_FRAGMENT, new RecipeController(itemId, new IBackPressed() {
+                @Override
+                public boolean onBackPressed() {
+                    FragmentManager.adapter.removeFragment(Fragments.RECIPE_FRAGMENT);
+                    FragmentManager.adapter.setCurrentItem(Fragments.ITEMS_FRAGMENT);
+                    return true;
+                }
+            }).getFragment());
             FragmentManager.adapter.setCurrentItem(Fragments.RECIPE_FRAGMENT);
         } else {
             Utils.deb("itemId is null when try to load and show it");

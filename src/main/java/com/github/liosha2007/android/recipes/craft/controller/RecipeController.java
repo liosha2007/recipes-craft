@@ -23,24 +23,19 @@ public class RecipeController extends BaseController<RecipeFragment> {
     public static final String TAB_DESCRIPTION = UUID.randomUUID().toString();
     public static final String TAB_MATERIALS = UUID.randomUUID().toString();
     public static final String TAB_NOTES = UUID.randomUUID().toString();
+    private final IBackPressed backPressed;
     private int itemId;
 
-    public RecipeController(int itemId) {
+    public RecipeController(int itemId, IBackPressed backPressed) {
         super(new RecipeFragment());
         this.itemId = itemId;
+        this.backPressed = backPressed;
     }
 
     @Override
     public void onShow() {
         // Back pressed
-        ApplicationActivity.setBackPressed(new IBackPressed() {
-            @Override
-            public boolean onBackPressed() {
-                FragmentManager.adapter.removeFragment(Fragments.RECIPE_FRAGMENT);
-                FragmentManager.adapter.setCurrentItem(Fragments.DASHBOARD_FRAGMENT);
-                return true;
-            }
-        });
+        ApplicationActivity.setBackPressed(backPressed);
     }
 
     @Override
