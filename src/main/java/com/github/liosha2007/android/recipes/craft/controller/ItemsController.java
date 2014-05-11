@@ -4,56 +4,34 @@ import android.os.Bundle;
 
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.library.controller.BaseController;
-import com.github.liosha2007.android.library.fragment.FragmentManager;
-import com.github.liosha2007.android.library.interfaces.IBackPressed;
-import com.github.liosha2007.android.recipes.craft.ApplicationActivity;
-import com.github.liosha2007.android.recipes.craft.common.Fragments;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
-import com.github.liosha2007.android.recipes.craft.fragment.ItemsFragment;
+import com.github.liosha2007.android.recipes.craft.fragment.ItemsView;
 
 import java.util.List;
 
 /**
  * Created by liosha on 22.04.2014.
  */
-public class ItemsController extends BaseController<ItemsFragment> {
-
+public class ItemsController extends BaseController<ItemsView> {
     public ItemsController() {
-        super(new ItemsFragment());
+        super(new ItemsView());
     }
 
     @Override
-    public void onShow() {
-        // Update back pressed
-        ApplicationActivity.setBackPressed(new IBackPressed() {
-            @Override
-            public boolean onBackPressed() {
-                FragmentManager.adapter.setCurrentItem(Fragments.DASHBOARD_FRAGMENT);
-                return true;
-            }
-        });
-    }
-
-    @Override
-    public void onViewCreated(Bundle savedInstanceState) {
+    public void onCreate() {
+        super.onCreate();
         //
         List<Item> items = DBHelper.getItemDAO().getAllItems();
-        fragment.clearItems();
-        fragment.showItems(items);
+        view.clearItems();
+        view.showItems(items);
     }
 
     public void onItemClicked(Integer itemId) {
         if (itemId != null) {
-            FragmentManager.adapter.addFragment(Fragments.RECIPE_FRAGMENT, new RecipeController(itemId, new IBackPressed() {
-                @Override
-                public boolean onBackPressed() {
-                    FragmentManager.adapter.removeFragment(Fragments.RECIPE_FRAGMENT);
-                    FragmentManager.adapter.setCurrentItem(Fragments.ITEMS_FRAGMENT);
-                    return true;
-                }
-            }).getFragment());
-            FragmentManager.adapter.setCurrentItem(Fragments.RECIPE_FRAGMENT);
+            Bundle bundle = new Bundle();
+            bundle.putInt(RecipeController.ITEM_ID, itemId);
+            run(RecipeController.class, bundle);
         } else {
             Utils.deb("itemId is null when try to load and show it");
         }

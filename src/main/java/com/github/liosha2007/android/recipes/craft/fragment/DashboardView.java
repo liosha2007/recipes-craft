@@ -3,19 +3,20 @@ package com.github.liosha2007.android.recipes.craft.fragment;
 import android.view.View;
 
 import com.github.liosha2007.android.R;
-import com.github.liosha2007.android.library.fragment.BaseFragment;
+import com.github.liosha2007.android.library.view.BaseView;
 import com.github.liosha2007.android.recipes.craft.controller.DashboardController;
 
 /**
  * Created by liosha on 21.04.2014.
  */
-public class DashboardFragment extends BaseFragment<DashboardController> {
-    public DashboardFragment() {
+public class DashboardView extends BaseView<DashboardController> {
+    public DashboardView() {
         super(R.layout.layout_dashboard);
     }
 
     @Override
-    public void onViewCreated(View view) {
+    public void onCreate() {
+        super.onCreate();
         view(R.id.items).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

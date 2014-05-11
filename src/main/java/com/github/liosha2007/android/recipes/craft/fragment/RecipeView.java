@@ -14,9 +14,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.github.liosha2007.android.R;
-import com.github.liosha2007.android.library.application.ApplicationActivity;
 import com.github.liosha2007.android.library.common.Utils;
-import com.github.liosha2007.android.library.fragment.BaseFragment;
+import com.github.liosha2007.android.library.view.BaseView;
 import com.github.liosha2007.android.recipes.craft.controller.RecipeController;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.database.domain.Recipe;
@@ -26,16 +25,17 @@ import java.util.List;
 /**
  * Created by liosha on 22.04.2014.
  */
-public class RecipeFragment extends BaseFragment<RecipeController> {
+public class RecipeView extends BaseView<RecipeController> {
     private static final Integer ACCORDION_OPENED = Utils.makeID();
     private static final Integer ACCORDION_CLOSED = Utils.makeID();
 
-    public RecipeFragment() {
+    public RecipeView() {
         super(R.layout.layout_recipe);
     }
 
     @Override
-    public void onViewCreated(View view) {
+    public void onCreate() {
+        super.onCreate();
         // Tabs functional
         TabHost tabHost = view(R.id.recipe_tab_host);
 
@@ -84,7 +84,7 @@ public class RecipeFragment extends BaseFragment<RecipeController> {
     public void createAccordion(Item result, List<Recipe> recipes) {
         LinearLayout accordionLayout = view(R.id.accordion_layout);
         for (Recipe recipe : recipes) {
-            Button accordionButton = new Button(ApplicationActivity.activity);
+            Button accordionButton = new Button(controller);
             accordionButton.setId(recipe.getId());
             accordionButton.setText("Рецепт " + (recipes.indexOf(recipe) + 1));
             accordionButton.setTypeface(null, 1);
@@ -94,7 +94,7 @@ public class RecipeFragment extends BaseFragment<RecipeController> {
             accordionButton.setTag(ACCORDION_CLOSED);
             accordionButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_launcher, 0);
 
-            LinearLayout recipeLayout = new LinearLayout(ApplicationActivity.activity);
+            LinearLayout recipeLayout = new LinearLayout(controller);
             recipeLayout.setOrientation(LinearLayout.VERTICAL);
             recipeLayout.addView(createCraftingArea(recipe));
             recipeLayout.setGravity(Gravity.CENTER);
@@ -143,7 +143,7 @@ public class RecipeFragment extends BaseFragment<RecipeController> {
             this.<TextView>view(R.id.result_item_name).setText(result.getName());
             this.<ImageView>view(R.id.result_item_icon).setImageDrawable(
                     Utils.loadImageFromAssets(
-                            com.github.liosha2007.android.recipes.craft.ApplicationActivity.activity,
+                            controller,
                             result.getIcon()
                     )
             );
@@ -151,7 +151,7 @@ public class RecipeFragment extends BaseFragment<RecipeController> {
     }
 
     public TableLayout createCraftingArea(Recipe recipe) {
-        TableLayout tableLayout = new TableLayout(ApplicationActivity.activity);
+        TableLayout tableLayout = new TableLayout(controller);
         tableLayout.setStretchAllColumns(true);
         tableLayout.setBackgroundColor(Color.LTGRAY);
         tableLayout.setLayoutParams(new LinearLayout.LayoutParams(300, TableLayout.LayoutParams.WRAP_CONTENT, Gravity.CENTER));
@@ -159,8 +159,8 @@ public class RecipeFragment extends BaseFragment<RecipeController> {
         TableRow row;
         LinearLayout linearLayout;
 
-        row = new TableRow(ApplicationActivity.activity);
-        linearLayout = new LinearLayout(ApplicationActivity.activity);
+        row = new TableRow(controller);
+        linearLayout = new LinearLayout(controller);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.addView(createCraftingPoint(recipe.getP1x1()));
         linearLayout.addView(createCraftingPoint(recipe.getP1x2()));
@@ -168,8 +168,8 @@ public class RecipeFragment extends BaseFragment<RecipeController> {
         row.addView(linearLayout);
         tableLayout.addView(row);
 
-        row = new TableRow(ApplicationActivity.activity);
-        linearLayout = new LinearLayout(ApplicationActivity.activity);
+        row = new TableRow(controller);
+        linearLayout = new LinearLayout(controller);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.addView(createCraftingPoint(recipe.getP2x1()));
         linearLayout.addView(createCraftingPoint(recipe.getP2x2()));
@@ -177,8 +177,8 @@ public class RecipeFragment extends BaseFragment<RecipeController> {
         row.addView(linearLayout);
         tableLayout.addView(row);
 
-        row = new TableRow(ApplicationActivity.activity);
-        linearLayout = new LinearLayout(ApplicationActivity.activity);
+        row = new TableRow(controller);
+        linearLayout = new LinearLayout(controller);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout.addView(createCraftingPoint(recipe.getP3x1()));
         linearLayout.addView(createCraftingPoint(recipe.getP3x2()));
@@ -193,16 +193,16 @@ public class RecipeFragment extends BaseFragment<RecipeController> {
         if (item == null) {
             Utils.deb("item is null in recipes");
         }
-        LinearLayout itemLayout = new LinearLayout(ApplicationActivity.activity);
+        LinearLayout itemLayout = new LinearLayout(controller);
         itemLayout.setOrientation(LinearLayout.VERTICAL);
 
-        ImageView imageView = new ImageView(ApplicationActivity.activity);
+        ImageView imageView = new ImageView(controller);
         LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(100, 80, 0.1f);
         imageViewParams.gravity = Gravity.CENTER;
         imageView.setLayoutParams(imageViewParams);
-        imageView.setImageDrawable(Utils.loadImageFromAssets(ApplicationActivity.activity, item == null ? null : item.getIcon()));
+        imageView.setImageDrawable(Utils.loadImageFromAssets(controller, item == null ? null : item.getIcon()));
 
-        TextView textView = new TextView(ApplicationActivity.activity);
+        TextView textView = new TextView(controller);
         ViewGroup.LayoutParams textViewParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 20);
         textView.setLayoutParams(textViewParams);
         textView.setGravity(Gravity.CENTER);
@@ -215,7 +215,7 @@ public class RecipeFragment extends BaseFragment<RecipeController> {
     }
 
     public void showRecipeNotFound() {
-        TextView notFound = new TextView(ApplicationActivity.activity);
+        TextView notFound = new TextView(controller);
         notFound.setTextColor(Color.RED);
         notFound.setGravity(Gravity.CENTER);
         notFound.setTextSize(28);

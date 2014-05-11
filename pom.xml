@@ -93,6 +93,9 @@
                     <!--<zipalign>-->
                         <!--<outputApk>${build.finalName}-b${build.number}</outputApk>-->
                     <!--</zipalign>-->
+                    <sdk>
+                        <path>C:\Software\android-studio\sdk</path>
+                    </sdk>
                 </configuration>
                 <executions>
                     <execution>

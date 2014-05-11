@@ -33,7 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Категории"
+                    android:text="Категоря"
                     android:id="@+id/category_title"
                     android:textSize="22sp" />
 

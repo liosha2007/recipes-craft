@@ -12,8 +12,7 @@ import android.widget.TextView;
 
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.common.Utils;
-import com.github.liosha2007.android.library.fragment.BaseFragment;
-import com.github.liosha2007.android.recipes.craft.ApplicationActivity;
+import com.github.liosha2007.android.library.view.BaseView;
 import com.github.liosha2007.android.recipes.craft.controller.CategoriesController;
 import com.github.liosha2007.android.recipes.craft.database.domain.Category;
 
@@ -22,17 +21,11 @@ import java.util.List;
 /**
  * Created by liosha on 21.04.2014.
  */
-public class CategoriesFragment extends BaseFragment<CategoriesController> {
-    private CategoriesArrayAdapter adapter;
-
-    public CategoriesFragment() {
+public class CategoriesView extends BaseView<CategoriesController> {
+    public CategoriesView() {
         super(R.layout.layout_categories);
     }
-
-    @Override
-    public void onViewCreated(View view) {
-        // Initialize fragment UI elements
-    }
+    private CategoriesArrayAdapter adapter;
 
     /**
      * Remove all showed categories
@@ -50,7 +43,7 @@ public class CategoriesFragment extends BaseFragment<CategoriesController> {
      */
     public void showCategories(List<Category> categories) {
         final ListView listview = (ListView) view.findViewById(R.id.categories_list);
-        adapter = new CategoriesArrayAdapter(ApplicationActivity.activity, categories);
+        adapter = new CategoriesArrayAdapter(controller, categories);
         listview.setAdapter(adapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -85,7 +78,7 @@ public class CategoriesFragment extends BaseFragment<CategoriesController> {
             ViewHolder holder;
             View rowView = convertView;
             if (rowView == null) {
-                LayoutInflater inflater = com.github.liosha2007.android.recipes.craft.ApplicationActivity.activity.getLayoutInflater();
+                LayoutInflater inflater = controller.getLayoutInflater();
                 rowView = inflater.inflate(R.layout.layout_categories_row, null, true);
                 holder = new ViewHolder();
                 holder.textView = Utils.view(rowView, R.id.categories_item_title);
@@ -97,7 +90,7 @@ public class CategoriesFragment extends BaseFragment<CategoriesController> {
 
             holder.textView.setText(categories.get(position).getName());
             holder.textView.setTag(categories.get(position).getId());
-            holder.imageView.setImageDrawable(Utils.loadImageFromAssets(ApplicationActivity.activity, categories.get(position).getIcon()));
+            holder.imageView.setImageDrawable(Utils.loadImageFromAssets(controller, categories.get(position).getIcon()));
 
             return rowView;
         }

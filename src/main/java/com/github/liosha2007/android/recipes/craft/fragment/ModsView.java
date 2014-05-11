@@ -11,47 +11,30 @@ import android.widget.TextView;
 
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.common.Utils;
-import com.github.liosha2007.android.library.fragment.BaseFragment;
-import com.github.liosha2007.android.recipes.craft.ApplicationActivity;
-import com.github.liosha2007.android.recipes.craft.controller.FavoritesController;
-import com.github.liosha2007.android.recipes.craft.database.domain.Favorite;
-import com.github.liosha2007.android.recipes.craft.database.domain.Item;
+import com.github.liosha2007.android.library.view.BaseView;
+import com.github.liosha2007.android.recipes.craft.controller.ModsController;
+import com.github.liosha2007.android.recipes.craft.database.domain.Mod;
 
 import java.util.List;
 
 /**
  * Created by liosha on 22.04.2014.
  */
-public class FavoritesFragment extends BaseFragment<FavoritesController> {
-    private FavoritesArrayAdapter adapter;
-
-    public FavoritesFragment() {
-        super(R.layout.layout_favorites);
+public class ModsView extends BaseView<ModsController> {
+    public ModsView() {
+        super(R.layout.layout_mods);
     }
+    private ModsArrayAdapter adapter;
 
-    @Override
-    public void onViewCreated(View view) {
-        // Initialize fragment UI elements
-        return;
-    }
-
-    /**
-     * Remove all showed favorites
-     */
-    public void clearFavorites() {
+    public void clearMods() {
         if (adapter != null) {
             adapter.clear();
         }
     }
 
-    /**
-     * Show favorites on list view
-     *
-     * @param favorites
-     */
-    public void showFavorites(List<Favorite> favorites) {
-        final ListView listview = Utils.view(view, R.id.favorites_list);
-        adapter = new FavoritesArrayAdapter(ApplicationActivity.activity, favorites);
+    public void showMods(List<Mod> mods) {
+        final ListView listview = (ListView) view.findViewById(R.id.mods_list);
+        adapter = new ModsArrayAdapter(controller, mods);
         listview.setAdapter(adapter);
 
 //        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -79,12 +62,12 @@ public class FavoritesFragment extends BaseFragment<FavoritesController> {
         public TextView textView;
     }
 
-    private class FavoritesArrayAdapter extends ArrayAdapter<Favorite> {
-        protected List<Favorite> favorites;
+    private class ModsArrayAdapter extends ArrayAdapter<Mod> {
+        protected List<Mod> mods;
 
-        public FavoritesArrayAdapter(Context context, List<Favorite> favorites) {
-            super(context, R.layout.layout_favorites_row, favorites);
-            this.favorites = favorites;
+        public ModsArrayAdapter(Context context, List<Mod> mods) {
+            super(context, R.layout.layout_mods_row, mods);
+            this.mods = mods;
         }
 
         @Override
@@ -92,19 +75,18 @@ public class FavoritesFragment extends BaseFragment<FavoritesController> {
             ViewHolder holder;
             View rowView = convertView;
             if (rowView == null) {
-                LayoutInflater inflater = com.github.liosha2007.android.recipes.craft.ApplicationActivity.activity.getLayoutInflater();
-                rowView = inflater.inflate(R.layout.layout_favorites_row, null, true);
+                LayoutInflater inflater = controller.getLayoutInflater();
+                rowView = inflater.inflate(R.layout.layout_mods_row, null, true);
                 holder = new ViewHolder();
                 holder.textView = Utils.view(rowView, R.id.second_line);
-                holder.imageView = Utils.view(rowView, R.id.favorites_icon);
+                holder.imageView = Utils.view(rowView, R.id.mods_icon);
                 rowView.setTag(holder);
             } else {
                 holder = (ViewHolder) rowView.getTag();
             }
 
-            Item item = favorites.get(position).getItem();
-            holder.textView.setText(item.getName());
-            holder.imageView.setImageDrawable(Utils.loadImageFromAssets(com.github.liosha2007.android.library.application.ApplicationActivity.activity, item.getIcon()));
+            holder.textView.setText(mods.get(position).getName());
+            holder.imageView.setImageDrawable(Utils.loadImageFromAssets(controller, mods.get(position).getIcon()));
 
             return rowView;
         }
