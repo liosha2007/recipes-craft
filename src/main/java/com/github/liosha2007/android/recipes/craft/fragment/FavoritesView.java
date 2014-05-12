@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -45,25 +46,19 @@ public class FavoritesView extends BaseView<FavoritesController> {
         final ListView listview = Utils.view(view, R.id.favorites_list);
         adapter = new FavoritesArrayAdapter(controller, favorites);
         listview.setAdapter(adapter);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-//        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, final View view,
-//                                    int position, long id) {
-//                final String item = (String) parent.getItemAtPosition(position);
-//                view.animate().setDuration(2000).alpha(0)
-//                        .withEndAction(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                list.remove(item);
-//                                adapter.notifyDataSetChanged();
-//                                view.setAlpha(1);
-//                            }
-//                        });
-//            }
-//
-//        });
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+                Object o = Utils.view(view, R.id.favorites_item_title).getTag();
+                if (o instanceof Integer) {
+                    controller.onFavoriteClicked((Integer) o);
+                } else {
+                    Utils.err("not found ID in favorite tag");
+                }
+            }
+
+        });
     }
 
     static class ViewHolder {
@@ -87,8 +82,8 @@ public class FavoritesView extends BaseView<FavoritesController> {
                 LayoutInflater inflater = controller.getLayoutInflater();
                 rowView = inflater.inflate(R.layout.layout_favorites_row, null, true);
                 holder = new ViewHolder();
-                holder.textView = Utils.view(rowView, R.id.second_line);
-                holder.imageView = Utils.view(rowView, R.id.favorites_icon);
+                holder.textView = Utils.view(rowView, R.id.favorites_item_title);
+                holder.imageView = Utils.view(rowView, R.id.favorites_item_icon);
                 rowView.setTag(holder);
             } else {
                 holder = (ViewHolder) rowView.getTag();
@@ -96,6 +91,7 @@ public class FavoritesView extends BaseView<FavoritesController> {
 
             Item item = favorites.get(position).getItem();
             holder.textView.setText(item.getName());
+            holder.textView.setTag(item.getId());
             holder.imageView.setImageDrawable(Utils.loadImageFromAssets(controller, item.getIcon()));
 
             return rowView;

@@ -1,5 +1,9 @@
 package com.github.liosha2007.android.recipes.craft.controller;
 
+import android.os.Bundle;
+
+import com.github.liosha2007.android.R;
+import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.library.controller.BaseController;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.domain.Mod;
@@ -22,5 +26,16 @@ public class ModsController extends BaseController<ModsView> {
         List<Mod> items = DBHelper.getModDAO().getAllMods();
         view.clearMods();
         view.showMods(items);
+    }
+
+    public void onModClicked(Integer modId, String title) {
+        if (modId != null) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(ItemsController.MOD_ID, modId);
+            bundle.putString(ItemsController.MOD_TITLE, title);
+            run(ItemsController.class, bundle);
+        } else {
+            Utils.deb("modId is null when try to load and show it");
+        }
     }
 }

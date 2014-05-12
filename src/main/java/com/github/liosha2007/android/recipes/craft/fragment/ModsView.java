@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -37,24 +38,18 @@ public class ModsView extends BaseView<ModsController> {
         adapter = new ModsArrayAdapter(controller, mods);
         listview.setAdapter(adapter);
 
-//        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, final View view,
-//                                    int position, long id) {
-//                final String item = (String) parent.getItemAtPosition(position);
-//                view.animate().setDuration(2000).alpha(0)
-//                        .withEndAction(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                list.remove(item);
-//                                adapter.notifyDataSetChanged();
-//                                view.setAlpha(1);
-//                            }
-//                        });
-//            }
-//
-//        });
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+                Object o = Utils.view(view, R.id.mods_item_title).getTag();
+                if (o instanceof Integer) {
+                    controller.onModClicked((Integer) o, String.valueOf(Utils.<TextView>view(view, R.id.mods_item_title).getText()));
+                } else {
+                    Utils.err("not found ID in item tag");
+                }
+            }
+        });
     }
 
     static class ViewHolder {
@@ -78,14 +73,15 @@ public class ModsView extends BaseView<ModsController> {
                 LayoutInflater inflater = controller.getLayoutInflater();
                 rowView = inflater.inflate(R.layout.layout_mods_row, null, true);
                 holder = new ViewHolder();
-                holder.textView = Utils.view(rowView, R.id.second_line);
-                holder.imageView = Utils.view(rowView, R.id.mods_icon);
+                holder.textView = Utils.view(rowView, R.id.mods_item_title);
+                holder.imageView = Utils.view(rowView, R.id.mods_item_icon);
                 rowView.setTag(holder);
             } else {
                 holder = (ViewHolder) rowView.getTag();
             }
 
             holder.textView.setText(mods.get(position).getName());
+            holder.textView.setTag(mods.get(position).getId());
             holder.imageView.setImageDrawable(Utils.loadImageFromAssets(controller, mods.get(position).getIcon()));
 
             return rowView;

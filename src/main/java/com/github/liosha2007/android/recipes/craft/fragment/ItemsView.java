@@ -42,7 +42,7 @@ public class ItemsView extends BaseView<ItemsController> {
      * @param items
      */
     public void showItems(List<Item> items) {
-        final ListView listview = Utils.view(view, R.id.items_list);
+        final ListView listview = view(R.id.items_list);
         adapter = new ItemsArrayAdapter(controller, items);
         listview.setAdapter(adapter);
 
@@ -50,7 +50,7 @@ public class ItemsView extends BaseView<ItemsController> {
 
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
-                Object o = Utils.view(view, R.id.items_title).getTag();
+                Object o = Utils.view(view, R.id.items_item_title).getTag();
                 if (o instanceof Integer) {
                     controller.onItemClicked((Integer) o);
                 } else {
@@ -59,6 +59,12 @@ public class ItemsView extends BaseView<ItemsController> {
             }
 
         });
+    }
+
+    public void setTitle(String title) {
+        if (title != null){
+            this.<TextView>view(R.id.items_title).setText(title);
+        }
     }
 
     static class ViewHolder {
@@ -82,8 +88,8 @@ public class ItemsView extends BaseView<ItemsController> {
                 LayoutInflater inflater = controller.getLayoutInflater();
                 rowView = inflater.inflate(R.layout.layout_items_row, null, true);
                 holder = new ViewHolder();
-                holder.textView = Utils.view(rowView, R.id.items_title);
-                holder.imageView = Utils.view(rowView, R.id.items_icon);
+                holder.textView = Utils.view(rowView, R.id.items_item_title);
+                holder.imageView = Utils.view(rowView, R.id.items_item_icon);
                 rowView.setTag(holder);
             } else {
                 holder = (ViewHolder) rowView.getTag();

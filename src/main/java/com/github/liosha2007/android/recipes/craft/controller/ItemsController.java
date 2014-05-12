@@ -14,6 +14,11 @@ import java.util.List;
  * Created by liosha on 22.04.2014.
  */
 public class ItemsController extends BaseController<ItemsView> {
+    public static final String MOD_ID = "modId";
+    public static final String MOD_TITLE = "modTitle";
+    protected int modId = -1;
+    protected String modTitle;
+
     public ItemsController() {
         super(new ItemsView());
     }
@@ -21,10 +26,23 @@ public class ItemsController extends BaseController<ItemsView> {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            this.modId = bundle.getInt(MOD_ID, -1);
+            this.modTitle = bundle.getString(MOD_TITLE, "");
+        }
         //
-        List<Item> items = DBHelper.getItemDAO().getAllItems();
+        List<Item> items = null;
+        if (modId == -1) {
+            items = DBHelper.getItemDAO().getAllItems();
+        } else {
+            items = DBHelper.getItemDAO().queryForEq(Item.FIELD_MOD, modId);
+        }
+
         view.clearItems();
         view.showItems(items);
+        view.setTitle(modTitle);
     }
 
     public void onItemClicked(Integer itemId) {

@@ -6,121 +6,132 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true">
+        android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/imageView"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:id="@+id/imageView"
                 android:src="@drawable/ic_launcher" />
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Рецепты крафта"
-                    android:id="@+id/textView"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="22sp" />
 
                 <TextView
+                    android:id="@+id/play"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Оценить приложение"
-                    android:id="@+id/play"
-                    android:textColor="#ff3e57e8"
                     android:linksClickable="true"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:text="Оценить приложение"
+                    android:textColor="#ff3e57e8" />
             </LinearLayout>
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Очень очень очень длииинное описание программы"
-            android:id="@+id/description"
-            android:padding="3dp" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/searchString"
-                android:layout_weight=".9"
-                android:autoText="false"
-                android:hint="Поиск"
-                android:selectAllOnFocus="true" />
+                android:orientation="vertical">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Найти"
-                android:id="@+id/search" />
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:padding="3dp"
+                    android:text="Очень очень очень длииинное описание программы"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Список всех предметов"
-            android:id="@+id/items" />
+                    <EditText
+                        android:id="@+id/searchString"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".9"
+                        android:autoText="false"
+                        android:hint="Поиск"
+                        android:selectAllOnFocus="true" />
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="По категориям"
-            android:id="@+id/categories" />
+                    <Button
+                        android:id="@+id/search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Найти" />
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="По модам"
-            android:id="@+id/mods" />
+                </LinearLayout>
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Избранные рецепты"
-            android:id="@+id/favorites" />
+                <Button
+                    android:id="@+id/items"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Список всех предметов" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal|bottom">
+                <Button
+                    android:id="@+id/categories"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="По категориям" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView2"
-                android:src="@drawable/criper"
-                android:layout_weight=".1" />
+                <Button
+                    android:id="@+id/mods"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="По модам" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="v1.0.0"
-                android:id="@+id/textView4" />
+                <Button
+                    android:id="@+id/favorites"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Избранные рецепты" />
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|bottom"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1"
+                        android:src="@drawable/criper" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="v1.0.0" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </RelativeLayout>

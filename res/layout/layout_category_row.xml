@@ -23,15 +23,15 @@
         android:layout_alignWithParentIfMissing="true"
         android:layout_toRightOf="@id/category_item_icon"
         android:gravity="center_vertical"
-        android:text="Example application"
+        android:text="Example category"
         android:textSize="16sp"
         android:id="@+id/category_item_title"/>
 
     <TextView
         android:id="@+id/second_line"
         android:layout_width="fill_parent"
-        android:layout_height="26dip"
         android:layout_above="@id/category_item_title"
+        android:layout_height="26dip"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@id/category_item_icon"

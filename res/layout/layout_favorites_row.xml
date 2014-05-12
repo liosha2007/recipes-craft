@@ -6,7 +6,7 @@
     android:padding="6dip" >
 
     <ImageView
-        android:id="@+id/favorites_icon"
+        android:id="@+id/favorites_item_icon"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_alignParentBottom="true"
@@ -16,28 +16,28 @@
         android:src="@drawable/ic_launcher" />
 
     <TextView
-        android:id="@+id/second_line"
-        android:layout_width="fill_parent"
-        android:layout_height="26dip"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/favorites_icon"
-        android:ellipsize="marquee"
-        android:singleLine="true"
-        android:text="Description"
-        android:textSize="12sp" />
-
-    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/second_line"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_toRightOf="@id/favorites_icon"
+        android:layout_toRightOf="@id/favorites_item_icon"
         android:gravity="center_vertical"
-        android:text="Example application"
+        android:text="Example category"
         android:textSize="16sp"
-        android:id="@+id/favorites_title"/>
+        android:id="@+id/favorites_item_title"/>
+
+    <TextView
+        android:id="@+id/second_line"
+        android:layout_width="fill_parent"
+        android:layout_above="@id/favorites_item_title"
+        android:layout_height="26dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/favorites_item_icon"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text=""
+        android:textSize="12sp" />
 
 </RelativeLayout>
