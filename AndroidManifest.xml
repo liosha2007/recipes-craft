@@ -20,5 +20,4 @@
         <activity android:name=".recipes.craft.controller.SearchController" />
         <activity android:name=".recipes.craft.controller.SettingsController" />
     </application>
-
-</manifest>
+    </manifest>

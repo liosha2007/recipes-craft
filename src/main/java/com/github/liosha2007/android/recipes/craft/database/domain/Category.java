@@ -9,7 +9,7 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable(tableName = Category.TABLE_NAME)
 public class Category {
-    public static final String TABLE_NAME = "Category";
+    public static final String TABLE_NAME = "Categories";
     public static final String FIELD_ID = "_Id";
     public static final String FIELD_NAME = "Name";
     public static final String FIELD_ICON = "Icon";

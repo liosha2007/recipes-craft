@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.github.liosha2007.android.library.common.Utils;
+import com.github.liosha2007.android.recipes.craft.controller.DashboardController;
 import com.github.liosha2007.android.recipes.craft.database.dao.CategoryDAO;
 import com.github.liosha2007.android.recipes.craft.database.dao.FavoriteDAO;
 import com.github.liosha2007.android.recipes.craft.database.dao.ItemDAO;
@@ -19,6 +20,11 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.SQLException;
 
 /**
@@ -26,6 +32,7 @@ import java.sql.SQLException;
  */
 public class DBHelper extends OrmLiteSqliteOpenHelper {
     private static final int DATABASE_VERSION = 1;
+    private static final String STANDARD_DATABASE_PATH = "/data/data/%s/databases/";
     private static final String DATABASE_NAME = "RecipesCraft.db";
 
     private static DBHelper dbHelper;
@@ -41,64 +48,13 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
-        try {
-            TableUtils.createTable(connectionSource, Item.class);
-            TableUtils.createTable(connectionSource, Category.class);
-            TableUtils.createTable(connectionSource, Mod.class);
-            TableUtils.createTable(connectionSource, Recipe.class);
-            TableUtils.createTable(connectionSource, Favorite.class);
+//        new File(String.format(STANDARD_DATABASE_PATH, context.getPackageName() + DATABASE_NAME)).delete();
 
-            // TODO: Create test data
-
-            // Categories
-            Category materials = new Category();
-            materials.setName("Материалы");
-//            materials.setIcon("mods/common/icon.png");
-            getCategoryDAO().create(materials);
-
-            Category instruments = new Category();
-            instruments.setName("Инструменты");
-//            instruments.setIcon("mods/common/icon.png");
-            getCategoryDAO().create(instruments);
-
-            // Mods
-            Mod standard = new Mod();
-            standard.setName("Minecraft");
-            standard.setIcon("mods/common/icon.png");
-            getModDAO().create(standard);
-
-            // Items
-            Item dub = new Item();
-            dub.setName("Дуб");
-            dub.setIcon("mods/common/items/5.png");
-            dub.setCategory(materials);
-            dub.setMod(standard);
-            getItemDAO().create(dub);
-
-            Item craftingTable = new Item();
-            craftingTable.setName("Верстак");
-            craftingTable.setIcon("mods/common/items/6.png");
-            craftingTable.setCategory(instruments);
-            craftingTable.setMod(standard);
-            getItemDAO().create(craftingTable);
-
-            // Recipes
-            Recipe crTable = new Recipe();
-            crTable.setP1x1(dub);
-            crTable.setP1x2(dub);
-            crTable.setP2x1(dub);
-            crTable.setP2x2(dub);
-            crTable.setResult(craftingTable);
-            getRecipeDAO().create(crTable);
-
-            // Favorites
-            Favorite favorite = new Favorite();
-            favorite.setItem(craftingTable);
-            getFavoriteDAO().create(favorite);
-
-        } catch (SQLException e) {
-            Utils.err("error creating DB " + DATABASE_NAME + ": " + e.getMessage());
-        }
+//            TableUtils.createTable(connectionSource, Item.class);
+//            TableUtils.createTable(connectionSource, Category.class);
+//            TableUtils.createTable(connectionSource, Mod.class);
+//            TableUtils.createTable(connectionSource, Recipe.class);
+//            TableUtils.createTable(connectionSource, Favorite.class);
     }
 
     @Override
@@ -116,6 +72,37 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     }
 
     public static void setHelper(Context context) {
+        String databasePath = String.format(STANDARD_DATABASE_PATH, context.getPackageName());
+        File dbFile = new File(databasePath + DATABASE_NAME);
+        if ((!dbFile.exists()) && dbFile.getParentFile().mkdirs()) {
+            try {
+                // Create folders
+
+                //Открываем локальную БД как входящий поток
+                InputStream myInput = context.getAssets().open(DATABASE_NAME);
+
+                //Путь ко вновь созданной БД
+                String outFileName = databasePath + DATABASE_NAME;
+
+                //Открываем пустую базу данных как исходящий поток
+                OutputStream myOutput = new FileOutputStream(outFileName);
+
+                //перемещаем байты из входящего файла в исходящий
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = myInput.read(buffer)) > 0) {
+                    myOutput.write(buffer, 0, length);
+                }
+
+                //закрываем потоки
+                myOutput.flush();
+                Utils.closeStreams(myOutput, myInput);
+            } catch (Exception e) {
+                Utils.err("Can't copy database file! " + e.getMessage());
+            }
+        } else {
+            Utils.err("Can't create database directory");
+        }
         dbHelper = OpenHelperManager.getHelper(context, DBHelper.class);
     }
 
