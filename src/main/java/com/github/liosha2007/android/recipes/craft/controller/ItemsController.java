@@ -2,8 +2,8 @@ package com.github.liosha2007.android.recipes.craft.controller;
 
 import android.os.Bundle;
 
+import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.common.Utils;
-import com.github.liosha2007.android.library.controller.BaseController;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.fragment.ItemsView;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by liosha on 22.04.2014.
  */
-public class ItemsController extends BaseController<ItemsView> {
+public class ItemsController extends BaseActivityController<ItemsView> {
     public static final String MOD_ID = "modId";
     public static final String MOD_TITLE = "modTitle";
     protected int modId = -1;

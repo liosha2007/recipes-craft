@@ -11,8 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.github.liosha2007.android.R;
+import com.github.liosha2007.android.library.activity.view.BaseActivityView;
 import com.github.liosha2007.android.library.common.Utils;
-import com.github.liosha2007.android.library.view.BaseView;
 import com.github.liosha2007.android.recipes.craft.controller.CategoriesController;
 import com.github.liosha2007.android.recipes.craft.database.domain.Category;
 
@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by liosha on 21.04.2014.
  */
-public class CategoriesView extends BaseView<CategoriesController> {
+public class CategoriesView extends BaseActivityView<CategoriesController> {
     public CategoriesView() {
         super(R.layout.layout_categories);
     }

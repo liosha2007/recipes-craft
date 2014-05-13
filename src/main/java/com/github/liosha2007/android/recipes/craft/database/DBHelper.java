@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.github.liosha2007.android.library.common.Utils;
-import com.github.liosha2007.android.recipes.craft.controller.DashboardController;
 import com.github.liosha2007.android.recipes.craft.database.dao.CategoryDAO;
 import com.github.liosha2007.android.recipes.craft.database.dao.FavoriteDAO;
 import com.github.liosha2007.android.recipes.craft.database.dao.ItemDAO;
@@ -22,7 +21,6 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;

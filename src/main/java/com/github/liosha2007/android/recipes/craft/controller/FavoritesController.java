@@ -2,8 +2,8 @@ package com.github.liosha2007.android.recipes.craft.controller;
 
 import android.os.Bundle;
 
+import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.common.Utils;
-import com.github.liosha2007.android.library.controller.BaseController;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.domain.Favorite;
 import com.github.liosha2007.android.recipes.craft.fragment.FavoritesView;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by liosha on 22.04.2014.
  */
-public class FavoritesController extends BaseController<FavoritesView> {
+public class FavoritesController extends BaseActivityController<FavoritesView> {
     public FavoritesController() {
         super(new FavoritesView());
     }

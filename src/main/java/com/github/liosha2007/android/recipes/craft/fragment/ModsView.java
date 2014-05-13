@@ -11,8 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.github.liosha2007.android.R;
+import com.github.liosha2007.android.library.activity.view.BaseActivityView;
 import com.github.liosha2007.android.library.common.Utils;
-import com.github.liosha2007.android.library.view.BaseView;
 import com.github.liosha2007.android.recipes.craft.controller.ModsController;
 import com.github.liosha2007.android.recipes.craft.database.domain.Mod;
 
@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by liosha on 22.04.2014.
  */
-public class ModsView extends BaseView<ModsController> {
+public class ModsView extends BaseActivityView<ModsController> {
     public ModsView() {
         super(R.layout.layout_mods);
     }

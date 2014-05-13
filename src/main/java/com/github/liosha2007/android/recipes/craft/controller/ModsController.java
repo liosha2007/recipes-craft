@@ -2,9 +2,8 @@ package com.github.liosha2007.android.recipes.craft.controller;
 
 import android.os.Bundle;
 
-import com.github.liosha2007.android.R;
+import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.common.Utils;
-import com.github.liosha2007.android.library.controller.BaseController;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.domain.Mod;
 import com.github.liosha2007.android.recipes.craft.fragment.ModsView;
@@ -14,7 +13,7 @@ import java.util.List;
 /**
  * Created by liosha on 22.04.2014.
  */
-public class ModsController extends BaseController<ModsView> {
+public class ModsController extends BaseActivityController<ModsView> {
     public ModsController() {
         super(new ModsView());
     }

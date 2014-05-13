@@ -2,8 +2,7 @@ package com.github.liosha2007.android.recipes.craft.controller;
 
 import android.os.Bundle;
 
-import com.github.liosha2007.android.library.controller.BaseController;
-import com.github.liosha2007.android.library.interfaces.IBackPressed;
+import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.database.domain.Recipe;
@@ -15,7 +14,7 @@ import java.util.UUID;
 /**
  * Created by liosha on 22.04.2014.
  */
-public class RecipeController extends BaseController<RecipeView> {
+public class RecipeController extends BaseActivityController<RecipeView> {
     public static final String ITEM_ID = "itemId";
 
     public RecipeController() {

@@ -2,9 +2,8 @@ package com.github.liosha2007.android.recipes.craft.controller;
 
 import android.os.Bundle;
 
-import com.github.liosha2007.android.R;
+import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.common.Utils;
-import com.github.liosha2007.android.library.controller.BaseController;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.domain.Category;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
@@ -15,7 +14,7 @@ import java.util.List;
 /**
  * Created by liosha on 22.04.2014.
  */
-public class CategoryController extends BaseController<CategoryView> {
+public class CategoryController extends BaseActivityController<CategoryView> {
     public CategoryController() {
         super(new CategoryView());
     }
