@@ -2,10 +2,12 @@ package com.github.liosha2007.android.recipes.craft.view;
 
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.activity.view.BaseActivityView;
+import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.controller.RecipeController;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.database.domain.Recipe;
@@ -44,5 +46,13 @@ public class RecipeView extends BaseActivityView<RecipeController> {
 
     public void onNotesShow(boolean showed) {
         this.<TextView>view(R.id.recipe_tab_notes).setTextColor(showed ? Color.RED : Color.BLACK);
+    }
+
+    public void showItemInfo(Item item) {
+        if (item != null) {
+            this.<TextView>view(R.id.recipe_result_title).setText(item.getName());
+            this.<ImageView>view(R.id.recipe_result_icon).setImageDrawable(Utils.loadImageFromAssets(controller, item.getIcon())
+            );
+        }
     }
 }

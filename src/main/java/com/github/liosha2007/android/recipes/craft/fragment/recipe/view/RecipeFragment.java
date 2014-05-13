@@ -101,21 +101,12 @@ public class RecipeFragment extends BaseFragmentView<RecipeController> {
                 accordionButton.callOnClick();
             }
         }
-        if (result != null) {
-            this.<TextView>view(R.id.result_item_name).setText(result.getName());
-            this.<ImageView>view(R.id.result_item_icon).setImageDrawable(
-                    Utils.loadImageFromAssets(
-                            controller.getActivity(),
-                            result.getIcon()
-                    )
-            );
-        }
     }
 
     public TableLayout createCraftingArea(Recipe recipe) {
         TableLayout tableLayout = new TableLayout(controller.getActivity());
         tableLayout.setStretchAllColumns(true);
-        tableLayout.setBackgroundColor(Color.LTGRAY);
+//        tableLayout.setBackgroundColor(Color.LTGRAY);
         tableLayout.setLayoutParams(new LinearLayout.LayoutParams(300, 300, Gravity.CENTER));
 
         TableRow row;
@@ -186,4 +177,6 @@ public class RecipeFragment extends BaseFragmentView<RecipeController> {
         this.<LinearLayout>view(R.id.accordion_layout)
                 .addView(notFound, new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT));
     }
+
+
 }

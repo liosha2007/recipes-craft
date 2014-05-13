@@ -7,6 +7,7 @@ import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.manager.FragmentManager;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
+import com.github.liosha2007.android.recipes.craft.database.dao.ItemDAO;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.database.domain.Recipe;
 import com.github.liosha2007.android.recipes.craft.view.RecipeView;
@@ -30,8 +31,9 @@ public class RecipeController extends BaseActivityController<RecipeView> {
     }
 
     public void onViewPagerCreated(ViewPager viewPager) {
+        int itemId = -1;
         Bundle bundle = new Bundle();
-        bundle.putInt(ITEM_ID, getIntent().getExtras().getInt(ITEM_ID, -1));
+        bundle.putInt(ITEM_ID, itemId = getIntent().getExtras().getInt(ITEM_ID, -1));
         FragmentManager fragmentManager = FragmentManager.prepareViewPager(
                 viewPager,
                 this,
@@ -88,5 +90,8 @@ public class RecipeController extends BaseActivityController<RecipeView> {
                     }
                 }.withArguments(bundle)
         );
+        if (itemId != -1) {
+            view.showItemInfo(DBHelper.getItemDAO().queryForId(itemId));
+        }
     }
 }
