@@ -74,6 +74,7 @@ public class ItemsView extends BaseActivityView<ItemsController> {
     public void updateItem(boolean isAdded, int position) {
         ImageView favoritesImageView = Utils.view(this.<ListView>view(R.id.items_list).getChildAt(position), R.id.items_item_favorites);
         favoritesImageView.setImageResource(isAdded ? R.drawable.favorites_active : R.drawable.favorites_passive);
+        favoritesImageView.setTag(isAdded);
     }
 
     static class ViewHolder {
