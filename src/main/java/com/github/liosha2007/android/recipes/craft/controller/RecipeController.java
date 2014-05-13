@@ -3,6 +3,7 @@ package com.github.liosha2007.android.recipes.craft.controller;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
+import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.manager.FragmentManager;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
@@ -34,26 +35,58 @@ public class RecipeController extends BaseActivityController<RecipeView> {
         FragmentManager fragmentManager = FragmentManager.prepareViewPager(
                 viewPager,
                 this,
-                new com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.RecipeController().withArguments(bundle),
-                new com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.DescriptionController().withArguments(bundle),
-                new com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.MaterialsController().withArguments(bundle),
-                new com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.NotesController().withArguments(bundle)
+                new com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.RecipeController(){
+                    @Override
+                    public void onShow() {
+                        super.onShow();
+                        RecipeController.this.view.onRecipeShow(true);
+                    }
+
+                    @Override
+                    public void onHide() {
+                        super.onHide();
+                        RecipeController.this.view.onRecipeShow(false);
+                    }
+                }.withArguments(bundle),
+                new com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.DescriptionController(){
+                    @Override
+                    public void onShow() {
+                        super.onShow();
+                        RecipeController.this.view.onDescriptionShow(true);
+                    }
+
+                    @Override
+                    public void onHide() {
+                        super.onHide();
+                        RecipeController.this.view.onDescriptionShow(false);
+                    }
+                }.withArguments(bundle),
+                new com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.MaterialsController(){
+                    @Override
+                    public void onShow() {
+                        super.onShow();
+                        RecipeController.this.view.onMaterialsShow(true);
+                    }
+
+                    @Override
+                    public void onHide() {
+                        super.onHide();
+                        RecipeController.this.view.onMaterialsShow(false);
+                    }
+                }.withArguments(bundle),
+                new com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.NotesController(){
+                    @Override
+                    public void onShow() {
+                        super.onShow();
+                        RecipeController.this.view.onNotesShow(true);
+                    }
+
+                    @Override
+                    public void onHide() {
+                        super.onHide();
+                        RecipeController.this.view.onNotesShow(false);
+                    }
+                }.withArguments(bundle)
         );
-    }
-
-    public void onRecipeTabSelected() {
-
-    }
-
-    public void onDescriptionTabSelected() {
-
-    }
-
-    public void onMaterialsTabSelected() {
-
-    }
-
-    public void onNotesTabSelected() {
-
     }
 }

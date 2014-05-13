@@ -1,6 +1,8 @@
 package com.github.liosha2007.android.recipes.craft.view;
 
+import android.graphics.Color;
 import android.support.v4.view.ViewPager;
+import android.widget.TextView;
 
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.activity.view.BaseActivityView;
@@ -26,5 +28,21 @@ public class RecipeView extends BaseActivityView<RecipeController> {
         super.onCreate();
         // Tabs functional
         controller.onViewPagerCreated(this.<ViewPager>view(R.id.recipe_viewpager));
+    }
+
+    public void onRecipeShow(boolean showed) {
+        this.<TextView>view(R.id.recipe_tab_recipe).setTextColor(showed ? Color.RED : Color.BLACK);
+    }
+
+    public void onDescriptionShow(boolean showed) {
+        this.<TextView>view(R.id.recipe_tab_description).setTextColor(showed ? Color.RED : Color.BLACK);
+    }
+
+    public void onMaterialsShow(boolean showed) {
+        this.<TextView>view(R.id.recipe_tab_materials).setTextColor(showed ? Color.RED : Color.BLACK);
+    }
+
+    public void onNotesShow(boolean showed) {
+        this.<TextView>view(R.id.recipe_tab_notes).setTextColor(showed ? Color.RED : Color.BLACK);
     }
 }
