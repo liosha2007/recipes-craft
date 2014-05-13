@@ -16,6 +16,7 @@ import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.activity.view.BaseActivityView;
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.controller.ItemsController;
+import com.github.liosha2007.android.recipes.craft.database.domain.Favorite;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 
 import java.util.List;
@@ -42,10 +43,11 @@ public class ItemsView extends BaseActivityView<ItemsController> {
      * Show items on list view
      *
      * @param items
+     * @param favorites
      */
-    public void showItems(List<Item> items) {
+    public void showItems(List<Item> items, List<Favorite> favorites) {
         final ListView listview = view(R.id.items_list);
-        adapter = new ItemsArrayAdapter(controller, items);
+        adapter = new ItemsArrayAdapter(controller, items, favorites);
         listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -69,6 +71,11 @@ public class ItemsView extends BaseActivityView<ItemsController> {
         }
     }
 
+    public void updateItem(boolean isAdded, int position) {
+        ImageView favoritesImageView = Utils.view(this.<ListView>view(R.id.items_list).getChildAt(position), R.id.items_item_favorites);
+        favoritesImageView.setImageResource(isAdded ? R.drawable.favorites_active : R.drawable.favorites_passive);
+    }
+
     static class ViewHolder {
         public ImageView imageView;
         public TextView textView;
@@ -77,10 +84,12 @@ public class ItemsView extends BaseActivityView<ItemsController> {
 
     private class ItemsArrayAdapter extends ArrayAdapter<Item> {
         protected List<Item> items;
+        protected List<Favorite> favorites;
 
-        public ItemsArrayAdapter(Context context, List<Item> items) {
+        public ItemsArrayAdapter(Context context, List<Item> items, List<Favorite> favorites) {
             super(context, R.layout.layout_items_row, items);
             this.items = items;
+            this.favorites = favorites;
         }
 
         @Override
@@ -103,14 +112,18 @@ public class ItemsView extends BaseActivityView<ItemsController> {
             holder.textView.setTag(items.get(position).getId());
             holder.imageView.setImageDrawable(Utils.loadImageFromAssets(controller, items.get(position).getIcon()));
             holder.favoritesImageView.setTag(false);
+            for (Favorite favorite : favorites){
+                if (favorite.getItem().getId().equals(items.get(position).getId())){
+                    holder.favoritesImageView.setTag(true);
+                    holder.favoritesImageView.setImageResource(R.drawable.favorites_active);
+                    break;
+                }
+            }
+
             holder.favoritesImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    boolean added = controller.onFavoriteClicked(items.get(position).getId(), (Boolean) v.getTag());
-                    if (v instanceof ImageView){
-                        v.setTag(added);
-                        ((ImageView) v).setImageResource(added ? R.drawable.favorites_active : R.drawable.favorites_passive);
-                    }
+                    controller.onFavoriteClicked(items.get(position), (Boolean) v.getTag(), position);
                 }
             });
 

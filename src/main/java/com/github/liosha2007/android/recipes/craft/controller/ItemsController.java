@@ -1,7 +1,9 @@
 package com.github.liosha2007.android.recipes.craft.controller;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 
+import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
@@ -44,7 +46,7 @@ public class ItemsController extends BaseActivityController<ItemsView> {
         }
 
         view.clearItems();
-        view.showItems(items);
+        view.showItems(items, DBHelper.getFavoriteDAO().getAllFavorites());
         view.setTitle(modTitle);
     }
 
@@ -58,12 +60,10 @@ public class ItemsController extends BaseActivityController<ItemsView> {
         }
     }
 
-    public boolean onFavoriteClicked(Integer itemId, Boolean isAdded) {
+    public void onFavoriteClicked(Item item, Boolean isAdded, int position) {
         FavoriteDAO favoriteDAO = DBHelper.getFavoriteDAO();
-        List<Favorite> favorites = favoriteDAO.queryForEq(Favorite.FIELD_ITEM, itemId);
+        List<Favorite> favorites = favoriteDAO.queryForEq(Favorite.FIELD_ITEM, item.getId());
         if (favorites.size() == 0){
-            ItemDAO itemDAO = DBHelper.getItemDAO();
-            Item item = itemDAO.queryForId(itemId);
             Favorite favorite = new Favorite();
             favorite.setItem(item);
             favoriteDAO.create(favorite);
@@ -72,6 +72,6 @@ public class ItemsController extends BaseActivityController<ItemsView> {
                 favoriteDAO.delete(favorite);
             }
         }
-        return !isAdded;
+        view.updateItem(!isAdded, position);
     }
 }
