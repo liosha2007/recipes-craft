@@ -31,8 +31,9 @@ public class CategoriesController extends BaseActivityController<CategoriesView>
     public void onCategoryClicked(final Integer categoryId) {
         if (categoryId != null) {
             Bundle bundle = new Bundle();
-            bundle.putInt(CategoryController.CATEGORY_ID, categoryId);
-            run(CategoryController.class, bundle);
+            bundle.putInt(ItemsController.CATEGORY_ID, categoryId);
+            bundle.putString(ItemsController.CATEGORY_TITLE, DBHelper.getCategoryDAO().queryForId(categoryId).getName());
+            run(ItemsController.class, bundle);
         } else {
             Utils.deb("categoryId is null");
         }

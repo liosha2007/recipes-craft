@@ -21,8 +21,13 @@ import java.util.List;
 public class ItemsController extends BaseActivityController<ItemsView> {
     public static final String MOD_ID = "modId";
     public static final String MOD_TITLE = "modTitle";
+    public static final String CATEGORY_ID = "categoryId";
+    public static final String CATEGORY_TITLE = "categoryTitle";
     protected int modId = -1;
     protected String modTitle;
+
+    protected int categoryId = -1;
+    protected String categoryTitle;
 
     public ItemsController() {
         super(new ItemsView());
@@ -36,18 +41,24 @@ public class ItemsController extends BaseActivityController<ItemsView> {
         if (bundle != null) {
             this.modId = bundle.getInt(MOD_ID, -1);
             this.modTitle = bundle.getString(MOD_TITLE, "");
+
+            this.categoryId = bundle.getInt(CATEGORY_ID, -1);
+            this.categoryTitle = bundle.getString(CATEGORY_TITLE, "");
         }
         //
         List<Item> items = null;
-        if (modId == -1) {
-            items = DBHelper.getItemDAO().getAllItems();
-        } else {
+        if (modId != -1) {
             items = DBHelper.getItemDAO().queryForEq(Item.FIELD_MOD, modId);
+            view.setTitle(modTitle);
+        } else if (categoryId != -1) {
+            items = DBHelper.getItemDAO().queryForEq(Item.FIELD_CATEGORY, categoryId);
+            view.setTitle(categoryTitle);
+        } else {
+            items = DBHelper.getItemDAO().getAllItems();
         }
 
         view.clearItems();
         view.showItems(items, DBHelper.getFavoriteDAO().getAllFavorites());
-        view.setTitle(modTitle);
     }
 
     public void onItemClicked(Integer itemId) {
