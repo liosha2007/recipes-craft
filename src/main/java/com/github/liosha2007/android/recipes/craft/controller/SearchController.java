@@ -1,7 +1,7 @@
 package com.github.liosha2007.android.recipes.craft.controller;
 
 import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
-import com.github.liosha2007.android.recipes.craft.fragment.SearchView;
+import com.github.liosha2007.android.recipes.craft.view.SearchView;
 
 /**
  * Created by liosha on 22.04.2014.

@@ -7,7 +7,7 @@ import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.domain.Category;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
-import com.github.liosha2007.android.recipes.craft.fragment.CategoryView;
+import com.github.liosha2007.android.recipes.craft.view.CategoryView;
 
 import java.util.List;
 

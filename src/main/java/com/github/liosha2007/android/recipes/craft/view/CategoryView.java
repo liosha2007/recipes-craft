@@ -1,4 +1,4 @@
-package com.github.liosha2007.android.recipes.craft.fragment;
+package com.github.liosha2007.android.recipes.craft.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,44 +13,42 @@ import android.widget.TextView;
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.activity.view.BaseActivityView;
 import com.github.liosha2007.android.library.common.Utils;
-import com.github.liosha2007.android.recipes.craft.controller.ItemsController;
+import com.github.liosha2007.android.recipes.craft.controller.CategoryController;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 
 import java.util.List;
 
 /**
- * Created by liosha on 22.04.2014.
+ * Created by liosha on 21.04.2014.
  */
-public class ItemsView extends BaseActivityView<ItemsController> {
-    public ItemsView() {
-        super(R.layout.layout_items);
+public class CategoryView extends BaseActivityView<CategoryController> {
+    public CategoryView() {
+        super(R.layout.layout_category);
     }
-    private ItemsArrayAdapter adapter;
+    private CategoryArrayAdapter adapter;
 
     /**
-     * Remove all showed items
+     * Remove all showed category items
      */
-    public void clearItems() {
+    public void clearCategoryItems() {
         if (adapter != null) {
             adapter.clear();
         }
     }
 
     /**
-     * Show items on list view
+     * Show categories on list view
      *
      * @param items
      */
-    public void showItems(List<Item> items) {
-        final ListView listview = view(R.id.items_list);
-        adapter = new ItemsArrayAdapter(controller, items);
+    public void showCategoryItems(List<Item> items) {
+        final ListView listview = (ListView) view.findViewById(R.id.category_list);
+        adapter = new CategoryArrayAdapter(controller, items);
         listview.setAdapter(adapter);
-
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
-                Object o = Utils.view(view, R.id.items_item_title).getTag();
+                Object o = Utils.view(view, R.id.category_item_title).getTag();
                 if (o instanceof Integer) {
                     controller.onItemClicked((Integer) o);
                 } else {
@@ -61,10 +59,8 @@ public class ItemsView extends BaseActivityView<ItemsController> {
         });
     }
 
-    public void setTitle(String title) {
-        if (title != null){
-            this.<TextView>view(R.id.items_title).setText(title);
-        }
+    public void showCategoryTitle(String title) {
+        this.<TextView>view(R.id.category_title).setText(title);
     }
 
     static class ViewHolder {
@@ -72,11 +68,11 @@ public class ItemsView extends BaseActivityView<ItemsController> {
         public TextView textView;
     }
 
-    private class ItemsArrayAdapter extends ArrayAdapter<Item> {
+    private class CategoryArrayAdapter extends ArrayAdapter<Item> {
         protected List<Item> items;
 
-        public ItemsArrayAdapter(Context context, List<Item> items) {
-            super(context, R.layout.layout_items_row, items);
+        public CategoryArrayAdapter(Context context, List<Item> items) {
+            super(context, R.layout.layout_category_row, items);
             this.items = items;
         }
 
@@ -86,10 +82,10 @@ public class ItemsView extends BaseActivityView<ItemsController> {
             View rowView = convertView;
             if (rowView == null) {
                 LayoutInflater inflater = controller.getLayoutInflater();
-                rowView = inflater.inflate(R.layout.layout_items_row, null, true);
+                rowView = inflater.inflate(R.layout.layout_category_row, null, true);
                 holder = new ViewHolder();
-                holder.textView = Utils.view(rowView, R.id.items_item_title);
-                holder.imageView = Utils.view(rowView, R.id.items_item_icon);
+                holder.textView = Utils.view(rowView, R.id.category_item_title);
+                holder.imageView = Utils.view(rowView, R.id.category_item_icon);
                 rowView.setTag(holder);
             } else {
                 holder = (ViewHolder) rowView.getTag();
@@ -103,3 +99,4 @@ public class ItemsView extends BaseActivityView<ItemsController> {
         }
     }
 }
+

@@ -1,4 +1,4 @@
-package com.github.liosha2007.android.recipes.craft.fragment;
+package com.github.liosha2007.android.recipes.craft.view;
 
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.activity.view.BaseActivityView;

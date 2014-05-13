@@ -49,161 +49,46 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Рецепт"
+                android:layout_weight=".25"
+                android:gravity="center"
+                android:textColor="@android:color/holo_red_dark"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Описание"
+                android:layout_weight=".25"
+                android:gravity="center"  />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Материалы"
+                android:layout_weight=".25"
+                android:gravity="center"  />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Примечание"
+                android:layout_weight=".25"
+                android:gravity="center"  />
+        </LinearLayout>
+
         <android.support.v4.view.ViewPager
             android:id="@+id/recipe_viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center" />
 
-        <!--<TabHost-->
-            <!--android:id="@+id/recipe_tab_host"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center_horizontal">-->
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="fill_parent"-->
-                <!--android:layout_height="fill_parent"-->
-                <!--android:orientation="vertical">-->
-
-                <!--<TabWidget-->
-                    <!--android:id="@android:id/tabs"-->
-                    <!--android:layout_width="fill_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:tabStripEnabled="true" />-->
-
-                <!--<FrameLayout-->
-                    <!--android:id="@android:id/tabcontent"-->
-                    <!--android:layout_width="fill_parent"-->
-                    <!--android:layout_height="fill_parent">-->
-
-                    <!--<LinearLayout-->
-                        <!--android:id="@+id/recipe_tab_recipe"-->
-                        <!--android:layout_width="fill_parent"-->
-                        <!--android:layout_height="fill_parent"-->
-                        <!--android:orientation="vertical">-->
-
-                        <!--<TextView-->
-                            <!--android:layout_width="fill_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:gravity="center"-->
-                            <!--android:text=""-->
-                            <!--android:textSize="20sp"-->
-                            <!--android:id="@+id/result_item_name"/>-->
-                        <!--<ImageView-->
-                            <!--android:layout_width="75dp"-->
-                            <!--android:layout_height="75dp"-->
-                            <!--android:layout_gravity="center_horizontal"-->
-                            <!--android:id="@+id/result_item_icon" />-->
-
-                        <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-                            <!--android:layout_width="fill_parent"-->
-                            <!--android:layout_height="fill_parent"-->
-                            <!--android:orientation="vertical">-->
-
-                            <!--<LinearLayout-->
-                                <!--android:id="@+id/ll_country"-->
-                                <!--android:layout_width="fill_parent"-->
-                                <!--android:layout_height="fill_parent">-->
-
-                                <!--<ScrollView-->
-                                    <!--android:id="@+id/ScrollView11"-->
-                                    <!--android:layout_width="fill_parent"-->
-                                    <!--android:layout_height="fill_parent"-->
-                                    <!--android:fillViewport="true">-->
-
-                                    <!--<LinearLayout-->
-                                        <!--android:id="@+id/accordion_layout"-->
-                                        <!--android:layout_width="fill_parent"-->
-                                        <!--android:layout_height="fill_parent"-->
-                                        <!--android:background="#FFFFFF"-->
-                                        <!--android:orientation="vertical"-->
-                                        <!--android:stretchColumns="0,1" />-->
-                                <!--</ScrollView>-->
-                            <!--</LinearLayout>-->
-                        <!--</LinearLayout>-->
-                    <!--</LinearLayout>-->
-
-                    <!--<LinearLayout-->
-                        <!--android:id="@+id/recipe_tab_description"-->
-                        <!--android:layout_width="fill_parent"-->
-                        <!--android:layout_height="fill_parent"-->
-                        <!--android:orientation="vertical">-->
-
-                        <!--<TextView-->
-                            <!--android:layout_width="fill_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:gravity="center"-->
-                            <!--android:text="Описание"-->
-                            <!--android:textSize="20sp" />-->
-
-                        <!--<ScrollView-->
-                            <!--android:layout_width="fill_parent"-->
-                            <!--android:layout_height="fill_parent">-->
-
-                            <!--<TextView-->
-                                <!--android:layout_width="fill_parent"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:text="Примерный текст описания" />-->
-                        <!--</ScrollView>-->
-                    <!--</LinearLayout>-->
-
-                    <!--<LinearLayout-->
-                        <!--android:id="@+id/recipe_tab_materials"-->
-                        <!--android:layout_width="fill_parent"-->
-                        <!--android:layout_height="fill_parent"-->
-                        <!--android:orientation="vertical">-->
-
-                        <!--<TextView-->
-                            <!--android:layout_width="fill_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:gravity="center"-->
-                            <!--android:text="Материалы"-->
-                            <!--android:textSize="20sp" />-->
-
-                        <!--<ListView-->
-                            <!--android:id="@+id/items_list"-->
-                            <!--android:layout_width="fill_parent"-->
-                            <!--android:layout_height="fill_parent"-->
-                            <!--android:layout_weight=".9"-->
-                            <!--android:choiceMode="singleChoice"></ListView>-->
-
-                        <!--&lt;!&ndash;<ScrollView&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="fill_parent"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="fill_parent">&ndash;&gt;-->
-
-                        <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="fill_parent"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:text="Примерный текст примечания" />&ndash;&gt;-->
-                        <!--&lt;!&ndash;</ScrollView>&ndash;&gt;-->
-                    <!--</LinearLayout>-->
-
-                    <!--<LinearLayout-->
-                        <!--android:id="@+id/recipe_tab_notes"-->
-                        <!--android:layout_width="fill_parent"-->
-                        <!--android:layout_height="fill_parent"-->
-                        <!--android:orientation="vertical">-->
-
-                        <!--<TextView-->
-                            <!--android:layout_width="fill_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:gravity="center"-->
-                            <!--android:text="Примечание"-->
-                            <!--android:textSize="20sp" />-->
-
-                        <!--<ScrollView-->
-                            <!--android:layout_width="fill_parent"-->
-                            <!--android:layout_height="fill_parent">-->
-
-                            <!--<TextView-->
-                                <!--android:layout_width="fill_parent"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:text="Примерный текст примечания" />-->
-                        <!--</ScrollView>-->
-                    <!--</LinearLayout>-->
-                <!--</FrameLayout>-->
-            <!--</LinearLayout>-->
-        <!--</TabHost>-->
     </LinearLayout>
 </LinearLayout>

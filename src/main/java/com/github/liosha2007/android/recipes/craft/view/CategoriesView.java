@@ -1,4 +1,4 @@
-package com.github.liosha2007.android.recipes.craft.fragment;
+package com.github.liosha2007.android.recipes.craft.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
