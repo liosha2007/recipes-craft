@@ -1,6 +1,8 @@
 package com.github.liosha2007.android.recipes.craft.view;
 
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +72,7 @@ public class ItemsView extends BaseActivityView<ItemsController> {
     static class ViewHolder {
         public ImageView imageView;
         public TextView textView;
+        public ImageView favoritesImageView;
     }
 
     private class ItemsArrayAdapter extends ArrayAdapter<Item> {
@@ -81,7 +84,7 @@ public class ItemsView extends BaseActivityView<ItemsController> {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder holder;
             View rowView = convertView;
             if (rowView == null) {
@@ -90,6 +93,7 @@ public class ItemsView extends BaseActivityView<ItemsController> {
                 holder = new ViewHolder();
                 holder.textView = Utils.view(rowView, R.id.items_item_title);
                 holder.imageView = Utils.view(rowView, R.id.items_item_icon);
+                holder.favoritesImageView = Utils.view(rowView, R.id.items_item_favorites);
                 rowView.setTag(holder);
             } else {
                 holder = (ViewHolder) rowView.getTag();
@@ -98,6 +102,17 @@ public class ItemsView extends BaseActivityView<ItemsController> {
             holder.textView.setText(items.get(position).getName());
             holder.textView.setTag(items.get(position).getId());
             holder.imageView.setImageDrawable(Utils.loadImageFromAssets(controller, items.get(position).getIcon()));
+            holder.favoritesImageView.setTag(false);
+            holder.favoritesImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    boolean added = controller.onFavoriteClicked(items.get(position).getId(), (Boolean) v.getTag());
+                    if (v instanceof ImageView){
+                        v.setTag(added);
+                        ((ImageView) v).setImageResource(added ? R.drawable.favorites_active : R.drawable.favorites_passive);
+                    }
+                }
+            });
 
             return rowView;
         }

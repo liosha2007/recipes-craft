@@ -2,6 +2,7 @@ package com.github.liosha2007.android.recipes.craft.database.dao;
 
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.database.domain.Favorite;
+import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.support.ConnectionSource;
 
@@ -23,5 +24,45 @@ public class FavoriteDAO extends BaseDaoImpl<Favorite, Integer> {
             Utils.err("error getting all favorites: " + e.getMessage());
         }
         return null;
+    }
+
+
+    public Favorite queryForId(Integer id) {
+        try {
+            return super.queryForId(id);
+        } catch (Exception e) {
+            Utils.err("can't load favorite by id " + id + ": " + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public List<Favorite> queryForEq(String fieldName, Object value) {
+        try {
+            return super.queryForEq(fieldName, value);
+        } catch (Exception e) {
+            Utils.err("can't load favorites by statement " + fieldName + "=" + value + ": " + e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public int delete(Favorite data) {
+        try {
+            return super.delete(data);
+        } catch (Exception e) {
+            Utils.err("can't delete favorite by data " + data + ", error: " + e.getMessage());
+        }
+        return -1;
+    }
+
+    @Override
+    public int create(Favorite data) {
+        try {
+            return super.create(data);
+        } catch (Exception e) {
+            Utils.err("can't insert favorite " + data + ", error: " + e.getMessage());
+        }
+        return -1;
     }
 }

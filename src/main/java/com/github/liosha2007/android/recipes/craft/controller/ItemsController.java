@@ -5,6 +5,9 @@ import android.os.Bundle;
 import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
+import com.github.liosha2007.android.recipes.craft.database.dao.FavoriteDAO;
+import com.github.liosha2007.android.recipes.craft.database.dao.ItemDAO;
+import com.github.liosha2007.android.recipes.craft.database.domain.Favorite;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.view.ItemsView;
 
@@ -53,5 +56,22 @@ public class ItemsController extends BaseActivityController<ItemsView> {
         } else {
             Utils.deb("itemId is null when try to load and show it");
         }
+    }
+
+    public boolean onFavoriteClicked(Integer itemId, Boolean isAdded) {
+        FavoriteDAO favoriteDAO = DBHelper.getFavoriteDAO();
+        List<Favorite> favorites = favoriteDAO.queryForEq(Favorite.FIELD_ITEM, itemId);
+        if (favorites.size() == 0){
+            ItemDAO itemDAO = DBHelper.getItemDAO();
+            Item item = itemDAO.queryForId(itemId);
+            Favorite favorite = new Favorite();
+            favorite.setItem(item);
+            favoriteDAO.create(favorite);
+        } else {
+            for (Favorite favorite : favorites) {
+                favoriteDAO.delete(favorite);
+            }
+        }
+        return !isAdded;
     }
 }

@@ -18,8 +18,6 @@ import java.util.List;
  * Created by liosha on 22.04.2014.
  */
 public class RecipeView extends BaseActivityView<RecipeController> {
-//    private static final Integer ACCORDION_OPENED = Utils.makeID();
-//    private static final Integer ACCORDION_CLOSED = Utils.makeID();
 
     public RecipeView() {
         super(R.layout.layout_recipe);
