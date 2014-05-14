@@ -56,7 +56,7 @@ public class ItemsController extends BaseActivityController<ItemsView> {
             this.searchTitle = bundle.getString(SEARCH_TITLE, "");
         }
         //
-        List<Item> items = null;
+        List<Item> items = new ArrayList<Item>();
         if (modId != -1) {
             items = DBHelper.getItemDAO().queryForEq(Item.FIELD_MOD, modId);
             view.setTitle(modTitle);
@@ -64,24 +64,13 @@ public class ItemsController extends BaseActivityController<ItemsView> {
             items = DBHelper.getItemDAO().queryForEq(Item.FIELD_CATEGORY, categoryId);
             view.setTitle(categoryTitle);
         } else if (searchText != null) {
-            //
-            items = new ArrayList<Item>();
-            List<Item> likeItems = null;
             // Search in title
-            likeItems = DBHelper.getItemDAO().queryForLike(Item.FIELD_NAME, searchText);
-            if (likeItems != null){
-                items.addAll(likeItems);
-            }
+            searchAndAddUnique(Item.FIELD_NAME, searchText, items);
             // Search in description
-            likeItems = DBHelper.getItemDAO().queryForLike(Item.FIELD_DESCRIPTION, searchText);
-            if (likeItems != null){
-                items.addAll(likeItems);
-            }
+            searchAndAddUnique(Item.FIELD_DESCRIPTION, searchText, items);
             // Search in note
-            likeItems = DBHelper.getItemDAO().queryForLike(Item.FIELD_NOTE, searchText);
-            if (likeItems != null){
-                items.addAll(likeItems);
-            }
+            searchAndAddUnique(Item.FIELD_NOTE, searchText, items);
+
             view.setTitle(searchTitle);
         } else {
             items = DBHelper.getItemDAO().getAllItems();
@@ -89,6 +78,21 @@ public class ItemsController extends BaseActivityController<ItemsView> {
 
         view.clearItems();
         view.showItems(items, DBHelper.getFavoriteDAO().getAllFavorites());
+    }
+
+    private void searchAndAddUnique(String fieldName, String searchText, List<Item> items) {
+        for (Item foundItem : DBHelper.getItemDAO().queryForLike(fieldName, searchText)) {
+            boolean added = false;
+            for (Item item : items) {
+                if (foundItem.getId().equals(item.getId())){
+                    added = true;
+                    break;
+                }
+            }
+            if (!added) {
+                items.add(foundItem);
+            }
+        }
     }
 
     public void onItemClicked(Integer itemId) {
@@ -104,7 +108,7 @@ public class ItemsController extends BaseActivityController<ItemsView> {
     public void onFavoriteClicked(Item item, Boolean isAdded, int position) {
         FavoriteDAO favoriteDAO = DBHelper.getFavoriteDAO();
         List<Favorite> favorites = favoriteDAO.queryForEq(Favorite.FIELD_ITEM, item.getId());
-        if (favorites.size() == 0){
+        if (favorites.size() == 0) {
             Favorite favorite = new Favorite();
             favorite.setItem(item);
             favoriteDAO.create(favorite);
