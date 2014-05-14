@@ -6,17 +6,9 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/recipe_tab_description"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Описание"
-            android:textSize="20sp" />
 
         <ScrollView
             android:layout_width="fill_parent"
@@ -25,7 +17,8 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Примерный текст описания" />
+                android:text="Примерный текст описания"
+                android:id="@+id/recipe_tab_description"/>
         </ScrollView>
     </LinearLayout>
 </LinearLayout>

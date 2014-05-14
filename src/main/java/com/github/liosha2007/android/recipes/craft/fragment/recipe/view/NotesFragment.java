@@ -1,5 +1,7 @@
 package com.github.liosha2007.android.recipes.craft.fragment.recipe.view;
 
+import android.widget.TextView;
+
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.fragment.view.BaseFragmentView;
 import com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.NotesController;
@@ -15,5 +17,9 @@ public class NotesFragment extends BaseFragmentView<NotesController> {
     @Override
     public void onCreate() {
         super.onCreate();
+    }
+
+    public void showNote(String note) {
+        this.<TextView>view(R.id.recipe_tab_note).setText(note);
     }
 }

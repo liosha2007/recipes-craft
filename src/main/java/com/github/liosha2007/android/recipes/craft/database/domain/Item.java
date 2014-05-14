@@ -15,6 +15,8 @@ public class Item {
     public static final String FIELD_ICON = "Icon";
     public static final String FIELD_CATEGORY = "Category";
     public static final String FIELD_MOD = "Mod";
+    public static final String FIELD_DESCRIPTION = "Description";
+    public static final String FIELD_NOTE = "Note";
 
     @DatabaseField(generatedId = true, columnName = FIELD_ID, unique = true, canBeNull = false)
     private Integer id;
@@ -26,6 +28,10 @@ public class Item {
     private Category category;
     @DatabaseField(foreign = true, columnName = FIELD_MOD)
     private Mod mod;
+    @DatabaseField(dataType = DataType.STRING, columnName = FIELD_DESCRIPTION)
+    private String description;
+    @DatabaseField(dataType = DataType.STRING, columnName = FIELD_NOTE)
+    private String note;
 
     public Item() {
     }
@@ -68,5 +74,21 @@ public class Item {
 
     public void setMod(Mod mod) {
         this.mod = mod;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }
