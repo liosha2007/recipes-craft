@@ -53,9 +53,9 @@
         <ListView
             android:id="@+id/items_list"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_weight=".9"
-            android:choiceMode="singleChoice"></ListView>
+            android:choiceMode="singleChoice" />
 
         <EditText
             android:id="@+id/items_quick_search"

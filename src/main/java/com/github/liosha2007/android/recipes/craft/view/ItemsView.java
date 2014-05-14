@@ -3,11 +3,15 @@ package com.github.liosha2007.android.recipes.craft.view;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,6 +33,39 @@ public class ItemsView extends BaseActivityView<ItemsController> {
         super(R.layout.layout_items);
     }
     private ItemsArrayAdapter adapter;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        this.<EditText>view(R.id.items_quick_search).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                final ListView listView = view(R.id.items_list);
+                for (int n = 0; n < listView.getChildCount(); n++){
+                    View child = listView.getChildAt(n);
+                    TextView textView = Utils.view(child, R.id.items_item_title);
+                    if (textView.getText().toString().toLowerCase().contains(s.toString().toLowerCase())){
+                        child.setVisibility(View.VISIBLE);
+//                        ((ArrayAdapter)listView.getAdapter()).notifyDataSetChanged();
+                    } else {
+                        child.setVisibility(View.GONE);
+//                        ((ArrayAdapter)listView.getAdapter()).notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
 
     /**
      * Remove all showed items
