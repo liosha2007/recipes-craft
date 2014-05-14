@@ -1,6 +1,7 @@
 package com.github.liosha2007.android.recipes.craft.view;
 
 import android.view.View;
+import android.widget.EditText;
 
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.activity.view.BaseActivityView;
@@ -45,7 +46,7 @@ public class DashboardView extends BaseActivityView<DashboardController> {
         view(R.id.search).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                controller.onSearchClick();
+                controller.onSearchClick(DashboardView.this.<EditText>view(R.id.search_text).getText().toString());
             }
         });
     }

@@ -13,6 +13,7 @@ import com.github.liosha2007.android.recipes.craft.database.domain.Favorite;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.view.ItemsView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,11 +24,17 @@ public class ItemsController extends BaseActivityController<ItemsView> {
     public static final String MOD_TITLE = "modTitle";
     public static final String CATEGORY_ID = "categoryId";
     public static final String CATEGORY_TITLE = "categoryTitle";
+    public static final String SEARCH_TEXT = "searchText";
+    public static final String SEARCH_TITLE = "searchTitle";
+
     protected int modId = -1;
     protected String modTitle;
 
     protected int categoryId = -1;
     protected String categoryTitle;
+
+    private String searchText;
+    private String searchTitle;
 
     public ItemsController() {
         super(new ItemsView());
@@ -44,6 +51,9 @@ public class ItemsController extends BaseActivityController<ItemsView> {
 
             this.categoryId = bundle.getInt(CATEGORY_ID, -1);
             this.categoryTitle = bundle.getString(CATEGORY_TITLE, "");
+
+            this.searchText = bundle.getString(SEARCH_TEXT, null);
+            this.searchTitle = bundle.getString(SEARCH_TITLE, "");
         }
         //
         List<Item> items = null;
@@ -53,6 +63,26 @@ public class ItemsController extends BaseActivityController<ItemsView> {
         } else if (categoryId != -1) {
             items = DBHelper.getItemDAO().queryForEq(Item.FIELD_CATEGORY, categoryId);
             view.setTitle(categoryTitle);
+        } else if (searchText != null) {
+            //
+            items = new ArrayList<Item>();
+            List<Item> likeItems = null;
+            // Search in title
+            likeItems = DBHelper.getItemDAO().queryForLike(Item.FIELD_NAME, searchText);
+            if (likeItems != null){
+                items.addAll(likeItems);
+            }
+            // Search in description
+            likeItems = DBHelper.getItemDAO().queryForLike(Item.FIELD_DESCRIPTION, searchText);
+            if (likeItems != null){
+                items.addAll(likeItems);
+            }
+            // Search in note
+            likeItems = DBHelper.getItemDAO().queryForLike(Item.FIELD_NOTE, searchText);
+            if (likeItems != null){
+                items.addAll(likeItems);
+            }
+            view.setTitle(searchTitle);
         } else {
             items = DBHelper.getItemDAO().getAllItems();
         }
