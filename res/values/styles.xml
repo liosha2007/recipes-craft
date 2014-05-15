@@ -2,7 +2,7 @@
 
     <style name="RecipesCraftTheme" parent="@android:style/Theme.Light.NoTitleBar.Fullscreen">
         <item name="android:orientation">vertical</item>
-        <item name="android:windowSoftInputMode">stateHidden</item>
+        <item name="android:windowSoftInputMode">adjustResize|stateHidden</item>
     </style>
 
 </resources>

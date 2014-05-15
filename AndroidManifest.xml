@@ -12,12 +12,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".recipes.craft.controller.CategoriesController" />
-        <activity android:name=".recipes.craft.controller.CategoryController" />
         <activity android:name=".recipes.craft.controller.FavoritesController" />
         <activity android:name=".recipes.craft.controller.ItemsController" />
         <activity android:name=".recipes.craft.controller.ModsController" />
         <activity android:name=".recipes.craft.controller.RecipeController" />
-        <activity android:name=".recipes.craft.controller.SearchController" />
         <activity android:name=".recipes.craft.controller.SettingsController" />
     </application>
     </manifest>

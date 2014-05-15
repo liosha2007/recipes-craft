@@ -46,18 +46,7 @@ public class ItemsView extends BaseActivityView<ItemsController> {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                final ListView listView = view(R.id.items_list);
-                for (int n = 0; n < listView.getChildCount(); n++){
-                    View child = listView.getChildAt(n);
-                    TextView textView = Utils.view(child, R.id.items_item_title);
-                    if (textView.getText().toString().toLowerCase().contains(s.toString().toLowerCase())){
-                        child.setVisibility(View.VISIBLE);
-//                        ((ArrayAdapter)listView.getAdapter()).notifyDataSetChanged();
-                    } else {
-                        child.setVisibility(View.GONE);
-//                        ((ArrayAdapter)listView.getAdapter()).notifyDataSetChanged();
-                    }
-                }
+                controller.onSearchTextChanged(s.toString());
             }
 
             @Override
@@ -112,6 +101,10 @@ public class ItemsView extends BaseActivityView<ItemsController> {
         ImageView favoritesImageView = Utils.view(this.<ListView>view(R.id.items_list).getChildAt(position), R.id.items_item_favorites);
         favoritesImageView.setImageResource(isAdded ? R.drawable.favorites_active : R.drawable.favorites_passive);
         favoritesImageView.setTag(isAdded);
+    }
+
+    public void updateListViewStack(boolean showed) {
+        this.<ListView>view(R.id.items_list).setStackFromBottom(showed);
     }
 
     static class ViewHolder {

@@ -1,14 +1,16 @@
 package com.github.liosha2007.android.recipes.craft.controller;
 
+import android.content.res.Configuration;
+import android.graphics.Rect;
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.view.View;
+import android.view.ViewTreeObserver;
 
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.dao.FavoriteDAO;
-import com.github.liosha2007.android.recipes.craft.database.dao.ItemDAO;
 import com.github.liosha2007.android.recipes.craft.database.domain.Favorite;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.view.ItemsView;
@@ -56,6 +58,30 @@ public class ItemsController extends BaseActivityController<ItemsView> {
             this.searchTitle = bundle.getString(SEARCH_TITLE, "");
         }
         //
+        view.clearItems();
+        view.showItems(loadItems(), DBHelper.getFavoriteDAO().getAllFavorites());
+
+        // Keyboard hidden/showed event
+        final View activityRootView = this.view.view(R.id.items_root);
+        activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            private boolean isSoftKeyboardOpened = false;
+            @Override
+            public void onGlobalLayout() {
+                final Rect r = new Rect();
+                //r will be populated with the coordinates of your view that area still visible.
+                activityRootView.getWindowVisibleDisplayFrame(r);
+
+                final int heightDiff = activityRootView.getRootView().getHeight() - (r.bottom - r.top);
+                if (!isSoftKeyboardOpened && heightDiff > 100) { // if more than 100 pixels, its probably a keyboard...
+                    view.updateListViewStack(isSoftKeyboardOpened = true);
+                } else if (isSoftKeyboardOpened && heightDiff < 100) {
+                    view.updateListViewStack(isSoftKeyboardOpened = false);
+                }
+            }
+        });
+    }
+
+    protected List<Item> loadItems() {
         List<Item> items = new ArrayList<Item>();
         if (modId != -1) {
             items = DBHelper.getItemDAO().queryForEq(Item.FIELD_MOD, modId);
@@ -75,9 +101,7 @@ public class ItemsController extends BaseActivityController<ItemsView> {
         } else {
             items = DBHelper.getItemDAO().getAllItems();
         }
-
-        view.clearItems();
-        view.showItems(items, DBHelper.getFavoriteDAO().getAllFavorites());
+        return  items;
     }
 
     private void searchAndAddUnique(String fieldName, String searchText, List<Item> items) {
@@ -118,5 +142,17 @@ public class ItemsController extends BaseActivityController<ItemsView> {
             }
         }
         view.updateItem(!isAdded, position);
+    }
+
+    public void onSearchTextChanged(String searchText) {
+        List<Item> items = loadItems();
+        List<Item> filteredItems = new ArrayList<Item>(items.size());
+        for (Item item : items){
+            if (item.getName().toLowerCase().contains(searchText.toLowerCase())){
+                filteredItems.add(item);
+            }
+        }
+        view.clearItems();
+        view.showItems(filteredItems, DBHelper.getFavoriteDAO().getAllFavorites());
     }
 }
