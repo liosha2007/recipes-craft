@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.library.fragment.view.BaseFragmentView;
+import com.github.liosha2007.android.recipes.craft.common.RecipeType;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.database.domain.Recipe;
 import com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.RecipeController;
@@ -46,6 +47,8 @@ public class RecipeFragment extends BaseFragmentView<RecipeController> {
     public void createAccordion(Item result, List<Recipe> recipes) {
         LinearLayout accordionLayout = view(R.id.accordion_layout);
         for (Recipe recipe : recipes) {
+            RecipeType recipeType = RecipeType.fromValue(recipe.getType());
+
             Button accordionButton = new Button(controller.getActivity());
             accordionButton.setId(recipe.getId());
             accordionButton.setText("Рецепт " + (recipes.indexOf(recipe) + 1));

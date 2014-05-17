@@ -59,4 +59,12 @@ Hide Keyboard (change flag InputMethodManager.HIDE_IMPLICIT_ONLY to 0)
         imm.hideSoftInputFromWindow(view(R.id.searchString).getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
 ```
 
+### Types of recipes
+
+*    `CRAFTING_TABLE(1)` // Craft in crafting table // Крафт в верстаке или кармане
+
+*    `DROP(2)` // Drops out at murder mobs // Выпадает при убийстве мобов
+
+*    `CULTIVATION(3)` // It is necessary to grow up // Нужно выращивать
+
 

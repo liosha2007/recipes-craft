@@ -3,6 +3,7 @@ package com.github.liosha2007.android.recipes.craft.fragment.recipe.controller;
 import android.os.Bundle;
 
 import com.github.liosha2007.android.library.fragment.controller.BaseFragmentController;
+import com.github.liosha2007.android.recipes.craft.common.RecipeType;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.database.domain.Recipe;

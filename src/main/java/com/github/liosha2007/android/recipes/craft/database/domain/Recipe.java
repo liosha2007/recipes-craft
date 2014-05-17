@@ -1,5 +1,6 @@
 package com.github.liosha2007.android.recipes.craft.database.domain;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -20,6 +21,7 @@ public class Recipe {
     public static final String FIELD_P3X2 = "P3x2";
     public static final String FIELD_P3X3 = "P3x3";
     public static final String FIELD_RESULT = "Result";
+    public static final String FIELD_TYPE = "Type";
 
     @DatabaseField(generatedId = true, columnName = FIELD_ID, unique = true, canBeNull = false)
     private Integer id;
@@ -43,6 +45,8 @@ public class Recipe {
     private Item p3x3;
     @DatabaseField(foreign = true, columnName = FIELD_RESULT, canBeNull = false)
     private Item result;
+    @DatabaseField(dataType = DataType.INTEGER, columnName = FIELD_TYPE)
+    private int type;
 
     public Recipe() {
     }
@@ -133,5 +137,13 @@ public class Recipe {
 
     public void setResult(Item result) {
         this.result = result;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }
