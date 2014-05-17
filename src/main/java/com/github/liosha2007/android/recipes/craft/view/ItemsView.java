@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.liosha2007.android.R;
@@ -97,14 +98,6 @@ public class ItemsView extends BaseActivityView<ItemsController> {
         }
     }
 
-    public void updateItem(boolean isAdded, int position) {
-        ImageView favoritesImageView = Utils.view(this.<ListView>view(R.id.items_list).getChildAt(position), R.id.items_item_favorites);
-        if (favoritesImageView != null) {
-            favoritesImageView.setImageResource(isAdded ? R.drawable.favorites_active : R.drawable.favorites_passive);
-            favoritesImageView.setTag(isAdded);
-        }
-    }
-
     public void updateListViewStack(boolean showed) {
         this.<ListView>view(R.id.items_list).setStackFromBottom(showed);
     }
@@ -113,6 +106,8 @@ public class ItemsView extends BaseActivityView<ItemsController> {
         public ImageView imageView;
         public TextView textView;
         public ImageView favoritesImageView;
+        public boolean isFavorite;
+        public int position;
     }
 
     private class ItemsArrayAdapter extends ArrayAdapter<Item> {
@@ -126,7 +121,7 @@ public class ItemsView extends BaseActivityView<ItemsController> {
         }
 
         @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder;
             View rowView = convertView;
             if (rowView == null) {
@@ -141,26 +136,54 @@ public class ItemsView extends BaseActivityView<ItemsController> {
                 holder = (ViewHolder) rowView.getTag();
             }
 
+            holder.isFavorite = isFavorite(items.get(position).getId());
+            holder.position = position;
+
             holder.textView.setText(items.get(position).getName());
             holder.textView.setTag(items.get(position).getId());
             holder.imageView.setImageDrawable(Utils.loadImageFromAssets(controller, items.get(position).getIcon()));
-            holder.favoritesImageView.setTag(false);
-            for (Favorite favorite : favorites){
-                if (favorite.getItem().getId().equals(items.get(position).getId())){
-                    holder.favoritesImageView.setTag(true);
-                    holder.favoritesImageView.setImageResource(R.drawable.favorites_active);
-                    break;
-                }
-            }
+            holder.favoritesImageView.setImageResource(holder.isFavorite ? R.drawable.favorites_active : R.drawable.favorites_passive);
+
 
             holder.favoritesImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    controller.onFavoriteClicked(items.get(position), (Boolean) v.getTag(), position);
+                    // !!! Change this code in move ImageView !!!
+                    if (v.getParent() instanceof RelativeLayout && ((RelativeLayout) v.getParent()).getTag() instanceof ViewHolder) {
+                        RelativeLayout relativeLayout = (RelativeLayout) v.getParent();
+                        ViewHolder viewHolder = (ViewHolder) relativeLayout.getTag();
+                        controller.onFavoriteClicked(items.get(viewHolder.position), viewHolder.isFavorite, viewHolder.position);
+                    }
                 }
             });
 
             return rowView;
         }
+
+        public void updateFavorites(List<Favorite> favorites) {
+            this.favorites = favorites;
+        }
+
+        protected boolean isFavorite(int itemId){
+            for (Favorite favorite : favorites){
+                int favoriteItemId = favorite.getItem().getId();
+                if (favoriteItemId == itemId){
+                    return true;
+                }
+            }
+            return false;
+        }
     }
+
+    public void updateFavorites(List<Favorite> favorites) {
+//        ImageView favoritesImageView = Utils.view(this.<ListView>view(R.id.items_list).getChildAt(position), R.id.items_item_favorites);
+//        if (favoritesImageView != null) {
+//            favoritesImageView.setImageDrawable(controller.getResources().getDrawable(isAdded ? R.drawable.favorites_active : R.drawable.favorites_passive));
+//            favoritesImageView.setTag(isAdded);
+//        }
+        ItemsArrayAdapter itemsArrayAdapter = (ItemsArrayAdapter) this.<ListView>view(R.id.items_list).getAdapter();
+        itemsArrayAdapter.updateFavorites(favorites);
+        itemsArrayAdapter.notifyDataSetChanged();
+    }
+
 }

@@ -1,6 +1,5 @@
 package com.github.liosha2007.android.recipes.craft.controller;
 
-import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
@@ -155,7 +154,7 @@ public class ItemsController extends BaseActivityController<ItemsView> {
                 favoriteDAO.delete(favorite);
             }
         }
-        view.updateItem(!isAdded, position);
+        view.updateFavorites(favoriteDAO.getAllFavorites());
     }
 
     public void onSearchTextChanged(String searchText) {
