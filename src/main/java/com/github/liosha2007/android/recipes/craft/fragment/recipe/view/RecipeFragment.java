@@ -97,7 +97,7 @@ public class RecipeFragment extends BaseFragmentView<RecipeController> {
                     }
                 }
             });
-            if (recipes.size() == 1) {
+            if (recipes.indexOf(recipe) == 0) {
                 accordionButton.callOnClick();
             }
         }

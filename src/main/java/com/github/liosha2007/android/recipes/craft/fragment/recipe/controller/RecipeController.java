@@ -39,8 +39,8 @@ public class RecipeController extends BaseFragmentController<RecipeFragment> {
             DBHelper.getItemDAO().refresh(recipe.getP3x2());
             DBHelper.getItemDAO().refresh(recipe.getP3x3());
             DBHelper.getItemDAO().refresh(recipe.getResult());
-            view.createAccordion(recipe.getResult(), recipes);
         }
+        view.createAccordion(item, recipes);
         if (recipes.size() == 0) {
             view.showRecipeNotFound();
         }
