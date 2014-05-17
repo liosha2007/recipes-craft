@@ -28,6 +28,7 @@ public class ItemsController extends BaseActivityController<ItemsView> {
     public static final String CATEGORY_TITLE = "categoryTitle";
     public static final String SEARCH_TEXT = "searchText";
     public static final String SEARCH_TITLE = "searchTitle";
+    public static final String FAVORITES_TITLE = "favoritesTitle";
 
     protected int modId = -1;
     protected String modTitle;
@@ -37,6 +38,7 @@ public class ItemsController extends BaseActivityController<ItemsView> {
 
     private String searchText;
     private String searchTitle;
+    private String favoritesTitle;
 
     public ItemsController() {
         super(new ItemsView());
@@ -56,6 +58,8 @@ public class ItemsController extends BaseActivityController<ItemsView> {
 
             this.searchText = bundle.getString(SEARCH_TEXT, null);
             this.searchTitle = bundle.getString(SEARCH_TITLE, "");
+
+            this.favoritesTitle = bundle.getString(FAVORITES_TITLE, null);
         }
         //
         view.clearItems();
@@ -98,6 +102,16 @@ public class ItemsController extends BaseActivityController<ItemsView> {
             searchAndAddUnique(Item.FIELD_NOTE, searchText, items);
 
             view.setTitle(searchTitle);
+        } else if (favoritesTitle != null){
+            List<Favorite> favorites = DBHelper.getFavoriteDAO().getAllFavorites();
+            if (favorites != null) {
+                for (Favorite favorite : favorites) {
+                    Item item = favorite.getItem();
+                    DBHelper.getItemDAO().refresh(item);
+                    items.add(item);
+                }
+                view.setTitle(favoritesTitle);
+            }
         } else {
             items = DBHelper.getItemDAO().getAllItems();
         }

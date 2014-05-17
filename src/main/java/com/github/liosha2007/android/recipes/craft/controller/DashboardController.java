@@ -41,7 +41,9 @@ public class DashboardController extends BaseActivityController<DashboardView> {
     }
 
     public void onFavoritesClicked() {
-        run(FavoritesController.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(ItemsController.FAVORITES_TITLE, "Избранное");
+        run(ItemsController.class, bundle);
     }
 
     public void onSearchClick(String searchText) {
