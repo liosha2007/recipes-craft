@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:drawableRight="@drawable/ic_launcher"
+        android:gravity="left"
+        android:text="Рецепт №1"
+        android:id="@+id/recipe_craft_recipe_button"
+        android:textSize="15sp"
+        android:typeface="monospace" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/recipe_craft_recipe_layout"
+        android:visibility="gone">
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:stretchColumns="true"
+            android:background="@drawable/crafting_table"
+            android:padding="3sp">
+            <TableRow android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:src="@drawable/ic_launcher"
+                    android:padding="3sp"
+                    android:id="@+id/p_1_x_1"/>
+                <ImageView
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:src="@drawable/ic_launcher"
+                    android:padding="3sp"
+                    android:id="@+id/p_1_x_2"/>
+                <ImageView
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:src="@drawable/ic_launcher"
+                    android:padding="3sp"
+                    android:id="@+id/p_1_x_3"/>
+            </TableRow>
+            <TableRow>
+                <ImageView
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:src="@drawable/ic_launcher"
+                    android:padding="3sp"
+                    android:id="@+id/p_2_x_1"/>
+                <ImageView
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:src="@drawable/ic_launcher"
+                    android:padding="3sp"
+                    android:id="@+id/p_2_x_2"/>
+                <ImageView
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:src="@drawable/ic_launcher"
+                    android:padding="3sp"
+                    android:id="@+id/p_2_x_3"/>
+            </TableRow>
+            <TableRow>
+                <ImageView
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:src="@drawable/ic_launcher"
+                    android:padding="3sp"
+                    android:id="@+id/p_3_x_1"/>
+                <ImageView
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:src="@drawable/ic_launcher"
+                    android:padding="3sp"
+                    android:id="@+id/p_3_x_2"/>
+                <ImageView
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:src="@drawable/ic_launcher"
+                    android:padding="3sp"
+                    android:id="@+id/p_3_x_3"/>
+            </TableRow>
+            </TableLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,6 +1,8 @@
 package com.github.liosha2007.android.recipes.craft.fragment.recipe.controller;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.github.liosha2007.android.library.fragment.controller.BaseFragmentController;
 import com.github.liosha2007.android.recipes.craft.common.RecipeType;
@@ -45,5 +47,9 @@ public class RecipeController extends BaseFragmentController<RecipeFragment> {
         if (recipes.size() == 0) {
             view.showRecipeNotFound();
         }
+    }
+
+    public void onAccordionClicked(Button button) {
+        view.switchAccordion(button);
     }
 }

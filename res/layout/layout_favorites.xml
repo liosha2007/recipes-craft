@@ -21,7 +21,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:id="@+id/imageView"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/application_icon" />
 
             <LinearLayout
                 android:orientation="vertical"

@@ -176,11 +176,6 @@ public class ItemsView extends BaseActivityView<ItemsController> {
     }
 
     public void updateFavorites(List<Favorite> favorites) {
-//        ImageView favoritesImageView = Utils.view(this.<ListView>view(R.id.items_list).getChildAt(position), R.id.items_item_favorites);
-//        if (favoritesImageView != null) {
-//            favoritesImageView.setImageDrawable(controller.getResources().getDrawable(isAdded ? R.drawable.favorites_active : R.drawable.favorites_passive));
-//            favoritesImageView.setTag(isAdded);
-//        }
         ItemsArrayAdapter itemsArrayAdapter = (ItemsArrayAdapter) this.<ListView>view(R.id.items_list).getAdapter();
         itemsArrayAdapter.updateFavorites(favorites);
         itemsArrayAdapter.notifyDataSetChanged();
