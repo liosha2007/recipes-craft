@@ -55,5 +55,11 @@ public class DashboardView extends BaseActivityView<DashboardController> {
                 controller.onSettingsClicked();
             }
         });
+        view(R.id.app_version).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.onVersionClicked();
+            }
+        });
     }
 }

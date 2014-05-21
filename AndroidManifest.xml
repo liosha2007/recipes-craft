@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="6" android:versionName="1.0.0" package="com.github.liosha2007.android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.github.liosha2007.android"
+    android:versionCode="6"
+    android:versionName="1.0.0">
 
-    <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="16"/>
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="16" />
 
-    <application android:allowBackup="true" android:debuggable="true" android:icon="@drawable/application_icon" android:label="@string/app_name" android:theme="@style/RecipesCraftTheme">
+    <application
+        android:allowBackup="true"
+        android:debuggable="true"
+        android:icon="@drawable/application_icon"
+        android:label="@string/app_name"
+        android:theme="@style/RecipesCraftTheme">
         <activity android:name=".recipes.craft.controller.DashboardController">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".recipes.craft.controller.CategoriesController" />
@@ -17,4 +27,6 @@
         <activity android:name=".recipes.craft.controller.RecipeController" />
         <activity android:name=".recipes.craft.controller.SettingsController" />
     </application>
-    </manifest>
+    <!-- Only for database export functional -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+</manifest>

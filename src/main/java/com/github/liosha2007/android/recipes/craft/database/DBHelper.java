@@ -19,7 +19,10 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -158,5 +161,18 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
             Utils.err("error creating favorite dao: " + e.getMessage());
             return null;
         }
+    }
+
+    public static boolean exportDatabaseFileTo(Context context, String path) {
+        try {
+            FileInputStream fileInputStream = new FileInputStream(String.format(STANDARD_DATABASE_PATH, context.getPackageName()) + DATABASE_NAME);
+            FileOutputStream fileOutputStream = new FileOutputStream(path + File.separator + DATABASE_NAME);
+            IOUtils.copy(fileInputStream, fileOutputStream);
+            Utils.closeStreams(fileInputStream, fileOutputStream);
+            return true;
+        } catch (Exception e){
+            Utils.err("Can't export database: " + e.getMessage());
+        }
+        return false;
     }
 }
