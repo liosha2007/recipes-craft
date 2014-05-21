@@ -49,5 +49,11 @@ public class DashboardView extends BaseActivityView<DashboardController> {
                 controller.onSearchClick(DashboardView.this.<EditText>view(R.id.search_text).getText().toString());
             }
         });
+        view(R.id.settings).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                controller.onSettingsClicked();
+            }
+        });
     }
 }

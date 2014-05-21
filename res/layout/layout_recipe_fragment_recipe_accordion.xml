@@ -5,15 +5,35 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <Button
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:drawableRight="@drawable/ic_launcher"
-        android:gravity="left"
-        android:text="Рецепт №1"
-        android:id="@+id/recipe_craft_recipe_button"
-        android:textSize="15sp"
-        android:typeface="monospace" />
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/delete"
+            android:gravity="right"
+            android:text=""
+            android:id="@+id/recipe_craft_delete_button"
+            android:textSize="15sp"
+            android:typeface="monospace"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"
+            android:layout_margin="4dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:drawableRight="@drawable/ic_launcher"
+            android:gravity="left"
+            android:text="Рецепт №1"
+            android:id="@+id/recipe_craft_recipe_button"
+            android:textSize="15sp"
+            android:typeface="monospace"
+            android:layout_toLeftOf="@id/recipe_craft_delete_button"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

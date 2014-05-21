@@ -5,9 +5,11 @@ import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.liosha2007.android.R;
@@ -41,9 +43,9 @@ public class RecipeFragment extends BaseFragmentView<RecipeController> {
         super.onCreate();
     }
 
-    public void createAccordion(Item result, List<Recipe> recipes) {
+    public void createAccordion(Item result, List<Recipe> recipes, boolean addDeleteMode) {
         LinearLayout parent = view(R.id.accordion_layout);
-        for (Recipe recipe : recipes) {
+        for (final Recipe recipe : recipes) {
             RecipeType recipeType = RecipeType.fromValue(recipe.getType());
             LayoutInflater inflater = controller.getActivity().getLayoutInflater();
             LinearLayout accordionLayout = (LinearLayout) inflater.inflate(R.layout.layout_recipe_fragment_recipe_accordion, parent, false);
@@ -63,6 +65,20 @@ public class RecipeFragment extends BaseFragmentView<RecipeController> {
                 }
             });
             Utils.<LinearLayout>view(accordionLayout, R.id.recipe_craft_recipe_layout).setTag(R.string.RECIPE_ID, recipe.getId() + "_" + recipeNumber);
+
+            if (addDeleteMode) {
+                Button deleteButton = Utils.view(accordionLayout, R.id.recipe_craft_delete_button);
+                deleteButton.setVisibility(View.VISIBLE);
+                deleteButton.setTag(recipe.getId());
+                deleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (view instanceof Button) {
+                            controller.onDeleteClicked(Integer.parseInt(view.getTag().toString()));
+                        }
+                    }
+                });
+            }
 
             if (recipeType == RecipeType.CRAFTING_TABLE) {
                 item = recipe.getP1x1();
@@ -99,17 +115,17 @@ public class RecipeFragment extends BaseFragmentView<RecipeController> {
     }
 
     public void switchAccordion(Button button) {
-        LinearLayout parent = ((LinearLayout) button.getParent());
+        LinearLayout parent = ((LinearLayout) button.getParent().getParent());
         int childCount = parent.getChildCount();
         String recipeId = (String) button.getTag(R.string.RECIPE_ID);
         for (int n = 0; n < childCount; n++) {
-            if (parent.getChildAt(n).getTag(R.string.RECIPE_ID).equals(recipeId) && parent.getChildAt(n) instanceof LinearLayout) {
+            if (parent.getChildAt(n) instanceof LinearLayout && parent.getChildAt(n).getTag(R.string.RECIPE_ID).equals(recipeId)) {
                 if (ACCORDION_CLOSED.equals(button.getTag(R.string.LAYOUT_STATE))) {
                     button.setTextColor(Color.RED);
                     button.setTag(R.string.LAYOUT_STATE, ACCORDION_OPENED);
                     parent.getChildAt(n).setVisibility(View.VISIBLE);
 //                    button.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_launcher, 0);
-                } else {
+                } else if (parent.getChildAt(n) instanceof LinearLayout) {
                     button.setTextColor(Color.BLACK);
                     button.setTag(R.string.LAYOUT_STATE, ACCORDION_CLOSED);
                     parent.getChildAt(n).setVisibility(View.GONE);
@@ -128,5 +144,121 @@ public class RecipeFragment extends BaseFragmentView<RecipeController> {
 
         this.<LinearLayout>view(R.id.accordion_layout)
                 .addView(notFound, new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT));
+    }
+
+    public void showCreateRecipePopup() {
+        view(R.id.create_recipe_popup).setVisibility(View.VISIBLE);
+    }
+
+    public void showNewRecipeItem(Item item, int imageViewId) {
+        ImageView imageView = view(imageViewId);
+        if (imageView != null){
+            imageView.setImageDrawable(Utils.loadImageFromAssets(controller.getActivity(), item == null ? "empty.png" : item.getIcon()));
+            imageView.setTag(item == null ? null : item.getId());
+        }
+    }
+
+    public void createRecipeControls() {
+        AbsoluteLayout createButton = view(R.id.create_recipe);
+        createButton.setVisibility(View.VISIBLE);
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.onCreateClicked();
+            }
+        });
+
+        this.<ImageView>view(R.id.p_1_x_1_create).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v instanceof ImageView) {
+                    controller.onCraftingPointSelected(R.id.p_1_x_1_create);
+                }
+            }
+        });
+        this.<ImageView>view(R.id.p_1_x_2_create).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v instanceof ImageView) {
+                    controller.onCraftingPointSelected(R.id.p_1_x_2_create);
+                }
+            }
+        });
+        this.<ImageView>view(R.id.p_1_x_3_create).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v instanceof ImageView) {
+                    controller.onCraftingPointSelected(R.id.p_1_x_3_create);
+                }
+            }
+        });
+
+        this.<ImageView>view(R.id.p_2_x_1_create).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v instanceof ImageView) {
+                    controller.onCraftingPointSelected(R.id.p_2_x_1_create);
+                }
+            }
+        });
+        this.<ImageView>view(R.id.p_2_x_2_create).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v instanceof ImageView) {
+                    controller.onCraftingPointSelected(R.id.p_2_x_2_create);
+                }
+            }
+        });
+        this.<ImageView>view(R.id.p_2_x_3_create).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v instanceof ImageView) {
+                    controller.onCraftingPointSelected(R.id.p_2_x_3_create);
+                }
+            }
+        });
+
+        this.<ImageView>view(R.id.p_3_x_1_create).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v instanceof ImageView) {
+                    controller.onCraftingPointSelected(R.id.p_3_x_1_create);
+                }
+            }
+        });
+        this.<ImageView>view(R.id.p_3_x_2_create).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v instanceof ImageView) {
+                    controller.onCraftingPointSelected(R.id.p_3_x_2_create);
+                }
+            }
+        });
+        this.<ImageView>view(R.id.p_3_x_3_create).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v instanceof ImageView) {
+                    controller.onCraftingPointSelected(R.id.p_3_x_3_create);
+                }
+            }
+        });
+        this.<Button>view(R.id.add_recipe).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                controller.onAddRecipeClicked(
+                        (Integer)view(R.id.p_1_x_1_create).getTag(),
+                        (Integer)view(R.id.p_1_x_2_create).getTag(),
+                        (Integer)view(R.id.p_1_x_3_create).getTag(),
+
+                        (Integer)view(R.id.p_2_x_1_create).getTag(),
+                        (Integer)view(R.id.p_2_x_2_create).getTag(),
+                        (Integer)view(R.id.p_2_x_3_create).getTag(),
+
+                        (Integer)view(R.id.p_3_x_1_create).getTag(),
+                        (Integer)view(R.id.p_3_x_2_create).getTag(),
+                        (Integer)view(R.id.p_3_x_3_create).getTag()
+                );
+            }
+        });
     }
 }

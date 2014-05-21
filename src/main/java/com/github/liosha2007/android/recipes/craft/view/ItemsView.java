@@ -142,7 +142,11 @@ public class ItemsView extends BaseActivityView<ItemsController> {
             holder.textView.setText(items.get(position).getName());
             holder.textView.setTag(items.get(position).getId());
             holder.imageView.setImageDrawable(Utils.loadImageFromAssets(controller, items.get(position).getIcon()));
-            holder.favoritesImageView.setImageResource(holder.isFavorite ? R.drawable.favorites_active : R.drawable.favorites_passive);
+            if (items.get(position).getId() != -1) {
+                holder.favoritesImageView.setImageResource(holder.isFavorite ? R.drawable.favorites_active : R.drawable.favorites_passive);
+            } else {
+                holder.favoritesImageView.setVisibility(View.GONE);
+            }
 
 
             holder.favoritesImageView.setOnClickListener(new View.OnClickListener() {

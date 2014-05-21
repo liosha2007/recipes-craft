@@ -134,4 +134,13 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
+    <AbsoluteLayout
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/settings_icon"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/settings"/>
 </RelativeLayout>

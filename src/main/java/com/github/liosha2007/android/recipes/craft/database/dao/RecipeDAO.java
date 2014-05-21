@@ -33,4 +33,24 @@ public class RecipeDAO extends BaseDaoImpl<Recipe, Integer> {
         }
         return null;
     }
+
+    @Override
+    public int deleteById(Integer recipeId) {
+        try {
+            return super.deleteById(recipeId);
+        } catch (Exception e) {
+            Utils.err("Can't delete recipe by id " + recipeId + ": " + e.getMessage());
+        }
+        return 0;
+    }
+
+    @Override
+    public int create(Recipe recipe) {
+        try {
+            return super.create(recipe);
+        } catch (Exception e) {
+            Utils.err("Can't create recipe with id " + recipe.getId() + ": " + e.getMessage());
+        }
+        return 0;
+    }
 }

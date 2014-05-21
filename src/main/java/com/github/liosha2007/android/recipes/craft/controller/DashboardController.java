@@ -61,4 +61,8 @@ public class DashboardController extends BaseActivityController<DashboardView> {
         DBHelper.releaseHelper();
         super.onDestroy();
     }
+
+    public void onSettingsClicked() {
+        run(SettingsController.class);
+    }
 }

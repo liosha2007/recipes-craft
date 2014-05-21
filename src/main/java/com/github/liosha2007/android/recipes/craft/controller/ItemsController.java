@@ -1,5 +1,6 @@
 package com.github.liosha2007.android.recipes.craft.controller;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +29,9 @@ public class ItemsController extends BaseActivityController<ItemsView> {
     public static final String SEARCH_TEXT = "searchText";
     public static final String SEARCH_TITLE = "searchTitle";
     public static final String FAVORITES_TITLE = "favoritesTitle";
+    public static final String CREATE_RECIPE_TITLE = "createRecipeTitle";
+    public static final String CREATE_RECIPE_IMAGE_VIEW_ID = "createRecipeImageView";
+    public static final String CREATE_RECIPE_RESULT_ITEM_ID = "CREATE_RECIPE_RESULT_ITEM_ID";
 
     protected int modId = -1;
     protected String modTitle;
@@ -35,9 +39,13 @@ public class ItemsController extends BaseActivityController<ItemsView> {
     protected int categoryId = -1;
     protected String categoryTitle;
 
-    private String searchText;
-    private String searchTitle;
-    private String favoritesTitle;
+    protected String searchText;
+    protected String searchTitle;
+
+    protected String favoritesTitle;
+
+    protected String selectItemTitle;
+    protected int imageViewId;
 
     public ItemsController() {
         super(new ItemsView());
@@ -59,6 +67,9 @@ public class ItemsController extends BaseActivityController<ItemsView> {
             this.searchTitle = bundle.getString(SEARCH_TITLE, "");
 
             this.favoritesTitle = bundle.getString(FAVORITES_TITLE, null);
+
+            this.imageViewId = bundle.getInt(CREATE_RECIPE_IMAGE_VIEW_ID, -1);
+            this.selectItemTitle = bundle.getString(CREATE_RECIPE_TITLE, null);
         }
         //
         view.clearItems();
@@ -111,6 +122,16 @@ public class ItemsController extends BaseActivityController<ItemsView> {
                 }
                 view.setTitle(favoritesTitle);
             }
+        } else if (selectItemTitle != null){
+            List<Item> allItems = DBHelper.getItemDAO().getAllItems();
+
+            Item emptyItem = new Item();
+            emptyItem.setId(-1);
+            emptyItem.setName("Пустая ячейка");
+            emptyItem.setIcon("empty.png");
+            items.add(emptyItem);
+            items.addAll(allItems);
+            view.setTitle(selectItemTitle);
         } else {
             items = DBHelper.getItemDAO().getAllItems();
         }
@@ -133,7 +154,13 @@ public class ItemsController extends BaseActivityController<ItemsView> {
     }
 
     public void onItemClicked(Integer itemId) {
-        if (itemId != null) {
+        if (selectItemTitle != null) {
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra(CREATE_RECIPE_RESULT_ITEM_ID, itemId);
+            returnIntent.putExtra(CREATE_RECIPE_IMAGE_VIEW_ID, imageViewId);
+            setResult(RESULT_OK, returnIntent);
+            finish();
+        } else if (itemId != null) {
             Bundle bundle = new Bundle();
             bundle.putInt(RecipeController.ITEM_ID, itemId);
             run(RecipeController.class, bundle);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -37,4 +37,116 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:id="@+id/create_recipe_popup"
+        android:background="@android:color/white"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/recipe_create"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/crafting_table"
+                android:gravity="center"
+                android:padding="3sp"
+                android:stretchColumns="true">
+
+                <TableRow android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/p_1_x_1_create"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:padding="3sp" />
+
+                    <ImageView
+                        android:id="@+id/p_1_x_2_create"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:padding="3sp" />
+
+                    <ImageView
+                        android:id="@+id/p_1_x_3_create"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:padding="3sp" />
+                </TableRow>
+
+                <TableRow>
+
+                    <ImageView
+                        android:id="@+id/p_2_x_1_create"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:padding="3sp" />
+
+                    <ImageView
+                        android:id="@+id/p_2_x_2_create"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:padding="3sp" />
+
+                    <ImageView
+                        android:id="@+id/p_2_x_3_create"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:padding="3sp" />
+                </TableRow>
+
+                <TableRow>
+
+                    <ImageView
+                        android:id="@+id/p_3_x_1_create"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:padding="3sp" />
+
+                    <ImageView
+                        android:id="@+id/p_3_x_2_create"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:padding="3sp" />
+
+                    <ImageView
+                        android:id="@+id/p_3_x_3_create"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:padding="3sp" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_recipe"
+            android:text="Создать"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/recipe_create"/>
+    </RelativeLayout>
+
+    <AbsoluteLayout
+        android:id="@+id/create_recipe"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/create"
+        android:visibility="gone" />
+
+</RelativeLayout>

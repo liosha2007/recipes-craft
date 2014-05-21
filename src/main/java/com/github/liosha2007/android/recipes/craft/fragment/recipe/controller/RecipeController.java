@@ -1,11 +1,14 @@
 package com.github.liosha2007.android.recipes.craft.fragment.recipe.controller;
 
-import android.os.Bundle;
-import android.view.View;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.github.liosha2007.android.library.fragment.controller.BaseFragmentController;
-import com.github.liosha2007.android.recipes.craft.common.RecipeType;
+import com.github.liosha2007.android.recipes.craft.common.Constants;
+import com.github.liosha2007.android.recipes.craft.controller.ItemsController;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.database.domain.Recipe;
@@ -18,6 +21,8 @@ import java.util.List;
  */
 public class RecipeController extends BaseFragmentController<RecipeFragment> {
     protected int itemId;
+    protected boolean addDeleteMode = false;
+
     public RecipeController() {
         super(new RecipeFragment());
     }
@@ -25,6 +30,9 @@ public class RecipeController extends BaseFragmentController<RecipeFragment> {
     @Override
     protected void onCreate() {
         super.onCreate();
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+        addDeleteMode = preferences.getBoolean(Constants.ADD_DELETE_RECIPES, false);
 
         // Restore parameters
         this.itemId = getArguments().getInt(com.github.liosha2007.android.recipes.craft.controller.RecipeController.ITEM_ID, -1);
@@ -43,7 +51,10 @@ public class RecipeController extends BaseFragmentController<RecipeFragment> {
             DBHelper.getItemDAO().refresh(recipe.getP3x3());
             DBHelper.getItemDAO().refresh(recipe.getResult());
         }
-        view.createAccordion(item, recipes);
+        view.createAccordion(item, recipes, addDeleteMode);
+        if (addDeleteMode) {
+            view.createRecipeControls();
+        }
         if (recipes.size() == 0) {
             view.showRecipeNotFound();
         }
@@ -51,5 +62,79 @@ public class RecipeController extends BaseFragmentController<RecipeFragment> {
 
     public void onAccordionClicked(Button button) {
         view.switchAccordion(button);
+    }
+
+    public void onDeleteClicked(int recipeId) {
+        DBHelper.getRecipeDAO().deleteById(recipeId);
+        Toast.makeText(getActivity(), "Рецепт удален!", Toast.LENGTH_LONG).show();
+        getActivity().finish();
+    }
+
+    public void onCreateClicked() {
+        view.showCreateRecipePopup();
+    }
+
+    public void onCraftingPointSelected(int imageViewId) {
+        Intent intent = new Intent(this.getActivity(), ItemsController.class);
+        intent.putExtra(ItemsController.CREATE_RECIPE_TITLE, "Выберите предмет");
+        intent.putExtra(ItemsController.CREATE_RECIPE_IMAGE_VIEW_ID, imageViewId);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            int imageViewId = data.getIntExtra(ItemsController.CREATE_RECIPE_IMAGE_VIEW_ID, -1);
+            int itemId = data.getIntExtra(ItemsController.CREATE_RECIPE_RESULT_ITEM_ID, -1);
+            Item item = null;
+            if (itemId != -1) {
+                item = DBHelper.getItemDAO().queryForId(itemId);
+            }
+            view.showNewRecipeItem(item, imageViewId);
+        }
+    }
+
+    public void onAddRecipeClicked(
+            Integer p1x1, Integer p1x2, Integer p1x3,
+            Integer p2x1, Integer p2x2, Integer p2x3,
+            Integer p3x1, Integer p3x2, Integer p3x3) {
+        Item resultItem = DBHelper.getItemDAO().queryForId(itemId);
+
+        Recipe recipe = new Recipe();
+        recipe.setResult(resultItem);
+
+        if (p1x1 != null) {
+            recipe.setP1x1(DBHelper.getItemDAO().queryForId(p1x1));
+        }
+        if (p1x1 != null) {
+            recipe.setP1x2(DBHelper.getItemDAO().queryForId(p1x2));
+        }
+        if (p1x1 != null) {
+            recipe.setP1x3(DBHelper.getItemDAO().queryForId(p1x3));
+        }
+
+        if (p1x1 != null) {
+            recipe.setP2x1(DBHelper.getItemDAO().queryForId(p2x1));
+        }
+        if (p1x1 != null) {
+            recipe.setP2x2(DBHelper.getItemDAO().queryForId(p2x2));
+        }
+        if (p1x1 != null) {
+            recipe.setP2x3(DBHelper.getItemDAO().queryForId(p2x3));
+        }
+
+        if (p1x1 != null) {
+            recipe.setP3x1(DBHelper.getItemDAO().queryForId(p3x1));
+        }
+        if (p1x1 != null) {
+            recipe.setP3x2(DBHelper.getItemDAO().queryForId(p3x2));
+        }
+        if (p1x1 != null) {
+            recipe.setP3x3(DBHelper.getItemDAO().queryForId(p3x3));
+        }
+
+        DBHelper.getRecipeDAO().create(recipe);
+        Toast.makeText(getActivity(), "Рецепт для '" + resultItem.getName() + "' создан!", Toast.LENGTH_LONG).show();
+        getActivity().finish();
     }
 }

@@ -3,7 +3,6 @@
 
     <string name="app_name">Рецепты крафта</string>
 
-
     <string name="LAYOUT_STATE" type="id"/>
     <string name="RECIPE_ID" type="id"/>
 </resources>
