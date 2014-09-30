@@ -22,6 +22,25 @@ public enum RecipeType {
     }
 
     /**
+     * Get annotation type by id
+     *
+     * @param id annotation type id
+     * @return annotation type
+     */
+    public static RecipeType fromValue(int id) {
+        switch (id) {
+            case 1:
+                return CRAFTING_TABLE;
+            case 2:
+                return DROP;
+            case 3:
+                return CULTIVATION;
+            default:
+                return CRAFTING_TABLE;
+        }
+    }
+
+    /**
      * Check if annotation type is equal
      *
      * @param id annotation type id to compare
@@ -39,25 +58,6 @@ public enum RecipeType {
     @Override
     public String toString() {
         return Integer.toString(this.id);
-    }
-
-    /**
-     * Get annotation type by id
-     *
-     * @param id annotation type id
-     * @return annotation type
-     */
-    public static RecipeType fromValue(int id) {
-        switch (id){
-            case 1:
-                return CRAFTING_TABLE;
-            case 2:
-                return DROP;
-            case 3:
-                return CULTIVATION;
-            default:
-                return CRAFTING_TABLE;
-        }
     }
 
     /**

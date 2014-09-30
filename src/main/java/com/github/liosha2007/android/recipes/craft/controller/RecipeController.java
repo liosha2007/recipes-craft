@@ -3,17 +3,10 @@ package com.github.liosha2007.android.recipes.craft.controller;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
-import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.manager.FragmentManager;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
-import com.github.liosha2007.android.recipes.craft.database.dao.ItemDAO;
-import com.github.liosha2007.android.recipes.craft.database.domain.Item;
-import com.github.liosha2007.android.recipes.craft.database.domain.Recipe;
 import com.github.liosha2007.android.recipes.craft.view.RecipeView;
-
-import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by liosha on 22.04.2014.
@@ -37,7 +30,7 @@ public class RecipeController extends BaseActivityController<RecipeView> {
         FragmentManager fragmentManager = FragmentManager.prepareViewPager(
                 viewPager,
                 this,
-                new com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.RecipeController(){
+                new com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.RecipeController() {
                     @Override
                     public void onShow() {
                         super.onShow();
@@ -50,7 +43,7 @@ public class RecipeController extends BaseActivityController<RecipeView> {
                         RecipeController.this.view.onRecipeShow(false);
                     }
                 }.withArguments(bundle),
-                new com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.DescriptionController(){
+                new com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.DescriptionController() {
                     @Override
                     public void onShow() {
                         super.onShow();
@@ -63,7 +56,7 @@ public class RecipeController extends BaseActivityController<RecipeView> {
                         RecipeController.this.view.onDescriptionShow(false);
                     }
                 }.withArguments(bundle),
-                new com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.MaterialsController(){
+                new com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.MaterialsController() {
                     @Override
                     public void onShow() {
                         super.onShow();
@@ -76,7 +69,7 @@ public class RecipeController extends BaseActivityController<RecipeView> {
                         RecipeController.this.view.onMaterialsShow(false);
                     }
                 }.withArguments(bundle),
-                new com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.NotesController(){
+                new com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.NotesController() {
                     @Override
                     public void onShow() {
                         super.onShow();

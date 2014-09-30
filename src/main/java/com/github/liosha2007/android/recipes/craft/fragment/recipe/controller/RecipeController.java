@@ -64,6 +64,11 @@ public class RecipeController extends BaseFragmentController<RecipeFragment> {
         view.switchAccordion(button);
     }
 
+    /**
+     * Нажата кнопка удаления рецепта
+     *
+     * @param recipeId
+     */
     public void onDeleteClicked(int recipeId) {
         DBHelper.getRecipeDAO().deleteById(recipeId);
         Toast.makeText(getActivity(), "Рецепт удален!", Toast.LENGTH_LONG).show();
@@ -74,6 +79,11 @@ public class RecipeController extends BaseFragmentController<RecipeFragment> {
         view.showCreateRecipePopup();
     }
 
+    /**
+     * Клик по ячейке выбора предмета для создания предмета
+     *
+     * @param imageViewId
+     */
     public void onCraftingPointSelected(int imageViewId) {
         Intent intent = new Intent(this.getActivity(), ItemsController.class);
         intent.putExtra(ItemsController.CREATE_RECIPE_TITLE, "Выберите предмет");
@@ -81,9 +91,16 @@ public class RecipeController extends BaseFragmentController<RecipeFragment> {
         startActivityForResult(intent, 1);
     }
 
+    /**
+     * Коллбэк при выборе предмета для ячейки рецепта
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
+        if (requestCode == 1 && data != null) {
             int imageViewId = data.getIntExtra(ItemsController.CREATE_RECIPE_IMAGE_VIEW_ID, -1);
             int itemId = data.getIntExtra(ItemsController.CREATE_RECIPE_RESULT_ITEM_ID, -1);
             Item item = null;
@@ -100,36 +117,49 @@ public class RecipeController extends BaseFragmentController<RecipeFragment> {
             Integer p3x1, Integer p3x2, Integer p3x3) {
         Item resultItem = DBHelper.getItemDAO().queryForId(itemId);
 
+        if (
+                p1x1 == null &&
+                        p1x2 == null &&
+                        p1x3 == null &&
+                        p2x1 == null &&
+                        p2x2 == null &&
+                        p2x3 == null &&
+                        p3x1 == null &&
+                        p3x2 == null &&
+                        p3x3 == null) {
+            return;
+        }
+
         Recipe recipe = new Recipe();
         recipe.setResult(resultItem);
 
         if (p1x1 != null) {
             recipe.setP1x1(DBHelper.getItemDAO().queryForId(p1x1));
         }
-        if (p1x1 != null) {
+        if (p1x2 != null) {
             recipe.setP1x2(DBHelper.getItemDAO().queryForId(p1x2));
         }
-        if (p1x1 != null) {
+        if (p1x3 != null) {
             recipe.setP1x3(DBHelper.getItemDAO().queryForId(p1x3));
         }
 
-        if (p1x1 != null) {
+        if (p2x1 != null) {
             recipe.setP2x1(DBHelper.getItemDAO().queryForId(p2x1));
         }
-        if (p1x1 != null) {
+        if (p2x2 != null) {
             recipe.setP2x2(DBHelper.getItemDAO().queryForId(p2x2));
         }
-        if (p1x1 != null) {
+        if (p2x3 != null) {
             recipe.setP2x3(DBHelper.getItemDAO().queryForId(p2x3));
         }
 
-        if (p1x1 != null) {
+        if (p3x1 != null) {
             recipe.setP3x1(DBHelper.getItemDAO().queryForId(p3x1));
         }
-        if (p1x1 != null) {
+        if (p3x2 != null) {
             recipe.setP3x2(DBHelper.getItemDAO().queryForId(p3x2));
         }
-        if (p1x1 != null) {
+        if (p3x3 != null) {
             recipe.setP3x3(DBHelper.getItemDAO().queryForId(p3x3));
         }
 

@@ -6,11 +6,13 @@ import android.database.sqlite.SQLiteDatabase;
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.database.dao.CategoryDAO;
 import com.github.liosha2007.android.recipes.craft.database.dao.FavoriteDAO;
+import com.github.liosha2007.android.recipes.craft.database.dao.IconDAO;
 import com.github.liosha2007.android.recipes.craft.database.dao.ItemDAO;
 import com.github.liosha2007.android.recipes.craft.database.dao.ModDAO;
 import com.github.liosha2007.android.recipes.craft.database.dao.RecipeDAO;
 import com.github.liosha2007.android.recipes.craft.database.domain.Category;
 import com.github.liosha2007.android.recipes.craft.database.domain.Favorite;
+import com.github.liosha2007.android.recipes.craft.database.domain.Icon;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.database.domain.Mod;
 import com.github.liosha2007.android.recipes.craft.database.domain.Recipe;
@@ -41,35 +43,11 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     private static CategoryDAO categoryDAO = null;
     private static ModDAO modDAO = null;
     private static RecipeDAO recipeDAO = null;
+    private static IconDAO iconDAO = null;
     private static FavoriteDAO favoriteDAO = null;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
-//        new File(String.format(STANDARD_DATABASE_PATH, context.getPackageName() + DATABASE_NAME)).delete();
-
-//            TableUtils.createTable(connectionSource, Item.class);
-//            TableUtils.createTable(connectionSource, Category.class);
-//            TableUtils.createTable(connectionSource, Mod.class);
-//            TableUtils.createTable(connectionSource, Recipe.class);
-//            TableUtils.createTable(connectionSource, Favorite.class);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVer, int newVer) {
-        try {
-            TableUtils.dropTable(connectionSource, Item.class, true);
-            TableUtils.dropTable(connectionSource, Category.class, true);
-            TableUtils.dropTable(connectionSource, Mod.class, true);
-            TableUtils.dropTable(connectionSource, Recipe.class, true);
-            TableUtils.dropTable(connectionSource, Favorite.class, true);
-            onCreate(db, connectionSource);
-        } catch (SQLException e) {
-            Utils.err("error upgrading db " + DATABASE_NAME + "from ver " + oldVer + " to ver " + newVer + ": " + e.getMessage());
-        }
     }
 
     public static void setHelper(Context context) {
@@ -110,12 +88,6 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     public static void releaseHelper() {
         OpenHelperManager.releaseHelper();
         dbHelper = null;
-    }
-
-    @Override
-    public void close() {
-        super.close();
-        itemDAO = null;
     }
 
     public static ItemDAO getItemDAO() {
@@ -163,16 +135,76 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    public static boolean exportDatabaseFileTo(Context context, String path) {
+    public static IconDAO getIconDAO() {
         try {
-            FileInputStream fileInputStream = new FileInputStream(String.format(STANDARD_DATABASE_PATH, context.getPackageName()) + DATABASE_NAME);
-            FileOutputStream fileOutputStream = new FileOutputStream(path + File.separator + DATABASE_NAME);
+            return (iconDAO == null) ? (iconDAO = new IconDAO(dbHelper.getConnectionSource(), Icon.class)) : iconDAO;
+        } catch (Exception e) {
+            Utils.err("error creating icon dao: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public static boolean exportDatabaseFileTo(Context context, String path) {
+        FileInputStream fileInputStream = null;
+        FileOutputStream fileOutputStream = null;
+        try {
+            fileInputStream = new FileInputStream(String.format(STANDARD_DATABASE_PATH, context.getPackageName()) + DATABASE_NAME);
+            fileOutputStream = new FileOutputStream(path + File.separator + DATABASE_NAME);
             IOUtils.copy(fileInputStream, fileOutputStream);
-            Utils.closeStreams(fileInputStream, fileOutputStream);
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
             Utils.err("Can't export database: " + e.getMessage());
+        } finally {
+            Utils.closeStreams(fileInputStream, fileOutputStream);
         }
         return false;
+    }
+
+    public static boolean importDatabaseFileFrom(Context context, String path) {
+        FileInputStream fileInputStream = null;
+        FileOutputStream fileOutputStream = null;
+        try {
+            fileInputStream = new FileInputStream(path);
+            fileOutputStream = new FileOutputStream(String.format(STANDARD_DATABASE_PATH, context.getPackageName()) + DATABASE_NAME);
+            IOUtils.copy(fileInputStream, fileOutputStream);
+            return true;
+        } catch (Exception e) {
+            Utils.err("Can't import database: " + e.getMessage());
+        } finally {
+            Utils.closeStreams(fileInputStream, fileOutputStream);
+        }
+        return false;
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
+//        new File(String.format(STANDARD_DATABASE_PATH, context.getPackageName() + DATABASE_NAME)).delete();
+
+//            TableUtils.createTable(connectionSource, Item.class);
+//            TableUtils.createTable(connectionSource, Category.class);
+//            TableUtils.createTable(connectionSource, Mod.class);
+//            TableUtils.createTable(connectionSource, Recipe.class);
+//            TableUtils.createTable(connectionSource, Favorite.class);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVer, int newVer) {
+        try {
+            TableUtils.dropTable(connectionSource, Item.class, true);
+            TableUtils.dropTable(connectionSource, Category.class, true);
+            TableUtils.dropTable(connectionSource, Mod.class, true);
+            TableUtils.dropTable(connectionSource, Recipe.class, true);
+            TableUtils.dropTable(connectionSource, Favorite.class, true);
+            TableUtils.dropTable(connectionSource, Icon.class, true);
+            onCreate(db, connectionSource);
+        } catch (SQLException e) {
+            Utils.err("error upgrading db " + DATABASE_NAME + "from ver " + oldVer + " to ver " + newVer + ": " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void close() {
+        super.close();
+        itemDAO = null;
     }
 }

@@ -1,11 +1,8 @@
 package com.github.liosha2007.android.recipes.craft.view;
 
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +27,11 @@ import java.util.List;
  * Created by liosha on 22.04.2014.
  */
 public class ItemsView extends BaseActivityView<ItemsController> {
+    private ItemsArrayAdapter adapter;
+
     public ItemsView() {
         super(R.layout.layout_items);
     }
-    private ItemsArrayAdapter adapter;
 
     @Override
     public void onCreate() {
@@ -93,13 +91,19 @@ public class ItemsView extends BaseActivityView<ItemsController> {
     }
 
     public void setTitle(String title) {
-        if (title != null){
+        if (title != null) {
             this.<TextView>view(R.id.items_title).setText(title);
         }
     }
 
     public void updateListViewStack(boolean showed) {
         this.<ListView>view(R.id.items_list).setStackFromBottom(showed);
+    }
+
+    public void updateFavorites(List<Favorite> favorites) {
+        ItemsArrayAdapter itemsArrayAdapter = (ItemsArrayAdapter) this.<ListView>view(R.id.items_list).getAdapter();
+        itemsArrayAdapter.updateFavorites(favorites);
+        itemsArrayAdapter.notifyDataSetChanged();
     }
 
     static class ViewHolder {
@@ -141,7 +145,7 @@ public class ItemsView extends BaseActivityView<ItemsController> {
 
             holder.textView.setText(items.get(position).getName());
             holder.textView.setTag(items.get(position).getId());
-            holder.imageView.setImageDrawable(Utils.loadImageFromAssets(controller, items.get(position).getIcon()));
+            holder.imageView.setImageBitmap(Utils.bytes2bitmap(items.get(position).getIcon().getIcon()));
             if (items.get(position).getId() != -1) {
                 holder.favoritesImageView.setImageResource(holder.isFavorite ? R.drawable.favorites_active : R.drawable.favorites_passive);
             } else {
@@ -168,21 +172,15 @@ public class ItemsView extends BaseActivityView<ItemsController> {
             this.favorites = favorites;
         }
 
-        protected boolean isFavorite(int itemId){
-            for (Favorite favorite : favorites){
+        protected boolean isFavorite(int itemId) {
+            for (Favorite favorite : favorites) {
                 int favoriteItemId = favorite.getItem().getId();
-                if (favoriteItemId == itemId){
+                if (favoriteItemId == itemId) {
                     return true;
                 }
             }
             return false;
         }
-    }
-
-    public void updateFavorites(List<Favorite> favorites) {
-        ItemsArrayAdapter itemsArrayAdapter = (ItemsArrayAdapter) this.<ListView>view(R.id.items_list).getAdapter();
-        itemsArrayAdapter.updateFavorites(favorites);
-        itemsArrayAdapter.notifyDataSetChanged();
     }
 
 }

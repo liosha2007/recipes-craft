@@ -26,6 +26,11 @@
         <activity android:name=".recipes.craft.controller.ModsController" />
         <activity android:name=".recipes.craft.controller.RecipeController" />
         <activity android:name=".recipes.craft.controller.SettingsController" />
+        <activity android:name=".recipes.craft.controller.BrowserController" />
+        <activity android:name=".recipes.craft.controller.CreateCategoryController" />
+        <activity android:name=".recipes.craft.controller.CreateItemController" />
+        <activity android:name=".recipes.craft.controller.CreateModController" />
+        <activity android:name=".recipes.craft.controller.IconsController" />
     </application>
     <!-- Only for database export functional -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

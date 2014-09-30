@@ -2,7 +2,6 @@ package com.github.liosha2007.android.recipes.craft.database.dao;
 
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.database.domain.Favorite;
-import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.support.ConnectionSource;
 

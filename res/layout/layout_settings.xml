@@ -44,4 +44,38 @@
         android:layout_height="wrap_content"
         android:id="@+id/add_delete_recipes"
         android:text="Разрешить добавление/удаление рецептов (beta)" android:checked="false"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Загрузить иконки в базу"
+        android:id="@+id/upload_textures"
+        android:visibility="gone"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Добавить категорию"
+        android:id="@+id/create_category"
+        android:visibility="gone"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Добавить мод"
+        android:id="@+id/create_mod"
+        android:visibility="gone"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Добавить предмет"
+        android:id="@+id/create_item"
+        android:visibility="gone"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Импорт базы (существующая удалится)"
+        android:id="@+id/import_database"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Экспорт базы"
+        android:id="@+id/export_database"/>
 </LinearLayout>

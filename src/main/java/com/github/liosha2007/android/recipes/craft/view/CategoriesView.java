@@ -15,6 +15,7 @@ import com.github.liosha2007.android.library.activity.view.BaseActivityView;
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.controller.CategoriesController;
 import com.github.liosha2007.android.recipes.craft.database.domain.Category;
+import com.github.liosha2007.android.recipes.craft.database.domain.Icon;
 
 import java.util.List;
 
@@ -22,10 +23,11 @@ import java.util.List;
  * Created by liosha on 21.04.2014.
  */
 public class CategoriesView extends BaseActivityView<CategoriesController> {
+    private CategoriesArrayAdapter adapter;
+
     public CategoriesView() {
         super(R.layout.layout_categories);
     }
-    private CategoriesArrayAdapter adapter;
 
     /**
      * Remove all showed categories
@@ -90,7 +92,8 @@ public class CategoriesView extends BaseActivityView<CategoriesController> {
 
             holder.textView.setText(categories.get(position).getName());
             holder.textView.setTag(categories.get(position).getId());
-            holder.imageView.setImageDrawable(Utils.loadImageFromAssets(controller, categories.get(position).getIcon()));
+            Icon icon = categories.get(position).getIcon();
+            holder.imageView.setImageBitmap(icon == null || icon.getIcon() == null ? null : Utils.bytes2bitmap(icon.getIcon()));
 
             return rowView;
         }

@@ -9,7 +9,6 @@ import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.liosha2007.android.R;
@@ -43,6 +42,13 @@ public class RecipeFragment extends BaseFragmentView<RecipeController> {
         super.onCreate();
     }
 
+    /**
+     * Создание аккордиона с рецептами
+     *
+     * @param result
+     * @param recipes
+     * @param addDeleteMode
+     */
     public void createAccordion(Item result, List<Recipe> recipes, boolean addDeleteMode) {
         LinearLayout parent = view(R.id.accordion_layout);
         for (final Recipe recipe : recipes) {
@@ -82,25 +88,25 @@ public class RecipeFragment extends BaseFragmentView<RecipeController> {
 
             if (recipeType == RecipeType.CRAFTING_TABLE) {
                 item = recipe.getP1x1();
-                Utils.<ImageView>view(accordionLayout, R.id.p_1_x_1).setImageDrawable(Utils.loadImageFromAssets(controller.getActivity(), item == null ? null : item.getIcon()));
+                Utils.<ImageView>view(accordionLayout, R.id.p_1_x_1).setImageBitmap(item == null ? null : Utils.bytes2bitmap(item.getIcon().getIcon()));
                 item = recipe.getP1x2();
-                Utils.<ImageView>view(accordionLayout, R.id.p_1_x_2).setImageDrawable(Utils.loadImageFromAssets(controller.getActivity(), item == null ? null : item.getIcon()));
+                Utils.<ImageView>view(accordionLayout, R.id.p_1_x_2).setImageBitmap(item == null ? null : Utils.bytes2bitmap(item.getIcon().getIcon()));
                 item = recipe.getP1x3();
-                Utils.<ImageView>view(accordionLayout, R.id.p_1_x_3).setImageDrawable(Utils.loadImageFromAssets(controller.getActivity(), item == null ? null : item.getIcon()));
+                Utils.<ImageView>view(accordionLayout, R.id.p_1_x_3).setImageBitmap(item == null ? null : Utils.bytes2bitmap(item.getIcon().getIcon()));
 
                 item = recipe.getP2x1();
-                Utils.<ImageView>view(accordionLayout, R.id.p_2_x_1).setImageDrawable(Utils.loadImageFromAssets(controller.getActivity(), item == null ? null : item.getIcon()));
+                Utils.<ImageView>view(accordionLayout, R.id.p_2_x_1).setImageBitmap(item == null ? null : Utils.bytes2bitmap(item.getIcon().getIcon()));
                 item = recipe.getP2x2();
-                Utils.<ImageView>view(accordionLayout, R.id.p_2_x_2).setImageDrawable(Utils.loadImageFromAssets(controller.getActivity(), item == null ? null : item.getIcon()));
+                Utils.<ImageView>view(accordionLayout, R.id.p_2_x_2).setImageBitmap(item == null ? null : Utils.bytes2bitmap(item.getIcon().getIcon()));
                 item = recipe.getP2x3();
-                Utils.<ImageView>view(accordionLayout, R.id.p_2_x_3).setImageDrawable(Utils.loadImageFromAssets(controller.getActivity(), item == null ? null : item.getIcon()));
+                Utils.<ImageView>view(accordionLayout, R.id.p_2_x_3).setImageBitmap(item == null ? null : Utils.bytes2bitmap(item.getIcon().getIcon()));
 
                 item = recipe.getP3x1();
-                Utils.<ImageView>view(accordionLayout, R.id.p_3_x_1).setImageDrawable(Utils.loadImageFromAssets(controller.getActivity(), item == null ? null : item.getIcon()));
+                Utils.<ImageView>view(accordionLayout, R.id.p_3_x_1).setImageBitmap(item == null ? null : Utils.bytes2bitmap(item.getIcon().getIcon()));
                 item = recipe.getP3x2();
-                Utils.<ImageView>view(accordionLayout, R.id.p_3_x_2).setImageDrawable(Utils.loadImageFromAssets(controller.getActivity(), item == null ? null : item.getIcon()));
+                Utils.<ImageView>view(accordionLayout, R.id.p_3_x_2).setImageBitmap(item == null ? null : Utils.bytes2bitmap(item.getIcon().getIcon()));
                 item = recipe.getP3x3();
-                Utils.<ImageView>view(accordionLayout, R.id.p_3_x_3).setImageDrawable(Utils.loadImageFromAssets(controller.getActivity(), item == null ? null : item.getIcon()));
+                Utils.<ImageView>view(accordionLayout, R.id.p_3_x_3).setImageBitmap(item == null ? null : Utils.bytes2bitmap(item.getIcon().getIcon()));
             } else {
                 // TODO: Implement others
                 Utils.deb("Implement others layouts for make items");
@@ -146,18 +152,30 @@ public class RecipeFragment extends BaseFragmentView<RecipeController> {
                 .addView(notFound, new LinearLayout.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT));
     }
 
+    /**
+     * Отображение выпадающего окна создания рецепта
+     */
     public void showCreateRecipePopup() {
         view(R.id.create_recipe_popup).setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Показывает выбранный предмет в ячейке
+     *
+     * @param item
+     * @param imageViewId
+     */
     public void showNewRecipeItem(Item item, int imageViewId) {
         ImageView imageView = view(imageViewId);
-        if (imageView != null){
-            imageView.setImageDrawable(Utils.loadImageFromAssets(controller.getActivity(), item == null ? "empty.png" : item.getIcon()));
+        if (imageView != null) {
+            imageView.setImageBitmap(Utils.bytes2bitmap(item.getIcon().getIcon()));
             imageView.setTag(item == null ? null : item.getId());
         }
     }
 
+    /**
+     * Инициализация обработчиков нажатий
+     */
     public void createRecipeControls() {
         AbsoluteLayout createButton = view(R.id.create_recipe);
         createButton.setVisibility(View.VISIBLE);
@@ -246,17 +264,17 @@ public class RecipeFragment extends BaseFragmentView<RecipeController> {
             @Override
             public void onClick(View v) {
                 controller.onAddRecipeClicked(
-                        (Integer)view(R.id.p_1_x_1_create).getTag(),
-                        (Integer)view(R.id.p_1_x_2_create).getTag(),
-                        (Integer)view(R.id.p_1_x_3_create).getTag(),
+                        (Integer) view(R.id.p_1_x_1_create).getTag(),
+                        (Integer) view(R.id.p_1_x_2_create).getTag(),
+                        (Integer) view(R.id.p_1_x_3_create).getTag(),
 
-                        (Integer)view(R.id.p_2_x_1_create).getTag(),
-                        (Integer)view(R.id.p_2_x_2_create).getTag(),
-                        (Integer)view(R.id.p_2_x_3_create).getTag(),
+                        (Integer) view(R.id.p_2_x_1_create).getTag(),
+                        (Integer) view(R.id.p_2_x_2_create).getTag(),
+                        (Integer) view(R.id.p_2_x_3_create).getTag(),
 
-                        (Integer)view(R.id.p_3_x_1_create).getTag(),
-                        (Integer)view(R.id.p_3_x_2_create).getTag(),
-                        (Integer)view(R.id.p_3_x_3_create).getTag()
+                        (Integer) view(R.id.p_3_x_1_create).getTag(),
+                        (Integer) view(R.id.p_3_x_2_create).getTag(),
+                        (Integer) view(R.id.p_3_x_3_create).getTag()
                 );
             }
         });

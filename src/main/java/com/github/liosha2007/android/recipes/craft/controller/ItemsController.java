@@ -79,6 +79,7 @@ public class ItemsController extends BaseActivityController<ItemsView> {
         final View activityRootView = this.view.view(R.id.items_root);
         activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             private boolean isSoftKeyboardOpened = false;
+
             @Override
             public void onGlobalLayout() {
                 final Rect r = new Rect();
@@ -112,7 +113,7 @@ public class ItemsController extends BaseActivityController<ItemsView> {
             searchAndAddUnique(Item.FIELD_NOTE, searchText, items);
 
             view.setTitle(searchTitle);
-        } else if (favoritesTitle != null){
+        } else if (favoritesTitle != null) {
             List<Favorite> favorites = DBHelper.getFavoriteDAO().getAllFavorites();
             if (favorites != null) {
                 for (Favorite favorite : favorites) {
@@ -122,27 +123,27 @@ public class ItemsController extends BaseActivityController<ItemsView> {
                 }
                 view.setTitle(favoritesTitle);
             }
-        } else if (selectItemTitle != null){
+        } else if (selectItemTitle != null) {
             List<Item> allItems = DBHelper.getItemDAO().getAllItems();
 
             Item emptyItem = new Item();
             emptyItem.setId(-1);
             emptyItem.setName("Пустая ячейка");
-            emptyItem.setIcon("empty.png");
+//            emptyItem.setIcon("empty.png"); // TODO: Utils.bytes2bitmap(item.getIcon()
             items.add(emptyItem);
             items.addAll(allItems);
             view.setTitle(selectItemTitle);
         } else {
             items = DBHelper.getItemDAO().getAllItems();
         }
-        return  items;
+        return items;
     }
 
     private void searchAndAddUnique(String fieldName, String searchText, List<Item> items) {
         for (Item foundItem : DBHelper.getItemDAO().queryForLike(fieldName, searchText)) {
             boolean added = false;
             for (Item item : items) {
-                if (foundItem.getId().equals(item.getId())){
+                if (foundItem.getId().equals(item.getId())) {
                     added = true;
                     break;
                 }
@@ -187,8 +188,8 @@ public class ItemsController extends BaseActivityController<ItemsView> {
     public void onSearchTextChanged(String searchText) {
         List<Item> items = loadItems();
         List<Item> filteredItems = new ArrayList<Item>(items.size());
-        for (Item item : items){
-            if (item.getName().toLowerCase().contains(searchText.toLowerCase())){
+        for (Item item : items) {
+            if (item.getName().toLowerCase().contains(searchText.toLowerCase())) {
                 filteredItems.add(item);
             }
         }

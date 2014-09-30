@@ -1,5 +1,7 @@
 package com.github.liosha2007.android.recipes.craft.view;
 
+import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
@@ -26,9 +28,49 @@ public class SettingsView extends BaseActivityView<SettingsController> {
                 controller.onEditRecipesChecked(checked);
             }
         });
+        this.<Button>view(R.id.export_database).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                controller.onExportDatabaseClicked();
+            }
+        });
+        this.<Button>view(R.id.import_database).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                controller.onImportDatabaseClicked();
+            }
+        });
+        this.<Button>view(R.id.upload_textures).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                controller.onUploadTexturesClicked();
+            }
+        });
+        this.<Button>view(R.id.create_category).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                controller.onCreateCategoryClicked();
+            }
+        });
+        this.<Button>view(R.id.create_mod).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                controller.onCreateModClicked();
+            }
+        });
+        this.<Button>view(R.id.create_item).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                controller.onCreateItemClicked();
+            }
+        });
     }
 
-    public void checkAddDelete() {
+    public void enableEditMode() {
         this.<CheckBox>view(R.id.add_delete_recipes).setChecked(true);
+        this.<Button>view(R.id.upload_textures).setVisibility(View.VISIBLE);
+        this.<Button>view(R.id.create_category).setVisibility(View.VISIBLE);
+        this.<Button>view(R.id.create_mod).setVisibility(View.VISIBLE);
+        this.<Button>view(R.id.create_item).setVisibility(View.VISIBLE);
     }
 }

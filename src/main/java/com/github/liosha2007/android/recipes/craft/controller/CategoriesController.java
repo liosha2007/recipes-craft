@@ -8,6 +8,7 @@ import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.domain.Category;
 import com.github.liosha2007.android.recipes.craft.view.CategoriesView;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -23,9 +24,16 @@ public class CategoriesController extends BaseActivityController<CategoriesView>
     @Override
     public void onCreate() {
         super.onCreate();
-        List<Category> items = DBHelper.getCategoryDAO().getAllCategories();
+        List<Category> categories = DBHelper.getCategoryDAO().getAllCategories();
         view.clearCategories();
-        view.showCategories(items);
+        for (Category category : categories){
+            try {
+                DBHelper.getIconDAO().refresh(category.getIcon());
+            } catch (SQLException e) {
+                Utils.err("Can't refresh icon for category: " + e.getMessage());
+            }
+        }
+        view.showCategories(categories);
     }
 
     public void onCategoryClicked(final Integer categoryId) {

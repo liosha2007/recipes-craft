@@ -22,10 +22,11 @@ import java.util.List;
  * Created by liosha on 22.04.2014.
  */
 public class ModsView extends BaseActivityView<ModsController> {
+    private ModsArrayAdapter adapter;
+
     public ModsView() {
         super(R.layout.layout_mods);
     }
-    private ModsArrayAdapter adapter;
 
     public void clearMods() {
         if (adapter != null) {
@@ -82,7 +83,7 @@ public class ModsView extends BaseActivityView<ModsController> {
 
             holder.textView.setText(mods.get(position).getName());
             holder.textView.setTag(mods.get(position).getId());
-            holder.imageView.setImageDrawable(Utils.loadImageFromAssets(controller, mods.get(position).getIcon()));
+            holder.imageView.setImageBitmap(Utils.bytes2bitmap(mods.get(position).getIcon().getIcon()));
 
             return rowView;
         }

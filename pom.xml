@@ -18,9 +18,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.liosha2007.android</groupId>
+            <groupId>com.github.liosha2007</groupId>
             <artifactId>android-library</artifactId>
-            <version>1.0.0</version>
+            <version>1.2.0</version>
         </dependency>
         <dependency>
             <groupId>com.j256.ormlite</groupId>

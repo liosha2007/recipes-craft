@@ -18,8 +18,8 @@ public class Category {
     private Integer id;
     @DatabaseField(dataType = DataType.STRING, columnName = FIELD_NAME, unique = true, canBeNull = false)
     private String name;
-    @DatabaseField(dataType = DataType.STRING, columnName = FIELD_ICON)
-    private String icon;
+    @DatabaseField(foreign = true, columnName = FIELD_ICON)
+    private Icon icon;
 
     public Category() {
     }
@@ -40,11 +40,11 @@ public class Category {
         this.name = name;
     }
 
-    public String getIcon() {
+    public Icon getIcon() {
         return icon;
     }
 
-    public void setIcon(String icon) {
+    public void setIcon(Icon icon) {
         this.icon = icon;
     }
 }
