@@ -62,6 +62,10 @@ public class CategoriesView extends BaseActivityView<CategoriesController> {
         });
     }
 
+    public void showNotFound() {
+        view(R.id.not_found).setVisibility(View.VISIBLE);
+    }
+
     static class ViewHolder {
         public ImageView imageView;
         public TextView textView;

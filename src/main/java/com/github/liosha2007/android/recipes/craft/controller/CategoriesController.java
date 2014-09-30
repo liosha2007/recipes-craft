@@ -25,8 +25,12 @@ public class CategoriesController extends BaseActivityController<CategoriesView>
     public void onCreate() {
         super.onCreate();
         List<Category> categories = DBHelper.getCategoryDAO().getAllCategories();
+        if (categories.size() == 0) {
+            view.showNotFound();
+        }
+
         view.clearCategories();
-        for (Category category : categories){
+        for (Category category : categories) {
             try {
                 DBHelper.getIconDAO().refresh(category.getIcon());
             } catch (SQLException e) {

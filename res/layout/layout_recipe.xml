@@ -69,37 +69,37 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/recipe_tab_recipe"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/recipe_tab_recipe"
-                android:text="Рецепт"
                 android:layout_weight=".25"
                 android:gravity="center"
-                android:textColor="@android:color/holo_red_dark"/>
+                android:text="Рецепт"
+                android:textColor="@android:color/holo_red_dark" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
                 android:id="@+id/recipe_tab_description"
-                android:text="Описание"
-                android:layout_weight=".25"
-                android:gravity="center"  />
-
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_weight=".25"
+                android:gravity="center"
+                android:text="Описание" />
+
+            <TextView
                 android:id="@+id/recipe_tab_materials"
-                android:text="Материалы"
-                android:layout_weight=".25"
-                android:gravity="center"  />
-
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/recipe_tab_notes"
-                android:text="Примечание"
                 android:layout_weight=".25"
-                android:gravity="center"  />
+                android:gravity="center"
+                android:text="Материалы" />
+
+            <TextView
+                android:id="@+id/recipe_tab_notes"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight=".25"
+                android:gravity="center"
+                android:text="Примечание" />
         </LinearLayout>
 
         <android.support.v4.view.ViewPager

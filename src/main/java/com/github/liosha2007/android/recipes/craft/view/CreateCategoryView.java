@@ -1,6 +1,5 @@
 package com.github.liosha2007.android.recipes.craft.view;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.EditText;
@@ -8,9 +7,7 @@ import android.widget.ImageButton;
 
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.activity.view.BaseActivityView;
-import com.github.liosha2007.android.recipes.craft.controller.BrowserController;
 import com.github.liosha2007.android.recipes.craft.controller.CreateCategoryController;
-import com.github.liosha2007.android.recipes.craft.controller.SettingsController;
 
 /**
  * @author liosha on 30.09.2014.

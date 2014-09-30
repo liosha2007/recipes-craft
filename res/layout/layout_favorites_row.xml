@@ -3,7 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:padding="6dip" >
+    android:padding="6dip">
 
     <ImageView
         android:id="@+id/favorites_item_icon"
@@ -16,6 +16,7 @@
         android:src="@drawable/ic_launcher" />
 
     <TextView
+        android:id="@+id/favorites_item_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -24,14 +25,13 @@
         android:layout_toRightOf="@id/favorites_item_icon"
         android:gravity="center_vertical"
         android:text="Example category"
-        android:textSize="16sp"
-        android:id="@+id/favorites_item_title"/>
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/second_line"
         android:layout_width="fill_parent"
-        android:layout_above="@id/favorites_item_title"
         android:layout_height="26dip"
+        android:layout_above="@id/favorites_item_title"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@id/favorites_item_icon"

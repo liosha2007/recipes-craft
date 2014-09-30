@@ -19,6 +19,7 @@ import com.github.liosha2007.android.library.activity.view.BaseActivityView;
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.controller.ItemsController;
 import com.github.liosha2007.android.recipes.craft.database.domain.Favorite;
+import com.github.liosha2007.android.recipes.craft.database.domain.Icon;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 
 import java.util.List;
@@ -106,6 +107,10 @@ public class ItemsView extends BaseActivityView<ItemsController> {
         itemsArrayAdapter.notifyDataSetChanged();
     }
 
+    public void showNotFound() {
+        view(R.id.not_found).setVisibility(View.VISIBLE);
+    }
+
     static class ViewHolder {
         public ImageView imageView;
         public TextView textView;
@@ -145,7 +150,8 @@ public class ItemsView extends BaseActivityView<ItemsController> {
 
             holder.textView.setText(items.get(position).getName());
             holder.textView.setTag(items.get(position).getId());
-            holder.imageView.setImageBitmap(Utils.bytes2bitmap(items.get(position).getIcon().getIcon()));
+            Icon icon = items.get(position).getIcon();
+            holder.imageView.setImageBitmap(icon == null ? null : Utils.bytes2bitmap(icon.getIcon()));
             if (items.get(position).getId() != -1) {
                 holder.favoritesImageView.setImageResource(holder.isFavorite ? R.drawable.favorites_active : R.drawable.favorites_passive);
             } else {

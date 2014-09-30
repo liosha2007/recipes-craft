@@ -32,40 +32,16 @@ public class BrowserController extends BaseActivityController<BrowserView> {
     public static final String RETURN_FILE_PARAMETER = "com.github.liosha2007.android.recipes.craft.controller.RETURN_FILE_PARAMETER";
     private static final int SELECT_DIRECTORY = 1;
     private static final int SELECT_FILE = 2;
-
+    private static int currentAction = -1;
     private ArrayList<String> pathDirsList = new ArrayList<String>();
     private List<BrowserView.Item> fileList = new ArrayList<BrowserView.Item>();
     private File path = null;
-    private static int currentAction = -1;
     private boolean directoryShownIsEmpty = false;
     private boolean showHiddenFilesAndDirs = true;
     private String filterFileExtension = null;
 
     public BrowserController() {
         super(new BrowserView());
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-        Intent thisInt = this.getIntent();
-        currentAction = SELECT_DIRECTORY;
-        if (thisInt.getAction().equalsIgnoreCase(INTENT_ACTION_SELECT_FILE)) {
-            currentAction = SELECT_FILE;
-        }
-        showHiddenFilesAndDirs = thisInt.getBooleanExtra(
-                SHOW_CANNOT_READ_PARAMETER, true);
-        filterFileExtension = thisInt.getStringExtra(FILTER_EXTENSION);
-
-        setInitialDirectory();
-        parseDirectoryPath();
-        loadFileList();
-        int compoundDrawablePadding = (int) (3 * getResources().getDisplayMetrics().density + 0.5f);
-        view.createFileListAdapter(fileList, compoundDrawablePadding);
-        view.initializeButtons();
-        view.initializeFileListView();
-        updateCurrentDirectoryTextView();
     }
 
     public static long getFreeSpace(String path) {
@@ -93,6 +69,29 @@ public class BrowserController extends BaseActivityController<BrowserView> {
             retStr += (Long.valueOf(bytes)).toString() + " bytes";
         }
         return retStr;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        Intent thisInt = this.getIntent();
+        currentAction = SELECT_DIRECTORY;
+        if (thisInt.getAction().equalsIgnoreCase(INTENT_ACTION_SELECT_FILE)) {
+            currentAction = SELECT_FILE;
+        }
+        showHiddenFilesAndDirs = thisInt.getBooleanExtra(
+                SHOW_CANNOT_READ_PARAMETER, true);
+        filterFileExtension = thisInt.getStringExtra(FILTER_EXTENSION);
+
+        setInitialDirectory();
+        parseDirectoryPath();
+        loadFileList();
+        int compoundDrawablePadding = (int) (3 * getResources().getDisplayMetrics().density + 0.5f);
+        view.createFileListAdapter(fileList, compoundDrawablePadding);
+        view.initializeButtons();
+        view.initializeFileListView();
+        updateCurrentDirectoryTextView();
     }
 
     private void setInitialDirectory() {

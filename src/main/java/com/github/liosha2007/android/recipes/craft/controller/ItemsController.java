@@ -73,7 +73,23 @@ public class ItemsController extends BaseActivityController<ItemsView> {
         }
         //
         view.clearItems();
-        view.showItems(loadItems(), DBHelper.getFavoriteDAO().getAllFavorites());
+        List<Item> items = loadItems();
+        List<Favorite> favorites = DBHelper.getFavoriteDAO().getAllFavorites();
+        try {
+            for (Item item : items) {
+                DBHelper.getIconDAO().refresh(item.getIcon());
+            }
+            for (Favorite favorite : favorites) {
+                DBHelper.getIconDAO().refresh(favorite.getItem().getIcon());
+            }
+        } catch (Exception e) {
+            Utils.err("Can't update icon: " + e.getMessage());
+        }
+
+        view.showItems(items, favorites);
+        if (items.size() == 0) {
+            view.showNotFound();
+        }
 
         // Keyboard hidden/showed event
         final View activityRootView = this.view.view(R.id.items_root);

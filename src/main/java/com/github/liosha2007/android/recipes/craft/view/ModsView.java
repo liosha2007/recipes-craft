@@ -53,6 +53,10 @@ public class ModsView extends BaseActivityView<ModsController> {
         });
     }
 
+    public void showNotFound() {
+        view(R.id.not_found).setVisibility(View.VISIBLE);
+    }
+
     static class ViewHolder {
         public ImageView imageView;
         public TextView textView;

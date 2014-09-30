@@ -39,43 +39,51 @@
                 android:textColor="#ff3e57e8" />
         </LinearLayout>
     </LinearLayout>
+
     <CheckBox
+        android:id="@+id/add_delete_recipes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/add_delete_recipes"
-        android:text="Разрешить добавление/удаление рецептов (beta)" android:checked="false"/>
+        android:checked="false"
+        android:text="Разрешить добавление/удаление рецептов (beta)" />
+
     <Button
+        android:id="@+id/upload_textures"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Загрузить иконки в базу"
-        android:id="@+id/upload_textures"
-        android:visibility="gone"/>
+        android:visibility="gone" />
+
     <Button
+        android:id="@+id/create_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Добавить категорию"
-        android:id="@+id/create_category"
-        android:visibility="gone"/>
+        android:visibility="gone" />
+
     <Button
+        android:id="@+id/create_mod"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Добавить мод"
-        android:id="@+id/create_mod"
-        android:visibility="gone"/>
+        android:visibility="gone" />
+
     <Button
+        android:id="@+id/create_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Добавить предмет"
-        android:id="@+id/create_item"
-        android:visibility="gone"/>
+        android:visibility="gone" />
+
     <Button
+        android:id="@+id/import_database"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Импорт базы (существующая удалится)"
-        android:id="@+id/import_database"/>
+        android:text="Импорт базы (существующая удалится)" />
+
     <Button
+        android:id="@+id/export_database"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Экспорт базы"
-        android:id="@+id/export_database"/>
+        android:text="Экспорт базы" />
 </LinearLayout>

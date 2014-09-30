@@ -7,7 +7,6 @@ import android.widget.ImageButton;
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.activity.view.BaseActivityView;
 import com.github.liosha2007.android.library.common.Utils;
-import com.github.liosha2007.android.recipes.craft.controller.CreateCategoryController;
 import com.github.liosha2007.android.recipes.craft.controller.IconsController;
 import com.github.liosha2007.android.recipes.craft.database.domain.Icon;
 import com.github.liosha2007.android.recipes.craft.layout.FlowLayout;
@@ -38,5 +37,9 @@ public class IconsView extends BaseActivityView<IconsController> {
             }
         });
         this.<FlowLayout>view(R.id.icons_container).addView(imageButton);
+    }
+
+    public void showNotFound() {
+        view(R.id.not_found).setVisibility(View.VISIBLE);
     }
 }

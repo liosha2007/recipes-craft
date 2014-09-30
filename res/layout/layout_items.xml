@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/items_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/items_root">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/items_header"
@@ -42,6 +42,13 @@
         </LinearLayout>
 
     </LinearLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/minecraft_not_found"
+        android:id="@+id/not_found"
+        android:visibility="gone"
+        android:layout_below="@id/items_header"/>
 
     <EditText
         android:id="@+id/items_quick_search"
@@ -56,8 +63,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/items_quick_search"
-        android:layout_below="@id/items_header"
-        android:choiceMode="singleChoice"/>
+        android:layout_below="@id/not_found"
+        android:choiceMode="singleChoice" />
 
     <!--<LinearLayout-->
     <!--android:layout_width="fill_parent"-->
@@ -71,4 +78,5 @@
     <!--ads:adUnitId="@string/admob_publisher_id"-->
     <!--ads:loadAdOnCreate="true" />-->
     <!--</LinearLayout>-->
+
 </RelativeLayout>

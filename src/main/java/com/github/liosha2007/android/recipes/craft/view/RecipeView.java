@@ -9,6 +9,7 @@ import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.activity.view.BaseActivityView;
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.controller.RecipeController;
+import com.github.liosha2007.android.recipes.craft.database.domain.Icon;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 
 /**
@@ -46,7 +47,8 @@ public class RecipeView extends BaseActivityView<RecipeController> {
     public void showItemInfo(Item item) {
         if (item != null) {
             this.<TextView>view(R.id.recipe_result_title).setText(item.getName());
-            this.<ImageView>view(R.id.recipe_result_icon).setImageBitmap(Utils.bytes2bitmap(item.getIcon().getIcon())
+            Icon icon = item.getIcon();
+            this.<ImageView>view(R.id.recipe_result_icon).setImageBitmap(icon == null ? null : Utils.bytes2bitmap(icon.getIcon())
             );
         }
     }

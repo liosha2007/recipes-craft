@@ -6,14 +6,12 @@ import android.widget.Toast;
 import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
+import com.github.liosha2007.android.recipes.craft.database.dao.CategoryDAO;
 import com.github.liosha2007.android.recipes.craft.database.domain.Category;
 import com.github.liosha2007.android.recipes.craft.database.domain.Icon;
-import com.github.liosha2007.android.recipes.craft.database.domain.Mod;
 import com.github.liosha2007.android.recipes.craft.view.CreateCategoryView;
-import com.github.liosha2007.android.recipes.craft.view.ModsView;
 
-import java.sql.SQLException;
-import java.util.List;
+import static java.util.Arrays.asList;
 
 /**
  * @author liosha on 30.09.2014.
@@ -41,17 +39,21 @@ public class CreateCategoryController extends BaseActivityController<CreateCateg
 
     public void onCreateCategoryClicked() {
         String categoryName = view.getCategoryName();
-        if (categoryName == null || categoryName.isEmpty()){
+        if (categoryName == null || categoryName.isEmpty()) {
             Toast.makeText(this, "Заполните все поля!", Toast.LENGTH_LONG).show();
         } else {
             Category category = new Category();
             category.setIcon(iconId == -1 ? null : DBHelper.getIconDAO().queryForId(iconId));
             category.setName(categoryName);
             try {
-                DBHelper.getCategoryDAO().create(category);
+                CategoryDAO categoryDAO = DBHelper.getCategoryDAO();
+                if (categoryDAO.selectBy(asList(Category.FIELD_NAME), categoryName) != null) {
+                    throw new Exception("Категория уже существует");
+                }
+                categoryDAO.create(category);
                 Toast.makeText(this, "Категория создана!", Toast.LENGTH_LONG).show();
-            } catch (SQLException e) {
-                Toast.makeText(this, "Ошибка при создании категории!", Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
                 Utils.err("Error during create category: " + e.getMessage());
             }
         }

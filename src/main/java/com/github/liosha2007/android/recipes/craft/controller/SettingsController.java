@@ -10,7 +10,6 @@ import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.common.Constants;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.domain.Icon;
-import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.view.SettingsView;
 
 import org.apache.commons.io.IOUtils;
@@ -93,7 +92,7 @@ public class SettingsController extends BaseActivityController<SettingsView> {
                 return name.endsWith(".png");
             }
         });
-        for (File file : listFiles){
+        for (File file : listFiles) {
             FileInputStream fileInputStream = null;
             try {
                 fileInputStream = new FileInputStream(file);

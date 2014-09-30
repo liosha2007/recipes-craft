@@ -6,12 +6,13 @@ import android.widget.Toast;
 import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
+import com.github.liosha2007.android.recipes.craft.database.dao.ModDAO;
+import com.github.liosha2007.android.recipes.craft.database.domain.Category;
 import com.github.liosha2007.android.recipes.craft.database.domain.Icon;
 import com.github.liosha2007.android.recipes.craft.database.domain.Mod;
-import com.github.liosha2007.android.recipes.craft.view.CreateCategoryView;
 import com.github.liosha2007.android.recipes.craft.view.CreateModView;
 
-import java.sql.SQLException;
+import static java.util.Arrays.asList;
 
 /**
  * @author liosha on 30.09.2014.
@@ -39,18 +40,22 @@ public class CreateModController extends BaseActivityController<CreateModView> {
 
     public void onCreateModClicked() {
         String categoryName = view.getCategoryName();
-        if (categoryName == null || categoryName.isEmpty()){
+        if (categoryName == null || categoryName.isEmpty()) {
             Toast.makeText(this, "Заполните все поля!", Toast.LENGTH_LONG).show();
         } else {
             Mod mod = new Mod();
             mod.setIcon(iconId == -1 ? null : DBHelper.getIconDAO().queryForId(iconId));
             mod.setName(categoryName);
             try {
-                DBHelper.getModDAO().create(mod);
+                ModDAO modDAO = DBHelper.getModDAO();
+                if (modDAO.selectBy(asList(Category.FIELD_NAME), categoryName) != null) {
+                    throw new Exception("Мод уже существует!");
+                }
+                modDAO.create(mod);
                 Toast.makeText(this, "Мод создан!", Toast.LENGTH_LONG).show();
-            } catch (SQLException e) {
-                Toast.makeText(this, "Ошибка при создании мода!", Toast.LENGTH_LONG).show();
-                Utils.err("Error during create category: " + e.getMessage());
+            } catch (Exception e) {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+                Utils.err("Error during create mod: " + e.getMessage());
             }
         }
     }

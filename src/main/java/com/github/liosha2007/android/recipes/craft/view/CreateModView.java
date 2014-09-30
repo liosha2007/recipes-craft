@@ -7,7 +7,6 @@ import android.widget.ImageButton;
 
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.activity.view.BaseActivityView;
-import com.github.liosha2007.android.recipes.craft.controller.CreateCategoryController;
 import com.github.liosha2007.android.recipes.craft.controller.CreateModController;
 
 /**

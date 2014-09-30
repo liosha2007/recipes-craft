@@ -70,9 +70,9 @@
                 android:text="Предмет относится к моду" />
 
             <Spinner
+                android:id="@+id/create_item_mod"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/create_item_mod"/>
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -80,15 +80,15 @@
                 android:text="Предмет относится к категории" />
 
             <Spinner
+                android:id="@+id/create_item_category"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/create_item_category"/>
+                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/create_item_create"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Добавить категорию" />
+                android:text="Добавить предмет" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -25,7 +25,7 @@ public class ModsController extends BaseActivityController<ModsView> {
         //
         List<Mod> mods = DBHelper.getModDAO().getAllMods();
         view.clearMods();
-        for (Mod category : mods){
+        for (Mod category : mods) {
             try {
                 DBHelper.getIconDAO().refresh(category.getIcon());
             } catch (SQLException e) {
@@ -33,6 +33,9 @@ public class ModsController extends BaseActivityController<ModsView> {
             }
         }
         view.showMods(mods);
+        if (mods.size() == 0) {
+            view.showNotFound();
+        }
     }
 
     public void onModClicked(Integer modId, String title) {
