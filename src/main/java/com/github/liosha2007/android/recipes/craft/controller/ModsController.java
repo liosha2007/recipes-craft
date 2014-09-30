@@ -8,6 +8,7 @@ import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.domain.Mod;
 import com.github.liosha2007.android.recipes.craft.view.ModsView;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -22,9 +23,16 @@ public class ModsController extends BaseActivityController<ModsView> {
     public void onCreate() {
         super.onCreate();
         //
-        List<Mod> items = DBHelper.getModDAO().getAllMods();
+        List<Mod> mods = DBHelper.getModDAO().getAllMods();
         view.clearMods();
-        view.showMods(items);
+        for (Mod category : mods){
+            try {
+                DBHelper.getIconDAO().refresh(category.getIcon());
+            } catch (SQLException e) {
+                Utils.err("Can't refresh icon for mod: " + e.getMessage());
+            }
+        }
+        view.showMods(mods);
     }
 
     public void onModClicked(Integer modId, String title) {
