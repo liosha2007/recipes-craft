@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.liosha2007.android.R;
@@ -34,9 +35,9 @@ public class ModsView extends BaseActivityView<ModsController> {
         }
     }
 
-    public void showMods(List<Mod> mods) {
+    public void showMods(List<Mod> mods, boolean editMode) {
         final ListView listview = (ListView) view.findViewById(R.id.mods_list);
-        adapter = new ModsArrayAdapter(controller, mods);
+        adapter = new ModsArrayAdapter(controller, mods, editMode);
         listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -60,14 +61,17 @@ public class ModsView extends BaseActivityView<ModsController> {
     static class ViewHolder {
         public ImageView imageView;
         public TextView textView;
+        public ImageView deleteButton;
     }
 
     private class ModsArrayAdapter extends ArrayAdapter<Mod> {
         protected List<Mod> mods;
+        private boolean editMode;
 
-        public ModsArrayAdapter(Context context, List<Mod> mods) {
+        public ModsArrayAdapter(Context context, List<Mod> mods, boolean editMode) {
             super(context, R.layout.layout_mods_row, mods);
             this.mods = mods;
+            this.editMode = editMode;
         }
 
         @Override
@@ -80,6 +84,7 @@ public class ModsView extends BaseActivityView<ModsController> {
                 holder = new ViewHolder();
                 holder.textView = Utils.view(rowView, R.id.mods_item_title);
                 holder.imageView = Utils.view(rowView, R.id.mods_item_icon);
+                holder.deleteButton = Utils.view(rowView, R.id.mods_item_delete);
                 rowView.setTag(holder);
             } else {
                 holder = (ViewHolder) rowView.getTag();
@@ -88,6 +93,25 @@ public class ModsView extends BaseActivityView<ModsController> {
             holder.textView.setText(mods.get(position).getName());
             holder.textView.setTag(mods.get(position).getId());
             holder.imageView.setImageBitmap(Utils.bytes2bitmap(mods.get(position).getIcon().getIcon()));
+            if (editMode) {
+                holder.deleteButton.setVisibility(View.VISIBLE);
+                holder.deleteButton.setTag(mods.get(position).getId());
+                holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (v.getParent() instanceof RelativeLayout && ((RelativeLayout) v.getParent()).getTag() instanceof ViewHolder) {
+                            RelativeLayout relativeLayout = (RelativeLayout) v.getParent();
+                            ViewHolder viewHolder = (ViewHolder) relativeLayout.getTag();
+                            Integer modId = (Integer) viewHolder.deleteButton.getTag();
+                            if (modId != null && modId != 0) {
+                                controller.onDeleteClicked(modId);
+                            }
+                        }
+                    }
+                });
+            } else {
+                holder.deleteButton.setVisibility(View.GONE);
+            }
 
             return rowView;
         }

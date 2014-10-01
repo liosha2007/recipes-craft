@@ -66,9 +66,9 @@ public class DashboardController extends BaseActivityController<DashboardView> {
 
     public void onVersionClicked() {
 //        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        boolean addDeleteMode = preferences.getBoolean(Constants.ADD_DELETE_RECIPES, false);
+//        boolean editMode = preferences.getBoolean(Constants.ADD_DELETE_RECIPES, false);
 //        // Export database file
-//        if (addDeleteMode) {
+//        if (editMode) {
 //            File downloadsDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 //            if (DBHelper.exportDatabaseFileTo(this, downloadsDirectory.getAbsolutePath())) {
 //                Toast.makeText(this, "Database exported to '" + downloadsDirectory.getAbsolutePath() + "'!", Toast.LENGTH_LONG).show();

@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class RecipeController extends BaseFragmentController<RecipeFragment> {
     protected int itemId;
-    protected boolean addDeleteMode = false;
+    protected boolean editMode = false;
 
     public RecipeController() {
         super(new RecipeFragment());
@@ -32,7 +32,7 @@ public class RecipeController extends BaseFragmentController<RecipeFragment> {
         super.onCreate();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
-        addDeleteMode = preferences.getBoolean(Constants.ADD_DELETE_RECIPES, false);
+        editMode = preferences.getBoolean(Constants.ADD_DELETE_RECIPES, false);
 
         // Restore parameters
         this.itemId = getArguments().getInt(com.github.liosha2007.android.recipes.craft.controller.RecipeController.ITEM_ID, -1);
@@ -51,8 +51,8 @@ public class RecipeController extends BaseFragmentController<RecipeFragment> {
             DBHelper.getItemDAO().refresh(recipe.getP3x3());
             DBHelper.getItemDAO().refresh(recipe.getResult());
         }
-        view.createAccordion(item, recipes, addDeleteMode);
-        if (addDeleteMode) {
+        view.createAccordion(item, recipes, editMode);
+        if (editMode) {
             view.createRecipeControls();
         }
         if (recipes.size() == 0) {

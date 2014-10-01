@@ -70,10 +70,11 @@ public class ItemsView extends BaseActivityView<ItemsController> {
      *
      * @param items
      * @param favorites
+     * @param editMode
      */
-    public void showItems(List<Item> items, List<Favorite> favorites) {
+    public void showItems(List<Item> items, List<Favorite> favorites, boolean editMode) {
         final ListView listview = view(R.id.items_list);
-        adapter = new ItemsArrayAdapter(controller, items, favorites);
+        adapter = new ItemsArrayAdapter(controller, items, favorites, editMode);
         listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -117,20 +118,23 @@ public class ItemsView extends BaseActivityView<ItemsController> {
         public ImageView favoritesImageView;
         public boolean isFavorite;
         public int position;
+        public ImageView deleteButton;
     }
 
     private class ItemsArrayAdapter extends ArrayAdapter<Item> {
+        private final boolean editMode;
         protected List<Item> items;
         protected List<Favorite> favorites;
 
-        public ItemsArrayAdapter(Context context, List<Item> items, List<Favorite> favorites) {
+        public ItemsArrayAdapter(Context context, List<Item> items, List<Favorite> favorites, boolean editMode) {
             super(context, R.layout.layout_items_row, items);
             this.items = items;
             this.favorites = favorites;
+            this.editMode = editMode;
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, ViewGroup parent) { // TODO:
             ViewHolder holder;
             View rowView = convertView;
             if (rowView == null) {
@@ -140,6 +144,7 @@ public class ItemsView extends BaseActivityView<ItemsController> {
                 holder.textView = Utils.view(rowView, R.id.items_item_title);
                 holder.imageView = Utils.view(rowView, R.id.items_item_icon);
                 holder.favoritesImageView = Utils.view(rowView, R.id.items_item_favorites);
+                holder.deleteButton = Utils.view(rowView, R.id.items_item_delete);
                 rowView.setTag(holder);
             } else {
                 holder = (ViewHolder) rowView.getTag();
@@ -170,6 +175,21 @@ public class ItemsView extends BaseActivityView<ItemsController> {
                     }
                 }
             });
+            if (editMode) {
+                holder.deleteButton.setVisibility(View.VISIBLE);
+                holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (v.getParent() instanceof RelativeLayout && ((RelativeLayout) v.getParent()).getTag() instanceof ViewHolder) {
+                            RelativeLayout relativeLayout = (RelativeLayout) v.getParent();
+                            ViewHolder viewHolder = (ViewHolder) relativeLayout.getTag();
+                            controller.onDeleteClicked(items.get(viewHolder.position));
+                        }
+                    }
+                });
+            } else {
+                holder.deleteButton.setVisibility(View.GONE);
+            }
 
             return rowView;
         }

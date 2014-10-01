@@ -1,21 +1,29 @@
 package com.github.liosha2007.android.recipes.craft.controller;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Toast;
 
 import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.common.Utils;
+import com.github.liosha2007.android.recipes.craft.common.Constants;
 import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.dao.FavoriteDAO;
 import com.github.liosha2007.android.recipes.craft.database.domain.Favorite;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.view.ItemsView;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -71,25 +79,7 @@ public class ItemsController extends BaseActivityController<ItemsView> {
             this.imageViewId = bundle.getInt(CREATE_RECIPE_IMAGE_VIEW_ID, -1);
             this.selectItemTitle = bundle.getString(CREATE_RECIPE_TITLE, null);
         }
-        //
-        view.clearItems();
-        List<Item> items = loadItems();
-        List<Favorite> favorites = DBHelper.getFavoriteDAO().getAllFavorites();
-        try {
-            for (Item item : items) {
-                DBHelper.getIconDAO().refresh(item.getIcon());
-            }
-            for (Favorite favorite : favorites) {
-                DBHelper.getIconDAO().refresh(favorite.getItem().getIcon());
-            }
-        } catch (Exception e) {
-            Utils.err("Can't update icon: " + e.getMessage());
-        }
-
-        view.showItems(items, favorites);
-        if (items.size() == 0) {
-            view.showNotFound();
-        }
+        showItems();
 
         // Keyboard hidden/showed event
         final View activityRootView = this.view.view(R.id.items_root);
@@ -110,6 +100,30 @@ public class ItemsController extends BaseActivityController<ItemsView> {
                 }
             }
         });
+    }
+
+    private void showItems() {
+        //
+        view.clearItems();
+        List<Item> items = loadItems();
+        List<Favorite> favorites = DBHelper.getFavoriteDAO().getAllFavorites();
+        try {
+            for (Item item : items) {
+                DBHelper.getIconDAO().refresh(item.getIcon());
+            }
+            for (Favorite favorite : favorites) {
+                DBHelper.getIconDAO().refresh(favorite.getItem().getIcon());
+            }
+        } catch (Exception e) {
+            Utils.err("Can't update icon: " + e.getMessage());
+        }
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean editMode = preferences.getBoolean(Constants.ADD_DELETE_RECIPES, false);
+
+        view.showItems(items, favorites, editMode);
+        if (items.size() == 0) {
+            view.showNotFound();
+        }
     }
 
     protected List<Item> loadItems() {
@@ -204,12 +218,40 @@ public class ItemsController extends BaseActivityController<ItemsView> {
     public void onSearchTextChanged(String searchText) {
         List<Item> items = loadItems();
         List<Item> filteredItems = new ArrayList<Item>(items.size());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean editMode = preferences.getBoolean(Constants.ADD_DELETE_RECIPES, false);
         for (Item item : items) {
             if (item.getName().toLowerCase().contains(searchText.toLowerCase())) {
                 filteredItems.add(item);
             }
         }
         view.clearItems();
-        view.showItems(filteredItems, DBHelper.getFavoriteDAO().getAllFavorites());
+        view.showItems(filteredItems, DBHelper.getFavoriteDAO().getAllFavorites(), editMode);
+    }
+
+    public void onDeleteClicked(final Item item) {
+        if (item != null) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Удаление")
+                    .setMessage("Вы действительно хотите удалить?")
+                    .setNegativeButton(android.R.string.no, null)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            try {
+                                FavoriteDAO favoriteDAO = DBHelper.getFavoriteDAO();
+                                Favorite favorite = favoriteDAO.selectBy(Arrays.asList(Favorite.FIELD_ITEM), item.getId());
+                                if (favorite != null) {
+                                    favoriteDAO.delete(favorite);
+                                }
+                                DBHelper.getItemDAO().delete(item);
+                                Toast.makeText(ItemsController.this, "Предмет удален!", Toast.LENGTH_LONG).show();
+                                showItems();
+                            } catch (SQLException e) {
+                                Toast.makeText(ItemsController.this, "Не удалось удалить предмет!", Toast.LENGTH_LONG).show();
+                                Utils.err("Can't delete item: " + e.getMessage());
+                            }
+                        }
+                    }).create().show();
+        }
     }
 }

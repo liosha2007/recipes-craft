@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.liosha2007.android.R;
@@ -43,9 +44,9 @@ public class CategoriesView extends BaseActivityView<CategoriesController> {
      *
      * @param categories
      */
-    public void showCategories(List<Category> categories) {
+    public void showCategories(List<Category> categories, boolean editMode) {
         final ListView listview = (ListView) view.findViewById(R.id.categories_list);
-        adapter = new CategoriesArrayAdapter(controller, categories);
+        adapter = new CategoriesArrayAdapter(controller, categories, editMode);
         listview.setAdapter(adapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -69,14 +70,18 @@ public class CategoriesView extends BaseActivityView<CategoriesController> {
     static class ViewHolder {
         public ImageView imageView;
         public TextView textView;
+        public ImageView deleteButton;
+        public int position;
     }
 
     private class CategoriesArrayAdapter extends ArrayAdapter<Category> {
+        private final boolean editMode;
         protected List<Category> categories;
 
-        public CategoriesArrayAdapter(Context context, List<Category> categories) {
+        public CategoriesArrayAdapter(Context context, List<Category> categories, boolean editMode) {
             super(context, R.layout.layout_categories_row, categories);
             this.categories = categories;
+            this.editMode = editMode;
         }
 
         @Override
@@ -89,15 +94,31 @@ public class CategoriesView extends BaseActivityView<CategoriesController> {
                 holder = new ViewHolder();
                 holder.textView = Utils.view(rowView, R.id.categories_item_title);
                 holder.imageView = Utils.view(rowView, R.id.categories_item_icon);
+                holder.deleteButton = Utils.view(rowView, R.id.categories_item_delete);
                 rowView.setTag(holder);
             } else {
                 holder = (ViewHolder) rowView.getTag();
             }
-
+            holder.position = position;
             holder.textView.setText(categories.get(position).getName());
             holder.textView.setTag(categories.get(position).getId());
             Icon icon = categories.get(position).getIcon();
             holder.imageView.setImageBitmap(icon == null || icon.getIcon() == null ? null : Utils.bytes2bitmap(icon.getIcon()));
+            if (editMode) {
+                holder.deleteButton.setVisibility(View.VISIBLE);
+                holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (v.getParent() instanceof RelativeLayout && ((RelativeLayout) v.getParent()).getTag() instanceof ViewHolder) {
+                            RelativeLayout relativeLayout = (RelativeLayout) v.getParent();
+                            ViewHolder viewHolder = (ViewHolder) relativeLayout.getTag();
+                            controller.onDeleteClicked(categories.get(viewHolder.position));
+                        }
+                    }
+                });
+            } else {
+                holder.deleteButton.setVisibility(View.GONE);
+            }
 
             return rowView;
         }
