@@ -102,7 +102,7 @@ public class SettingsController extends BaseActivityController<SettingsView> {
                 icon.setIcon(bytes);
                 DBHelper.getIconDAO().create(icon);
             } catch (Exception e) {
-                Utils.err("Upload error: " + e.getMessage());
+                Utils.war("Image skipped: " + file.getName());
             } finally {
                 Utils.closeStreams(fileInputStream);
             }

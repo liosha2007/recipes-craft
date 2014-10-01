@@ -48,12 +48,13 @@
             </LinearLayout>
 
         </LinearLayout>
+
         <ImageView
+            android:id="@+id/not_found"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/minecraft_not_found"
-            android:id="@+id/not_found"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <ListView
             android:id="@+id/mods_list"

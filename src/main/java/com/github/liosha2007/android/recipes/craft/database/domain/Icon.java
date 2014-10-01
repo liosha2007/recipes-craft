@@ -15,7 +15,7 @@ public class Icon {
 
     @DatabaseField(generatedId = true, columnName = FIELD_ID, unique = true, canBeNull = false)
     private Integer id;
-    @DatabaseField(dataType = DataType.BYTE_ARRAY, columnName = FIELD_ICON)
+    @DatabaseField(dataType = DataType.BYTE_ARRAY, unique = true, columnName = FIELD_ICON)
     private byte[] icon;
 
     public Integer getId() {

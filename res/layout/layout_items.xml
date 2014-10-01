@@ -42,13 +42,14 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <ImageView
+        android:id="@+id/not_found"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/items_header"
         android:src="@drawable/minecraft_not_found"
-        android:id="@+id/not_found"
-        android:visibility="gone"
-        android:layout_below="@id/items_header"/>
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/items_quick_search"
