@@ -3,6 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical">
 
     <LinearLayout
@@ -12,8 +13,9 @@
 
         <ImageView
             android:id="@+id/application_icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="80dp"
+            android:layout_height="64dp"
+            android:layout_margin="5dp"
             android:src="@drawable/application_icon" />
 
         <LinearLayout
@@ -56,7 +58,8 @@
         <com.github.liosha2007.android.recipes.craft.layout.FlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/icons_container"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
 
         </com.github.liosha2007.android.recipes.craft.layout.FlowLayout>
     </ScrollView>

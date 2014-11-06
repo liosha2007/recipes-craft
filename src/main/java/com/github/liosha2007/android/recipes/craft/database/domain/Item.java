@@ -22,11 +22,11 @@ public class Item {
     private Integer id;
     @DatabaseField(dataType = DataType.STRING, columnName = FIELD_NAME, unique = true, canBeNull = false)
     private String name;
-    @DatabaseField(foreign = true, columnName = FIELD_ICON)
+    @DatabaseField(foreign = true, columnName = FIELD_ICON, foreignAutoRefresh = true)
     private Icon icon;
-    @DatabaseField(foreign = true, columnName = FIELD_CATEGORY)
+    @DatabaseField(foreign = true, columnName = FIELD_CATEGORY, foreignAutoRefresh = true)
     private Category category;
-    @DatabaseField(foreign = true, columnName = FIELD_MOD)
+    @DatabaseField(foreign = true, columnName = FIELD_MOD, foreignAutoRefresh = true)
     private Mod mod;
     @DatabaseField(dataType = DataType.STRING, columnName = FIELD_DESCRIPTION)
     private String description;

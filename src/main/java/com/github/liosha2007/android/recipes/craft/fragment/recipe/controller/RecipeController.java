@@ -17,7 +17,7 @@ import com.github.liosha2007.android.recipes.craft.fragment.recipe.view.RecipeFr
 import java.util.List;
 
 /**
- * Created by liosha on 13.05.2014.
+ * @author liosha on 13.05.2014.
  */
 public class RecipeController extends BaseFragmentController<RecipeFragment> {
     protected int itemId;

@@ -43,7 +43,7 @@ public class Recipe {
     private Item p3x2;
     @DatabaseField(foreign = true, columnName = FIELD_P3X3)
     private Item p3x3;
-    @DatabaseField(foreign = true, columnName = FIELD_RESULT, canBeNull = false)
+    @DatabaseField(foreign = true, columnName = FIELD_RESULT, canBeNull = false, foreignAutoRefresh = true)
     private Item result;
     @DatabaseField(dataType = DataType.INTEGER, columnName = FIELD_TYPE)
     private int type;

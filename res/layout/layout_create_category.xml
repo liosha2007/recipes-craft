@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/background">
 
     <TextView
         android:layout_width="match_parent"
@@ -12,33 +13,40 @@
         android:layout_marginBottom="25dp"
         android:gravity="center"
         android:text="Добавление категории"
-        android:textSize="18sp" />
+        android:textSize="20sp" />
 
     <ImageButton
         android:id="@+id/create_category_icon"
         android:layout_width="64dp"
-        android:layout_height="64dp" />
+        android:layout_height="64dp"
+        android:background="@drawable/no_icon"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Иконка" />
+        android:text="Иконка"
+        android:layout_margin="10dp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Название категории" />
+        android:text="Название категории"
+        android:layout_margin="3dp"/>
 
     <EditText
         android:id="@+id/create_category_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/edit_big"/>
 
     <Button
         android:id="@+id/create_category_create"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
+        android:background="@drawable/big_button"
         android:text="Добавить категорию" />
 
 </LinearLayout>

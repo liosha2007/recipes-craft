@@ -18,7 +18,7 @@ public class Category {
     private Integer id;
     @DatabaseField(dataType = DataType.STRING, columnName = FIELD_NAME, unique = true, canBeNull = false)
     private String name;
-    @DatabaseField(foreign = true, columnName = FIELD_ICON)
+    @DatabaseField(foreign = true, columnName = FIELD_ICON, foreignAutoRefresh = true)
     private Icon icon;
 
     public Category() {

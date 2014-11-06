@@ -3,6 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical">
 
 
@@ -20,8 +21,9 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="80dp"
+                android:layout_height="64dp"
+                android:layout_margin="5dp"
                 android:src="@drawable/application_icon" />
 
             <LinearLayout
@@ -61,7 +63,9 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight=".9"
-            android:choiceMode="singleChoice"></ListView>
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="1dp"></ListView>
     </LinearLayout>
 
 </LinearLayout>

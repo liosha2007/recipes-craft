@@ -145,6 +145,7 @@ public class RecipeFragment extends BaseFragmentView<RecipeController> {
         TextView notFound = new TextView(controller.getActivity());
         notFound.setTextColor(Color.RED);
         notFound.setGravity(Gravity.CENTER);
+        notFound.setPadding(0, 25, 0, 0);
         notFound.setTextSize(28);
         notFound.setText("Рецепт для этого предмета не найден!");
 

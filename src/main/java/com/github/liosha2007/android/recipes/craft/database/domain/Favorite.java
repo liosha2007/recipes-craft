@@ -14,7 +14,7 @@ public class Favorite {
 
     @DatabaseField(generatedId = true, columnName = FIELD_ID, unique = true, canBeNull = false)
     private Integer id;
-    @DatabaseField(foreign = true, columnName = FIELD_ITEM, canBeNull = false)
+    @DatabaseField(foreign = true, columnName = FIELD_ITEM, canBeNull = false, foreignAutoRefresh = true)
     private Item item;
 
     public Favorite() {

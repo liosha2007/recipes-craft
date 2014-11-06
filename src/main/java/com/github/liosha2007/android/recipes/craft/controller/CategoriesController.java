@@ -37,6 +37,9 @@ public class CategoriesController extends BaseActivityController<CategoriesView>
 
     private void showCategories() {
         List<Category> categories = DBHelper.getCategoryDAO().getAllCategories();
+        if (categories == null){
+            return;
+        }
         if (categories.size() == 0) {
             view.showNotFound();
         }

@@ -3,6 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical">
 
     <LinearLayout
@@ -12,8 +13,9 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="80dp"
+            android:layout_height="64dp"
+            android:layout_margin="5dp"
             android:src="@drawable/application_icon" />
 
         <LinearLayout
@@ -45,6 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:checked="false"
+        android:textSize="14sp"
         android:text="Разрешить добавление/удаление рецептов (beta)" />
 
     <Button
@@ -52,13 +55,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Загрузить иконки в базу"
-        android:visibility="gone" />
+        android:background="@drawable/big_button"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/create_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Добавить категорию"
+        android:background="@drawable/big_button"
         android:visibility="gone" />
 
     <Button
@@ -66,6 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Добавить мод"
+        android:background="@drawable/big_button"
         android:visibility="gone" />
 
     <Button
@@ -73,17 +79,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Добавить предмет"
+        android:background="@drawable/big_button"
         android:visibility="gone" />
 
     <Button
         android:id="@+id/import_database"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Импорт базы (существующая удалится)" />
+        android:text="Импорт базы (существующая удалится)"
+        android:background="@drawable/big_button" />
 
     <Button
         android:id="@+id/export_database"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Экспорт базы" />
+        android:text="Экспорт базы"
+        android:background="@drawable/big_button" />
 </LinearLayout>

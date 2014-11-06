@@ -11,27 +11,32 @@
 
         <Button
             android:id="@+id/recipe_craft_delete_button"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_alignParentRight="true"
-            android:layout_margin="4dp"
+            android:layout_margin="2dp"
             android:background="@drawable/delete"
             android:gravity="right"
             android:text=""
             android:textSize="15sp"
             android:typeface="monospace"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/recipe_craft_recipe_button"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
             android:layout_toLeftOf="@id/recipe_craft_delete_button"
-            android:drawableRight="@drawable/ic_launcher"
+            android:drawableRight="@drawable/corner_down"
             android:gravity="left"
             android:text="Рецепт №1"
             android:textSize="15sp"
-            android:typeface="monospace" />
+            android:typeface="monospace"
+            android:background="@drawable/big_button"/>
 
     </RelativeLayout>
 
@@ -48,79 +53,78 @@
             android:layout_height="wrap_content"
             android:background="@drawable/crafting_table"
             android:gravity="center"
-            android:padding="3sp"
             android:stretchColumns="true">
 
-            <TableRow android:orientation="horizontal">
+            <TableRow android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="5dp">
 
                 <ImageView
                     android:id="@+id/p_1_x_1"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
-                    android:padding="3sp"
-                    android:src="@drawable/ic_launcher" />
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:padding="3sp"/>
 
                 <ImageView
                     android:id="@+id/p_1_x_2"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:padding="3sp"
-                    android:src="@drawable/ic_launcher" />
+                    android:layout_margin="2dp"/>
 
                 <ImageView
                     android:id="@+id/p_1_x_3"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
-                    android:padding="3sp"
-                    android:src="@drawable/ic_launcher" />
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:padding="3sp"/>
             </TableRow>
 
-            <TableRow>
+            <TableRow android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:layout_height="310dp">
 
                 <ImageView
                     android:id="@+id/p_2_x_1"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
-                    android:padding="3sp"
-                    android:src="@drawable/ic_launcher" />
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:padding="3sp"/>
 
                 <ImageView
                     android:id="@+id/p_2_x_2"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
-                    android:padding="3sp"
-                    android:src="@drawable/ic_launcher" />
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:padding="3sp"/>
 
                 <ImageView
                     android:id="@+id/p_2_x_3"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
-                    android:padding="3sp"
-                    android:src="@drawable/ic_launcher" />
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:padding="3sp" />
             </TableRow>
 
-            <TableRow>
+            <TableRow android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal">
 
                 <ImageView
                     android:id="@+id/p_3_x_1"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
-                    android:padding="3sp"
-                    android:src="@drawable/ic_launcher" />
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:padding="3sp"/>
 
                 <ImageView
                     android:id="@+id/p_3_x_2"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
-                    android:padding="3sp"
-                    android:src="@drawable/ic_launcher" />
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:padding="3sp" />
 
                 <ImageView
                     android:id="@+id/p_3_x_3"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
-                    android:padding="3sp"
-                    android:src="@drawable/ic_launcher" />
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:padding="3sp"/>
             </TableRow>
         </TableLayout>
     </LinearLayout>

@@ -1,5 +1,6 @@
 package com.github.liosha2007.android.recipes.craft.view;
 
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -26,8 +27,9 @@ public class IconsView extends BaseActivityView<IconsController> {
 
     public void showIcon(Icon icon) {
         ImageButton imageButton = new ImageButton(controller);
+        imageButton.setBackgroundColor(Color.TRANSPARENT);
         imageButton.setImageBitmap(Utils.bytes2bitmap(icon.getIcon()));
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(64, 64);
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(80, 80);
         imageButton.setLayoutParams(layoutParams);
         imageButton.setTag(icon.getId());
         imageButton.setOnClickListener(new View.OnClickListener() {
