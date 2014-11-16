@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical"
-    android:background="@drawable/background">
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
@@ -18,35 +16,33 @@
     <ImageButton
         android:id="@+id/create_category_icon"
         android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:background="@drawable/no_icon"/>
+        android:layout_height="64dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:gravity="center"
-        android:text="Иконка"
-        android:layout_margin="10dp"/>
+        android:text="Иконка" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Название категории"
-        android:layout_margin="3dp"/>
+        android:layout_margin="3dp"
+        android:text="Название категории" />
 
     <EditText
         android:id="@+id/create_category_title"
+        style="@style/RecipesCraftTheme.EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:background="@drawable/edit_big"/>
+        android:paddingRight="5dp" />
 
     <Button
         android:id="@+id/create_category_create"
+        style="@style/RecipesCraftTheme.Button"
         android:layout_width="match_parent"
         android:layout_height="42dp"
-        android:background="@drawable/big_button"
         android:text="Добавить категорию" />
-
 </LinearLayout>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -68,7 +67,6 @@
                     <TableLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/crafting_table"
                         android:gravity="center"
                         android:stretchColumns="true">
 
@@ -82,20 +80,25 @@
                                 android:id="@+id/p_1_x_1_create"
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:padding="3sp" />
+                                android:padding="3sp"
+                                android:src="@drawable/no_icon"
+                                style="@style/RecipesCraftTheme.RecipePoint"/>
 
                             <ImageView
                                 android:id="@+id/p_1_x_2_create"
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:layout_margin="2dp"
-                                android:padding="3sp" />
+                                android:padding="3sp"
+                                android:src="@drawable/no_icon"
+                                style="@style/RecipesCraftTheme.RecipePoint"/>
 
                             <ImageView
                                 android:id="@+id/p_1_x_3_create"
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:padding="3sp" />
+                                android:padding="3sp"
+                                android:src="@drawable/no_icon"
+                                style="@style/RecipesCraftTheme.RecipePoint"/>
                         </TableRow>
 
                         <TableRow
@@ -108,19 +111,25 @@
                                 android:id="@+id/p_2_x_1_create"
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:padding="3sp" />
+                                android:padding="3sp"
+                                android:src="@drawable/no_icon"
+                                style="@style/RecipesCraftTheme.RecipePoint"/>
 
                             <ImageView
                                 android:id="@+id/p_2_x_2_create"
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:padding="3sp" />
+                                android:padding="3sp"
+                                android:src="@drawable/no_icon"
+                                style="@style/RecipesCraftTheme.RecipePoint"/>
 
                             <ImageView
                                 android:id="@+id/p_2_x_3_create"
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:padding="3sp" />
+                                android:padding="3sp"
+                                android:src="@drawable/no_icon"
+                                style="@style/RecipesCraftTheme.RecipePoint"/>
                         </TableRow>
 
                         <TableRow
@@ -132,30 +141,35 @@
                                 android:id="@+id/p_3_x_1_create"
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:padding="3sp" />
+                                android:padding="3sp"
+                                android:src="@drawable/no_icon"
+                                style="@style/RecipesCraftTheme.RecipePoint"/>
 
                             <ImageView
                                 android:id="@+id/p_3_x_2_create"
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:padding="3sp" />
+                                android:padding="3sp"
+                                android:src="@drawable/no_icon"
+                                style="@style/RecipesCraftTheme.RecipePoint"/>
 
                             <ImageView
                                 android:id="@+id/p_3_x_3_create"
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:padding="3sp" />
+                                android:padding="3sp"
+                                android:src="@drawable/no_icon"
+                                style="@style/RecipesCraftTheme.RecipePoint"/>
                         </TableRow>
                     </TableLayout>
                 </LinearLayout>
 
                 <Button
                     android:id="@+id/add_recipe"
-                    android:layout_width="wrap_content"
+                    style="@style/RecipesCraftTheme.Button"
+                    android:layout_width="308dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/recipe_create"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/big_button"
+                    android:layout_gravity="center_horizontal"
                     android:text="Создать" />
             </LinearLayout>
         </ScrollView>
@@ -166,10 +180,9 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginRight="5dp"
         android:background="@drawable/create_button"
         android:visibility="gone" />
-
 </RelativeLayout>

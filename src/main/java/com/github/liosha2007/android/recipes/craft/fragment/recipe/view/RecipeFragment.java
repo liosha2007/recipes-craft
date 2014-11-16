@@ -2,11 +2,13 @@ package com.github.liosha2007.android.recipes.craft.fragment.recipe.view;
 
 import android.app.ActionBar;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -73,13 +75,13 @@ public class RecipeFragment extends BaseFragmentView<RecipeController> {
             Utils.<LinearLayout>view(accordionLayout, R.id.recipe_craft_recipe_layout).setTag(R.string.RECIPE_ID, recipe.getId() + "_" + recipeNumber);
 
             if (addDeleteMode) {
-                Button deleteButton = Utils.view(accordionLayout, R.id.recipe_craft_delete_button);
+                ImageButton deleteButton = Utils.view(accordionLayout, R.id.recipe_craft_delete_button);
                 deleteButton.setVisibility(View.VISIBLE);
                 deleteButton.setTag(recipe.getId());
                 deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (view instanceof Button) {
+                        if (view instanceof ImageButton) {
                             controller.onDeleteClicked(Integer.parseInt(view.getTag().toString()));
                         }
                     }
@@ -169,8 +171,14 @@ public class RecipeFragment extends BaseFragmentView<RecipeController> {
     public void showNewRecipeItem(Item item, int imageViewId) {
         ImageView imageView = view(imageViewId);
         if (imageView != null) {
-            imageView.setImageBitmap(Utils.bytes2bitmap(item.getIcon().getIcon()));
-            imageView.setTag(item == null ? null : item.getId());
+            if (item == null){
+                Drawable drawable = controller.getResources().getDrawable(R.drawable.no_icon);
+                imageView.setImageDrawable(drawable);
+                imageView.setTag(null);
+            } else {
+                imageView.setImageBitmap(Utils.bytes2bitmap(item.getIcon().getIcon()));
+                imageView.setTag(item.getId());
+            }
         }
     }
 

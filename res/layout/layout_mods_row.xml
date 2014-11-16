@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight">
 
     <RelativeLayout
+        style="@style/RecipesCraftTheme.ListViewItem"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:layout_margin="3dp"
-        android:background="@drawable/background_list_item"
         android:orientation="vertical"
         android:padding="3dip">
 
@@ -19,14 +18,15 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="6dip"
-            android:contentDescription="TODO"
-            android:src="@drawable/ic_launcher" />
+            android:background="@android:color/transparent"
+            android:contentDescription="TODO" />
 
         <LinearLayout
             android:id="@+id/align_layout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_toRightOf="@id/mods_item_icon"
+            android:background="@android:color/transparent"
             android:orientation="horizontal">
 
             <TextView
@@ -37,6 +37,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignWithParentIfMissing="true"
                 android:layout_toRightOf="@id/mods_item_icon"
+                android:background="@android:color/transparent"
                 android:gravity="center_vertical"
                 android:text=""
                 android:textSize="16sp" />
@@ -49,6 +50,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_toRightOf="@id/mods_item_icon"
+                android:background="@android:color/transparent"
                 android:ellipsize="marquee"
                 android:singleLine="true"
                 android:text=""

@@ -1,34 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="#444"
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/application_icon"
+            android:id="@+id/imageView"
             android:layout_width="80dp"
             android:layout_height="64dp"
             android:layout_margin="5dp"
+            android:background="@android:color/transparent"
             android:src="@drawable/application_icon" />
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:background="@android:color/transparent"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/categories_title"
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Выберите иконку"
+                android:text="Рецепты крафта"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ff52de93"
                 android:textSize="22sp" />
 
             <TextView
@@ -38,29 +40,30 @@
                 android:linksClickable="true"
                 android:singleLine="true"
                 android:text="Оценить приложение"
-                android:textColor="#ff3e57e8" />
+                android:textColor="#ff2f99de" />
         </LinearLayout>
-
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/not_found"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/minecraft_not_found"
-        android:visibility="gone" />
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight=".9">
+        android:layout_height="wrap_content">
 
-        <com.github.liosha2007.android.recipes.craft.layout.FlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/icons_container"
-            android:layout_width="fill_parent"
+        <ImageView
+            android:id="@+id/not_found"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:src="@drawable/minecraft_not_found"
+            android:visibility="gone" />
 
-        </com.github.liosha2007.android.recipes.craft.layout.FlowLayout>
-    </ScrollView>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="5dp">
+
+            <com.github.liosha2007.android.recipes.craft.layout.FlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/icons_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </ScrollView>
+    </LinearLayout>
 </LinearLayout>

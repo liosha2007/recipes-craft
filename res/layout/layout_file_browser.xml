@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/background"
-    android:orientation="vertical"
-    android:padding="3dp">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -17,7 +14,7 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:gravity="top"
@@ -26,20 +23,18 @@
 
             <Button
                 android:id="@+id/upDirectoryButton"
+                style="@style/RecipesCraftTheme.Button"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="top"
-                android:layout_margin="0dp"
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/dir_up"
-                android:padding="0dp"
-                android:text="Up"
-                android:background="@drawable/big_button"/>
+                android:text="Up" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="0dp"
             android:layout_weight="1"
             android:gravity="top"
@@ -48,15 +43,14 @@
 
             <Button
                 android:id="@+id/selectCurrentDirectoryButton"
+                style="@style/RecipesCraftTheme.Button"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="top"
-                android:layout_margin="0dp"
                 android:layout_weight="1"
                 android:gravity="center|center_vertical"
                 android:padding="0dp"
-                android:text="Select"
-                android:background="@drawable/big_button"/>
+                android:text="Select" />
         </LinearLayout>
     </LinearLayout>
 
@@ -64,15 +58,15 @@
         android:id="@+id/currentDirectoryTextView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Current folder: \n/THis/is/a/long/path/to/test/if/this/will/span/multiple/lines"
-        android:layout_margin="3dp"/>
+        android:layout_margin="3dp"
+        android:text="Current folder: \n/THis/is/a/long/path/to/test/if/this/will/span/multiple/lines" />
 
     <ListView
         android:id="@+id/fileListView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_marginTop="5dp"
-        android:dividerHeight="1dp"
-        android:divider="@android:color/transparent"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:divider="#ffdadada"
+        android:dividerHeight="1dp" />
 </LinearLayout>

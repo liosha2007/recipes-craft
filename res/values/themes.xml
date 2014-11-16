@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="RecipesCraftTheme" parent="@android:style/Theme.Light.NoTitleBar.Fullscreen">
+        <item name="android:orientation">vertical</item>
+        <item name="android:windowSoftInputMode">adjustResize|stateHidden</item>
+        <item name="android:background">#ffdfe3e4</item>
+
+        <item name="android:editTextStyle">@style/RecipesCraftTheme.EditText</item>
+        <item name="android:buttonStyle">@style/RecipesCraftTheme.Button</item>
+        <item name="android:spinnerStyle">@style/RecipesCraftTheme.Spinner</item>
+        <item name="android:textViewStyle">@style/RecipesCraftTheme.TextView</item>
+        <item name="android:checkboxStyle">@style/RecipesCraftTheme.CheckBox</item>
+    </style>
+</resources>

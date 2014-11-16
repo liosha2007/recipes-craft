@@ -29,7 +29,7 @@ public class IconsView extends BaseActivityView<IconsController> {
         ImageButton imageButton = new ImageButton(controller);
         imageButton.setBackgroundColor(Color.TRANSPARENT);
         imageButton.setImageBitmap(Utils.bytes2bitmap(icon.getIcon()));
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(80, 80);
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(64, 64);
         imageButton.setLayoutParams(layoutParams);
         imageButton.setTag(icon.getId());
         imageButton.setOnClickListener(new View.OnClickListener() {

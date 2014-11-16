@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,6 +17,7 @@
 
             <EditText
                 android:id="@+id/recipe_tab_note_edit"
+                style="@style/RecipesCraftTheme.EditText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textMultiLine"
@@ -36,9 +35,9 @@
 
     <Button
         android:id="@+id/recipe_tab_note_save"
+        style="@style/RecipesCraftTheme.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight=".1"
-        android:text="Редактировать"
-        android:background="@drawable/big_button"/>
+        android:text="Редактировать" />
 </LinearLayout>

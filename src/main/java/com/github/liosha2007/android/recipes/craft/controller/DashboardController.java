@@ -23,7 +23,8 @@ public class DashboardController extends BaseActivityController<DashboardView> {
 
     @Override
     public void onBackPressed() {
-        this.finish();
+        finish();
+        System.exit(0);
     }
 
     public void onItemsClicked() {

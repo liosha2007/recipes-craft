@@ -72,7 +72,7 @@ public class ItemsView extends BaseActivityView<ItemsController> {
      * @param favorites
      * @param editMode
      */
-    public void showItems(List<Item> items, List<Favorite> favorites, boolean editMode) {
+    public void showItems(final List<Item> items, List<Favorite> favorites, boolean editMode) {
         final ListView listview = view(R.id.items_list);
         adapter = new ItemsArrayAdapter(controller, items, favorites, editMode);
         listview.setAdapter(adapter);
@@ -80,15 +80,9 @@ public class ItemsView extends BaseActivityView<ItemsController> {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
-                Object o = Utils.view(view, R.id.items_item_title).getTag();
-                if (o instanceof Integer) {
-                    controller.onItemClicked((Integer) o);
-                } else {
-                    Utils.err("not found ID in item tag");
-                }
+            public void onItemClick(AdapterView<?> parent, final View v, int position, long id) {
+                controller.onItemClicked(items.get(position).getId());
             }
-
         });
     }
 
@@ -154,7 +148,7 @@ public class ItemsView extends BaseActivityView<ItemsController> {
             holder.position = position;
 
             holder.textView.setText(items.get(position).getName());
-            holder.textView.setTag(items.get(position).getId());
+            ((RelativeLayout)holder.textView.getParent()).setTag(holder);
             Icon icon = items.get(position).getIcon();
             holder.imageView.setImageBitmap(icon == null ? null : Utils.bytes2bitmap(icon.getIcon()));
             if (items.get(position).getId() != -1) {

@@ -1,8 +1,54 @@
 <resources>
-
-    <style name="RecipesCraftTheme" parent="@android:style/Theme.Light.NoTitleBar.Fullscreen">
-        <item name="android:orientation">vertical</item>
-        <item name="android:windowSoftInputMode">adjustResize|stateHidden</item>
+    <style name="RecipesCraftTheme.EditText" parent="@android:style/Widget.EditText">
+        <item name="android:background">@drawable/edittext_background</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ff613e7c</item>
+        <item name="android:padding">5dp</item>
     </style>
 
+    <style name="RecipesCraftTheme.Button">
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:textColor">#ff52de93</item>
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="RecipesCraftTheme.Spinner" parent="@android:style/Widget.Spinner">
+        <item name="android:background">@drawable/spinner_background</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:textColor">#ff52de93</item>
+    </style>
+
+    <style name="RecipesCraftTheme.TextView">
+        <item name="android:background">@drawable/textview_background</item>
+        <item name="android:textColor">#ff2e3e50</item>
+    </style>
+
+    <style name="RecipesCraftTheme.CheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:background">@drawable/checkbox_background</item>
+    </style>
+
+    <style name="RecipesCraftTheme.HeaderStyle">
+        <item name="android:background">#ffb1c1c1</item>
+        <item name="android:colorBackground">#ffb1c1c1</item>
+    </style>
+
+    <style name="RecipesCraftTheme.ListViewItem">
+        <item name="android:background">@drawable/listview_item</item>
+    </style>
+
+    <style name="RecipesCraftTheme.RecipePoint">
+        <item name="android:background">@drawable/recipe_point</item>
+        <item name="android:layout_margin">1dp</item>
+    </style>
 </resources>

@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:orientation="vertical"
-        android:padding="5dp">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="#444"
             android:orientation="horizontal">
 
             <ImageView
@@ -23,11 +21,13 @@
                 android:layout_width="80dp"
                 android:layout_height="64dp"
                 android:layout_margin="5dp"
+                android:background="@android:color/transparent"
                 android:src="@drawable/application_icon" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
+                android:background="@android:color/transparent"
                 android:orientation="vertical">
 
                 <TextView
@@ -35,6 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Рецепты крафта"
+                    android:textColor="#ff52de93"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="22sp" />
 
@@ -45,9 +46,8 @@
                     android:linksClickable="true"
                     android:singleLine="true"
                     android:text="Оценить приложение"
-                    android:textColor="#ff3e57e8" />
+                    android:textColor="#ff2f99de" />
             </LinearLayout>
-
         </LinearLayout>
 
         <ScrollView
@@ -62,9 +62,8 @@
                 <TextView
                     android:id="@+id/description"
                     android:layout_width="fill_parent"
-                    android:layout_height="55dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:background="@drawable/background_description"
                     android:padding="5dp"
                     android:text="Очень очень очень длииинное описание программы"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -72,60 +71,55 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
                     android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/search_text"
+                        style="@style/RecipesCraftTheme.EditText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight=".9"
                         android:autoText="false"
-                        android:background="@drawable/edit_small"
                         android:hint="Поиск"
                         android:paddingLeft="10dp"
-                        android:selectAllOnFocus="true" />
+                        android:selectAllOnFocus="true"
+                        android:text="" />
 
                     <Button
                         android:id="@+id/search"
+                        style="@style/RecipesCraftTheme.Button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:background="@drawable/search_button"
                         android:text="Найти" />
-
                 </LinearLayout>
 
                 <Button
                     android:id="@+id/items"
+                    style="@style/RecipesCraftTheme.Button"
                     android:layout_width="fill_parent"
                     android:layout_height="42dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/big_button"
                     android:text="Список всех предметов" />
 
                 <Button
                     android:id="@+id/categories"
+                    style="@style/RecipesCraftTheme.Button"
                     android:layout_width="fill_parent"
                     android:layout_height="42dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/big_button"
                     android:text="По категориям" />
 
                 <Button
                     android:id="@+id/mods"
+                    style="@style/RecipesCraftTheme.Button"
                     android:layout_width="fill_parent"
                     android:layout_height="42dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/big_button"
                     android:text="По модам" />
 
                 <Button
                     android:id="@+id/favorites"
+                    style="@style/RecipesCraftTheme.Button"
                     android:layout_width="fill_parent"
                     android:layout_height="42dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/big_button"
                     android:text="Избранные рецепты" />
 
                 <LinearLayout
@@ -145,9 +139,7 @@
                         android:id="@+id/app_version"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="v1.0.0"
-                        android:textColor="#9DCA3B" />
-
+                        android:text="v1.0.0" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

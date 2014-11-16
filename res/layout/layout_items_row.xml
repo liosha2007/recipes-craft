@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight">
 
     <RelativeLayout
+        style="@style/RecipesCraftTheme.ListViewItem"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:layout_margin="3dp"
-        android:background="@drawable/background_list_item"
         android:orientation="vertical"
         android:padding="3dip">
 
@@ -16,12 +14,12 @@
             android:id="@+id/items_item_icon"
             android:layout_width="64dp"
             android:layout_height="match_parent"
-            android:scaleType="centerInside"
             android:layout_alignParentBottom="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="6dip"
+            android:background="@android:color/transparent"
             android:contentDescription="TODO"
-            android:src="@drawable/ic_launcher" />
+            android:scaleType="centerInside" />
 
         <TextView
             android:id="@+id/items_item_title"
@@ -30,10 +28,10 @@
             android:layout_alignWithParentIfMissing="true"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/items_item_icon"
+            android:background="@android:color/transparent"
             android:gravity="center_vertical"
             android:text="Example category"
             android:textSize="16sp" />
-
         <!--<TextView-->
         <!--android:id="@+id/second_line"-->
         <!--android:layout_width="fill_parent"-->
@@ -46,7 +44,6 @@
         <!--android:singleLine="true"-->
         <!--android:text=""-->
         <!--android:textSize="12sp" />-->
-
         <ImageView
             android:id="@+id/items_item_favorites"
             android:layout_width="32dp"

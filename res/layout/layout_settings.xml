@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="#444"
         android:orientation="horizontal">
 
         <ImageView
@@ -16,18 +15,21 @@
             android:layout_width="80dp"
             android:layout_height="64dp"
             android:layout_margin="5dp"
+            android:background="@android:color/transparent"
             android:src="@drawable/application_icon" />
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:background="@android:color/transparent"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Настройки"
+                android:text="Рецепты крафта"
+                android:textColor="#ff52de93"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textSize="22sp" />
 
@@ -38,7 +40,7 @@
                 android:linksClickable="true"
                 android:singleLine="true"
                 android:text="Оценить приложение"
-                android:textColor="#ff3e57e8" />
+                android:textColor="#ff2f99de" />
         </LinearLayout>
     </LinearLayout>
 
@@ -47,52 +49,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:checked="false"
-        android:textSize="14sp"
-        android:text="Разрешить добавление/удаление рецептов (beta)" />
+        android:text="Разрешить добавление/удаление рецептов (beta)"
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/upload_textures"
+        style="@style/RecipesCraftTheme.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Загрузить иконки в базу"
-        android:background="@drawable/big_button"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/create_category"
+        style="@style/RecipesCraftTheme.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Добавить категорию"
-        android:background="@drawable/big_button"
         android:visibility="gone" />
 
     <Button
         android:id="@+id/create_mod"
+        style="@style/RecipesCraftTheme.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Добавить мод"
-        android:background="@drawable/big_button"
         android:visibility="gone" />
 
     <Button
         android:id="@+id/create_item"
+        style="@style/RecipesCraftTheme.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Добавить предмет"
-        android:background="@drawable/big_button"
         android:visibility="gone" />
 
     <Button
         android:id="@+id/import_database"
+        style="@style/RecipesCraftTheme.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Импорт базы (существующая удалится)"
-        android:background="@drawable/big_button" />
+        android:textSize="17sp" />
 
     <Button
         android:id="@+id/export_database"
+        style="@style/RecipesCraftTheme.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Экспорт базы"
-        android:background="@drawable/big_button" />
+        android:text="Экспорт базы" />
 </LinearLayout>
