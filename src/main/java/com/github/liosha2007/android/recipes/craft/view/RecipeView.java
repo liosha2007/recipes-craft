@@ -3,6 +3,7 @@ package com.github.liosha2007.android.recipes.craft.view;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +28,30 @@ public class RecipeView extends BaseActivityView<RecipeController> {
         super.onCreate();
         // Tabs functional
         controller.onViewPagerCreated(this.<ViewPager>view(R.id.recipe_viewpager));
+        view(R.id.recipe_tab_recipe).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                controller.onRecipeTabClicked(RecipeView.this.<ViewPager>view(R.id.recipe_viewpager));
+            }
+        });
+        view(R.id.recipe_tab_description).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                controller.onDescriptionTabClicked(RecipeView.this.<ViewPager>view(R.id.recipe_viewpager));
+            }
+        });
+        view(R.id.recipe_tab_materials).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                controller.onMaterialsTabClicked(RecipeView.this.<ViewPager>view(R.id.recipe_viewpager));
+            }
+        });
+        view(R.id.recipe_tab_notes).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                controller.onNotesTabClicked(RecipeView.this.<ViewPager>view(R.id.recipe_viewpager));
+            }
+        });
     }
 
     public void onRecipeShow(boolean showed) {

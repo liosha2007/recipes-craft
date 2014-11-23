@@ -10,6 +10,9 @@ import com.github.liosha2007.android.recipes.craft.database.dao.IconDAO;
 import com.github.liosha2007.android.recipes.craft.database.dao.ItemDAO;
 import com.github.liosha2007.android.recipes.craft.database.domain.Icon;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
+import com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.DescriptionController;
+import com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.MaterialsController;
+import com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.NotesController;
 import com.github.liosha2007.android.recipes.craft.view.RecipeView;
 
 import java.sql.SQLException;
@@ -49,7 +52,7 @@ public class RecipeController extends BaseActivityController<RecipeView> {
                         RecipeController.this.view.onRecipeShow(false);
                     }
                 }.withArguments(bundle),
-                new com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.DescriptionController() {
+                new DescriptionController() {
                     @Override
                     public void onShow() {
                         super.onShow();
@@ -62,7 +65,7 @@ public class RecipeController extends BaseActivityController<RecipeView> {
                         RecipeController.this.view.onDescriptionShow(false);
                     }
                 }.withArguments(bundle),
-                new com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.MaterialsController() {
+                new MaterialsController() {
                     @Override
                     public void onShow() {
                         super.onShow();
@@ -75,7 +78,7 @@ public class RecipeController extends BaseActivityController<RecipeView> {
                         RecipeController.this.view.onMaterialsShow(false);
                     }
                 }.withArguments(bundle),
-                new com.github.liosha2007.android.recipes.craft.fragment.recipe.controller.NotesController() {
+                new NotesController() {
                     @Override
                     public void onShow() {
                         super.onShow();
@@ -100,5 +103,21 @@ public class RecipeController extends BaseActivityController<RecipeView> {
             }
             view.showItemInfo(item);
         }
+    }
+
+    public void onRecipeTabClicked(ViewPager view) {
+        view.setCurrentItem(0);
+    }
+
+    public void onDescriptionTabClicked(ViewPager view) {
+        view.setCurrentItem(1);
+    }
+
+    public void onMaterialsTabClicked(ViewPager view) {
+        view.setCurrentItem(2);
+    }
+
+    public void onNotesTabClicked(ViewPager view) {
+        view.setCurrentItem(3);
     }
 }

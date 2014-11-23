@@ -1,20 +1,29 @@
 package com.github.liosha2007.android.recipes.craft.fragment.recipe.controller;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.view.ContextThemeWrapper;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.github.liosha2007.android.R;
+import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.library.fragment.controller.BaseFragmentController;
 import com.github.liosha2007.android.recipes.craft.common.Constants;
 import com.github.liosha2007.android.recipes.craft.controller.ItemsController;
+import com.github.liosha2007.android.recipes.craft.database.dao.FavoriteDAO;
 import com.github.liosha2007.android.recipes.craft.database.dao.ItemDAO;
 import com.github.liosha2007.android.recipes.craft.database.dao.RecipeDAO;
+import com.github.liosha2007.android.recipes.craft.database.domain.Favorite;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.database.domain.Recipe;
 import com.github.liosha2007.android.recipes.craft.fragment.recipe.view.RecipeFragment;
 
+import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -72,11 +81,19 @@ public class RecipeController extends BaseFragmentController<RecipeFragment> {
      *
      * @param recipeId
      */
-    public void onDeleteClicked(int recipeId) {
-        final RecipeDAO recipeDAO = daoFor(Recipe.class);
-        recipeDAO.deleteById(recipeId);
-        Toast.makeText(getActivity(), "Рецепт удален!", Toast.LENGTH_LONG).show();
-        getActivity().finish();
+    public void onDeleteClicked(final int recipeId) {
+        new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.AlertDialogCustom))
+                .setTitle("Удаление")
+                .setMessage("Вы действительно хотите удалить?")
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        final RecipeDAO recipeDAO = daoFor(Recipe.class);
+                        recipeDAO.deleteById(recipeId);
+                        Toast.makeText(getActivity(), "Рецепт удален!", Toast.LENGTH_LONG).show();
+                        getActivity().finish();
+                    }
+                }).create().show();
     }
 
     public void onCreateClicked() {

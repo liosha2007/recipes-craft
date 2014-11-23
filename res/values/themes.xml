@@ -11,4 +11,11 @@
         <item name="android:textViewStyle">@style/RecipesCraftTheme.TextView</item>
         <item name="android:checkboxStyle">@style/RecipesCraftTheme.CheckBox</item>
     </style>
+
+    <style name="AlertDialogCustom" parent="@android:style/Theme.Dialog">
+        <item name="android:textColor">#ffdfe3e4</item>
+        <item name="android:background">#ff2f3f51</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>

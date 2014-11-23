@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Toast;
@@ -239,7 +240,7 @@ public class ItemsController extends BaseActivityController<ItemsView> {
 
     public void onDeleteClicked(final Item item) {
         if (item != null) {
-            new AlertDialog.Builder(this)
+            new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AlertDialogCustom))
                     .setTitle("Удаление")
                     .setMessage("Вы действительно хотите удалить?")
                     .setNegativeButton(android.R.string.no, null)
