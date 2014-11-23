@@ -148,7 +148,7 @@ public class ItemsView extends BaseActivityView<ItemsController> {
             holder.position = position;
 
             holder.textView.setText(items.get(position).getName());
-            ((RelativeLayout)holder.textView.getParent()).setTag(holder);
+            ((RelativeLayout) holder.textView.getParent()).setTag(holder);
             Icon icon = items.get(position).getIcon();
             holder.imageView.setImageBitmap(icon == null ? null : Utils.bytes2bitmap(icon.getIcon()));
             if (items.get(position).getId() != -1) {

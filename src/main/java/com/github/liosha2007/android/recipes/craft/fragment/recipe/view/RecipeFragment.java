@@ -171,7 +171,7 @@ public class RecipeFragment extends BaseFragmentView<RecipeController> {
     public void showNewRecipeItem(Item item, int imageViewId) {
         ImageView imageView = view(imageViewId);
         if (imageView != null) {
-            if (item == null){
+            if (item == null) {
                 Drawable drawable = controller.getResources().getDrawable(R.drawable.no_icon);
                 imageView.setImageDrawable(drawable);
                 imageView.setTag(null);

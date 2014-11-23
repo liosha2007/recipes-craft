@@ -6,7 +6,9 @@ import android.support.v4.view.ViewPager;
 import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.library.manager.FragmentManager;
-import com.github.liosha2007.android.recipes.craft.database.DBHelper;
+import com.github.liosha2007.android.recipes.craft.database.dao.IconDAO;
+import com.github.liosha2007.android.recipes.craft.database.dao.ItemDAO;
+import com.github.liosha2007.android.recipes.craft.database.domain.Icon;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.view.RecipeView;
 
@@ -88,9 +90,11 @@ public class RecipeController extends BaseActivityController<RecipeView> {
                 }.withArguments(bundle)
         );
         if (itemId != -1) {
-            Item item = DBHelper.getItemDAO().queryForId(itemId);
+            final ItemDAO itemDAO = daoFor(Item.class);
+            final IconDAO iconDAO = daoFor(Icon.class);
+            Item item = itemDAO.queryForId(itemId);
             try {
-                DBHelper.getIconDAO().refresh(item.getIcon());
+                iconDAO.refresh(item.getIcon());
             } catch (SQLException e) {
                 Utils.err("Can't refresh icon: " + e.getMessage());
             }

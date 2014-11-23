@@ -5,7 +5,7 @@ import android.widget.Toast;
 
 import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.common.Utils;
-import com.github.liosha2007.android.recipes.craft.database.DBHelper;
+import com.github.liosha2007.android.recipes.craft.database.dao.IconDAO;
 import com.github.liosha2007.android.recipes.craft.database.dao.ModDAO;
 import com.github.liosha2007.android.recipes.craft.database.domain.Category;
 import com.github.liosha2007.android.recipes.craft.database.domain.Icon;
@@ -43,11 +43,12 @@ public class CreateModController extends BaseActivityController<CreateModView> {
         if (categoryName == null || categoryName.isEmpty()) {
             Toast.makeText(this, "Заполните все поля!", Toast.LENGTH_LONG).show();
         } else {
+            final ModDAO modDAO = daoFor(Mod.class);
+            final IconDAO iconDAO = daoFor(Icon.class);
             Mod mod = new Mod();
-            mod.setIcon(iconId == -1 ? null : DBHelper.getIconDAO().queryForId(iconId));
+            mod.setIcon(iconId == -1 ? null : iconDAO.queryForId(iconId));
             mod.setName(categoryName);
             try {
-                ModDAO modDAO = DBHelper.getModDAO();
                 if (modDAO.selectBy(asList(Category.FIELD_NAME), categoryName) != null) {
                     throw new Exception("Мод уже существует!");
                 }
@@ -71,8 +72,9 @@ public class CreateModController extends BaseActivityController<CreateModView> {
     }
 
     private void onIconSelected(int iconId) {
+        final IconDAO iconDAO = daoFor(Icon.class);
         this.iconId = iconId;
-        Icon icon = (iconId == -1 ? null : DBHelper.getIconDAO().queryForId(iconId));
+        Icon icon = (iconId == -1 ? null : iconDAO.queryForId(iconId));
         view.setCategoryIcon(icon == null ? null : Utils.bytes2bitmap(icon.getIcon()));
     }
 }

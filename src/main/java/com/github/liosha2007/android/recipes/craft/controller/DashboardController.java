@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.common.Utils;
-import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.view.DashboardView;
 
 /**
@@ -13,12 +12,6 @@ import com.github.liosha2007.android.recipes.craft.view.DashboardView;
 public class DashboardController extends BaseActivityController<DashboardView> {
     public DashboardController() {
         super(new DashboardView());
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        DBHelper.setHelper(getApplicationContext());
     }
 
     @Override
@@ -53,12 +46,6 @@ public class DashboardController extends BaseActivityController<DashboardView> {
         bundle.putString(ItemsController.SEARCH_TEXT, searchText);
         bundle.putString(ItemsController.SEARCH_TITLE, "Поиск: '" + searchText + "'");
         run(ItemsController.class, bundle);
-    }
-
-    @Override
-    protected void onDestroy() {
-        DBHelper.releaseHelper();
-        super.onDestroy();
     }
 
     public void onSettingsClicked() {

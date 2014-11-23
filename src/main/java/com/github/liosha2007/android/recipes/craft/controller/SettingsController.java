@@ -7,8 +7,9 @@ import android.widget.Toast;
 
 import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.common.Utils;
+import com.github.liosha2007.android.library.database.DaoFactory;
 import com.github.liosha2007.android.recipes.craft.common.Constants;
-import com.github.liosha2007.android.recipes.craft.database.DBHelper;
+import com.github.liosha2007.android.recipes.craft.database.dao.IconDAO;
 import com.github.liosha2007.android.recipes.craft.database.domain.Icon;
 import com.github.liosha2007.android.recipes.craft.view.SettingsView;
 
@@ -86,6 +87,7 @@ public class SettingsController extends BaseActivityController<SettingsView> {
     }
 
     private void uploadTextures(String directory) {
+        final IconDAO iconDAO = daoFor(Icon.class);
         File[] listFiles = new File(directory).listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File file, String name) {
@@ -100,7 +102,7 @@ public class SettingsController extends BaseActivityController<SettingsView> {
                 IOUtils.readFully(fileInputStream, bytes);
                 Icon icon = new Icon();
                 icon.setIcon(bytes);
-                DBHelper.getIconDAO().create(icon);
+                iconDAO.create(icon);
             } catch (Exception e) {
                 Utils.war("Image skipped: " + file.getName());
             } finally {
@@ -111,12 +113,12 @@ public class SettingsController extends BaseActivityController<SettingsView> {
     }
 
     private void importDatabase(String file) {
-        DBHelper.importDatabaseFileFrom(this, file);
+        DaoFactory.importDatabaseFileFrom(this, file);
         Toast.makeText(this, "Импорт завершен!", Toast.LENGTH_LONG).show();
     }
 
     private void exportDatabase(String directory) {
-        DBHelper.exportDatabaseFileTo(this, directory);
+        DaoFactory.exportDatabaseToFile(this, directory);
         Toast.makeText(this, "Экспорт завершен!", Toast.LENGTH_LONG).show();
     }
 

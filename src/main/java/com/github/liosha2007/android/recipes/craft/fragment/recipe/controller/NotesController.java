@@ -4,7 +4,6 @@ import android.widget.Toast;
 
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.library.fragment.controller.BaseFragmentController;
-import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.dao.ItemDAO;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.fragment.recipe.view.NotesFragment;
@@ -23,8 +22,9 @@ public class NotesController extends BaseFragmentController<NotesFragment> {
     protected void onCreate() {
         super.onCreate();
 
+        final ItemDAO itemDAO = daoFor(Item.class);
         int itemId = getArguments().getInt(com.github.liosha2007.android.recipes.craft.controller.RecipeController.ITEM_ID, -1);
-        Item item = DBHelper.getItemDAO().queryForId(itemId);
+        Item item = itemDAO.queryForId(itemId);
         view.showNote(item.getNote(), itemId);
     }
 
@@ -34,7 +34,7 @@ public class NotesController extends BaseFragmentController<NotesFragment> {
 
     public void onSaveClicked(String noteText, Integer itemId) {
         if (itemId != null) {
-            ItemDAO itemDAO = DBHelper.getItemDAO();
+            final ItemDAO itemDAO = daoFor(Item.class);
             Item item = itemDAO.queryForId(itemId);
             item.setNote(noteText);
             try {

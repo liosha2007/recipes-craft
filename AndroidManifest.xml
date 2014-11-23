@@ -9,10 +9,11 @@
         android:targetSdkVersion="21" />
 
     <application
-        android:allowBackup="true"
         android:debuggable="true"
+        android:allowBackup="true"
         android:icon="@drawable/application_icon"
         android:label="@string/app_name"
+        android:name=".recipes.craft.common.DatabaseApplication"
         android:theme="@style/RecipesCraftTheme">
         <activity android:name=".recipes.craft.controller.DashboardController">
             <intent-filter>

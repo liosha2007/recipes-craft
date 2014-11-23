@@ -24,7 +24,7 @@ public class NotesFragment extends BaseFragmentView<NotesController> {
         view(R.id.recipe_tab_note_save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (view(R.id.recipe_tab_note).getVisibility() == View.VISIBLE){
+                if (view(R.id.recipe_tab_note).getVisibility() == View.VISIBLE) {
                     controller.onEditClicked();
                 } else {
                     controller.onSaveClicked(

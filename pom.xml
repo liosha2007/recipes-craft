@@ -23,11 +23,6 @@
             <version>1.2.1</version>
         </dependency>
         <dependency>
-            <groupId>com.j256.ormlite</groupId>
-            <artifactId>ormlite-android</artifactId>
-            <version>4.48</version>
-        </dependency>
-        <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
@@ -75,7 +70,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.basedir}/res</outputDirectory>
+                            <outputDirectory>res</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${project.basedir}/src/templates/res</directory>
@@ -90,6 +85,7 @@
             <plugin>
                 <groupId>com.jayway.maven.plugins.android.generation2</groupId>
                 <artifactId>android-maven-plugin</artifactId>
+                <version>4.0.0-rc.2</version>
                 <extensions>true</extensions>
                 <configuration>
                     <manifest>
@@ -99,7 +95,7 @@
                         <!--<outputApk>${build.finalName}-b${build.number}</outputApk>-->
                     <!--</zipalign>-->
                     <sdk>
-                        <path>C:\Software\android-studio\sdk</path>
+                        <path>C:\Software\android-sdk</path>
                     </sdk>
                 </configuration>
                 <executions>

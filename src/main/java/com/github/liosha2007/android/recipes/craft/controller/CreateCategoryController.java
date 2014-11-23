@@ -5,8 +5,8 @@ import android.widget.Toast;
 
 import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.common.Utils;
-import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.dao.CategoryDAO;
+import com.github.liosha2007.android.recipes.craft.database.dao.IconDAO;
 import com.github.liosha2007.android.recipes.craft.database.domain.Category;
 import com.github.liosha2007.android.recipes.craft.database.domain.Icon;
 import com.github.liosha2007.android.recipes.craft.view.CreateCategoryView;
@@ -42,11 +42,12 @@ public class CreateCategoryController extends BaseActivityController<CreateCateg
         if (categoryName == null || categoryName.isEmpty()) {
             Toast.makeText(this, "Заполните все поля!", Toast.LENGTH_LONG).show();
         } else {
+            final IconDAO iconDAO = daoFor(Icon.class);
+            final CategoryDAO categoryDAO = daoFor(Category.class);
             Category category = new Category();
-            category.setIcon(iconId == -1 ? null : DBHelper.getIconDAO().queryForId(iconId));
+            category.setIcon(iconId == -1 ? null : iconDAO.queryForId(iconId));
             category.setName(categoryName);
             try {
-                CategoryDAO categoryDAO = DBHelper.getCategoryDAO();
                 if (categoryDAO.selectBy(asList(Category.FIELD_NAME), categoryName) != null) {
                     throw new Exception("Категория уже существует");
                 }
@@ -71,8 +72,9 @@ public class CreateCategoryController extends BaseActivityController<CreateCateg
     }
 
     private void onIconSelected(int iconId) {
+        final IconDAO iconDAO = daoFor(Icon.class);
         this.iconId = iconId;
-        Icon icon = (iconId == -1 ? null : DBHelper.getIconDAO().queryForId(iconId));
+        Icon icon = (iconId == -1 ? null : iconDAO.queryForId(iconId));
         view.setCategoryIcon(icon == null ? null : Utils.bytes2bitmap(icon.getIcon()));
     }
 }

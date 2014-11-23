@@ -10,8 +10,10 @@ import android.widget.Toast;
 import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.common.Constants;
-import com.github.liosha2007.android.recipes.craft.database.DBHelper;
+import com.github.liosha2007.android.recipes.craft.database.dao.IconDAO;
+import com.github.liosha2007.android.recipes.craft.database.dao.ItemDAO;
 import com.github.liosha2007.android.recipes.craft.database.dao.ModDAO;
+import com.github.liosha2007.android.recipes.craft.database.domain.Icon;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.database.domain.Mod;
 import com.github.liosha2007.android.recipes.craft.view.ModsView;
@@ -35,12 +37,14 @@ public class ModsController extends BaseActivityController<ModsView> {
     }
 
     private void showMods() {
+        final ModDAO modDAO = daoFor(Mod.class);
+        final IconDAO iconDAO = daoFor(Icon.class);
         //
-        List<Mod> mods = DBHelper.getModDAO().getAllMods();
+        List<Mod> mods = modDAO.getAllMods();
         view.clearMods();
         for (Mod category : mods) {
             try {
-                DBHelper.getIconDAO().refresh(category.getIcon());
+                iconDAO.refresh(category.getIcon());
             } catch (SQLException e) {
                 Utils.err("Can't refresh icon for mod: " + e.getMessage());
             }
@@ -72,11 +76,12 @@ public class ModsController extends BaseActivityController<ModsView> {
                 .setNegativeButton(android.R.string.no, null)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
+                        final ItemDAO itemDAO = daoFor(Item.class);
+                        final ModDAO modDAO = daoFor(Mod.class);
                         try {
-                            if (DBHelper.getItemDAO().selectBy(Arrays.asList(Item.FIELD_CATEGORY), modId) != null) {
+                            if (itemDAO.selectBy(Arrays.asList(Item.FIELD_CATEGORY), modId) != null) {
                                 Toast.makeText(ModsController.this, "Мод используется!", Toast.LENGTH_LONG).show();
                             } else {
-                                ModDAO modDAO = DBHelper.getModDAO();
                                 modDAO.delete(modDAO.queryForId(modId));
                                 Toast.makeText(ModsController.this, "Мод удален!", Toast.LENGTH_LONG).show();
                                 showMods();

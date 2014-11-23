@@ -1,6 +1,7 @@
 package com.github.liosha2007.android.recipes.craft.view;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,19 +30,43 @@ public class RecipeView extends BaseActivityView<RecipeController> {
     }
 
     public void onRecipeShow(boolean showed) {
-        this.<TextView>view(R.id.recipe_tab_recipe).setTextColor(showed ? Color.RED : Color.BLACK);
+        TextView textView = this.view(R.id.recipe_tab_recipe);
+        if (textView != null) {
+            int textColor = controller.getResources().getColor(R.color.TextLight);
+            Drawable backgroundDrawable = controller.getResources().getDrawable(R.drawable.tabselected_background);
+            textView.setTextColor(showed ? textColor : Color.BLACK);
+            textView.setBackground(showed ? backgroundDrawable : null);
+        }
     }
 
     public void onDescriptionShow(boolean showed) {
-        this.<TextView>view(R.id.recipe_tab_description).setTextColor(showed ? Color.RED : Color.BLACK);
+        TextView textView = this.view(R.id.recipe_tab_description);
+        if (textView != null) {
+            int textColor = controller.getResources().getColor(R.color.TextLight);
+            Drawable backgroundDrawable = controller.getResources().getDrawable(R.drawable.tabselected_background);
+            textView.setTextColor(showed ? textColor : Color.BLACK);
+            textView.setBackground(showed ? backgroundDrawable : null);
+        }
     }
 
     public void onMaterialsShow(boolean showed) {
-        this.<TextView>view(R.id.recipe_tab_materials).setTextColor(showed ? Color.RED : Color.BLACK);
+        TextView textView = this.view(R.id.recipe_tab_materials);
+        if (textView != null) {
+            int textColor = controller.getResources().getColor(R.color.TextLight);
+            Drawable backgroundDrawable = controller.getResources().getDrawable(R.drawable.tabselected_background);
+            textView.setTextColor(showed ? textColor : Color.BLACK);
+            textView.setBackground(showed ? backgroundDrawable : null);
+        }
     }
 
     public void onNotesShow(boolean showed) {
-        this.<TextView>view(R.id.recipe_tab_notes).setTextColor(showed ? Color.RED : Color.BLACK);
+        TextView textView = this.view(R.id.recipe_tab_notes);
+        if (textView != null) {
+            int textColor = controller.getResources().getColor(R.color.TextLight);
+            Drawable backgroundDrawable = controller.getResources().getDrawable(R.drawable.tabselected_background);
+            textView.setTextColor(showed ? textColor : Color.BLACK);
+            textView.setBackground(showed ? backgroundDrawable : null);
+        }
     }
 
     public void showItemInfo(Item item) {

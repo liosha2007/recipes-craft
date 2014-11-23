@@ -9,7 +9,8 @@ import android.widget.Toast;
 import com.github.liosha2007.android.library.fragment.controller.BaseFragmentController;
 import com.github.liosha2007.android.recipes.craft.common.Constants;
 import com.github.liosha2007.android.recipes.craft.controller.ItemsController;
-import com.github.liosha2007.android.recipes.craft.database.DBHelper;
+import com.github.liosha2007.android.recipes.craft.database.dao.ItemDAO;
+import com.github.liosha2007.android.recipes.craft.database.dao.RecipeDAO;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.database.domain.Recipe;
 import com.github.liosha2007.android.recipes.craft.fragment.recipe.view.RecipeFragment;
@@ -37,19 +38,21 @@ public class RecipeController extends BaseFragmentController<RecipeFragment> {
         // Restore parameters
         this.itemId = getArguments().getInt(com.github.liosha2007.android.recipes.craft.controller.RecipeController.ITEM_ID, -1);
 
-        Item item = DBHelper.getItemDAO().queryForId(itemId);
-        List<Recipe> recipes = DBHelper.getRecipeDAO().getAllRecipesForItemId(item.getId());
+        final ItemDAO itemDAO = daoFor(Item.class);
+        final RecipeDAO recipeDAO = daoFor(Recipe.class);
+        Item item = itemDAO.queryForId(itemId);
+        List<Recipe> recipes = recipeDAO.getAllRecipesForItemId(item.getId());
         for (Recipe recipe : recipes) {
-            DBHelper.getItemDAO().refresh(recipe.getP1x1());
-            DBHelper.getItemDAO().refresh(recipe.getP1x2());
-            DBHelper.getItemDAO().refresh(recipe.getP1x3());
-            DBHelper.getItemDAO().refresh(recipe.getP2x1());
-            DBHelper.getItemDAO().refresh(recipe.getP2x2());
-            DBHelper.getItemDAO().refresh(recipe.getP2x3());
-            DBHelper.getItemDAO().refresh(recipe.getP3x1());
-            DBHelper.getItemDAO().refresh(recipe.getP3x2());
-            DBHelper.getItemDAO().refresh(recipe.getP3x3());
-            DBHelper.getItemDAO().refresh(recipe.getResult());
+            itemDAO.refresh(recipe.getP1x1());
+            itemDAO.refresh(recipe.getP1x2());
+            itemDAO.refresh(recipe.getP1x3());
+            itemDAO.refresh(recipe.getP2x1());
+            itemDAO.refresh(recipe.getP2x2());
+            itemDAO.refresh(recipe.getP2x3());
+            itemDAO.refresh(recipe.getP3x1());
+            itemDAO.refresh(recipe.getP3x2());
+            itemDAO.refresh(recipe.getP3x3());
+            itemDAO.refresh(recipe.getResult());
         }
         view.createAccordion(item, recipes, editMode);
         if (editMode) {
@@ -70,7 +73,8 @@ public class RecipeController extends BaseFragmentController<RecipeFragment> {
      * @param recipeId
      */
     public void onDeleteClicked(int recipeId) {
-        DBHelper.getRecipeDAO().deleteById(recipeId);
+        final RecipeDAO recipeDAO = daoFor(Recipe.class);
+        recipeDAO.deleteById(recipeId);
         Toast.makeText(getActivity(), "Рецепт удален!", Toast.LENGTH_LONG).show();
         getActivity().finish();
     }
@@ -101,11 +105,12 @@ public class RecipeController extends BaseFragmentController<RecipeFragment> {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1 && data != null) {
+            final ItemDAO itemDAO = daoFor(Item.class);
             int imageViewId = data.getIntExtra(ItemsController.CREATE_RECIPE_IMAGE_VIEW_ID, -1);
             int itemId = data.getIntExtra(ItemsController.CREATE_RECIPE_RESULT_ITEM_ID, -1);
             Item item = null;
             if (itemId != -1) {
-                item = DBHelper.getItemDAO().queryForId(itemId);
+                item = itemDAO.queryForId(itemId);
             }
             view.showNewRecipeItem(item, imageViewId);
         }
@@ -115,7 +120,8 @@ public class RecipeController extends BaseFragmentController<RecipeFragment> {
             Integer p1x1, Integer p1x2, Integer p1x3,
             Integer p2x1, Integer p2x2, Integer p2x3,
             Integer p3x1, Integer p3x2, Integer p3x3) {
-        Item resultItem = DBHelper.getItemDAO().queryForId(itemId);
+        final ItemDAO itemDAO = daoFor(Item.class);
+        Item resultItem = itemDAO.queryForId(itemId);
 
         if (
                 p1x1 == null &&
@@ -134,36 +140,37 @@ public class RecipeController extends BaseFragmentController<RecipeFragment> {
         recipe.setResult(resultItem);
 
         if (p1x1 != null) {
-            recipe.setP1x1(DBHelper.getItemDAO().queryForId(p1x1));
+            recipe.setP1x1(itemDAO.queryForId(p1x1));
         }
         if (p1x2 != null) {
-            recipe.setP1x2(DBHelper.getItemDAO().queryForId(p1x2));
+            recipe.setP1x2(itemDAO.queryForId(p1x2));
         }
         if (p1x3 != null) {
-            recipe.setP1x3(DBHelper.getItemDAO().queryForId(p1x3));
+            recipe.setP1x3(itemDAO.queryForId(p1x3));
         }
 
         if (p2x1 != null) {
-            recipe.setP2x1(DBHelper.getItemDAO().queryForId(p2x1));
+            recipe.setP2x1(itemDAO.queryForId(p2x1));
         }
         if (p2x2 != null) {
-            recipe.setP2x2(DBHelper.getItemDAO().queryForId(p2x2));
+            recipe.setP2x2(itemDAO.queryForId(p2x2));
         }
         if (p2x3 != null) {
-            recipe.setP2x3(DBHelper.getItemDAO().queryForId(p2x3));
+            recipe.setP2x3(itemDAO.queryForId(p2x3));
         }
 
         if (p3x1 != null) {
-            recipe.setP3x1(DBHelper.getItemDAO().queryForId(p3x1));
+            recipe.setP3x1(itemDAO.queryForId(p3x1));
         }
         if (p3x2 != null) {
-            recipe.setP3x2(DBHelper.getItemDAO().queryForId(p3x2));
+            recipe.setP3x2(itemDAO.queryForId(p3x2));
         }
         if (p3x3 != null) {
-            recipe.setP3x3(DBHelper.getItemDAO().queryForId(p3x3));
+            recipe.setP3x3(itemDAO.queryForId(p3x3));
         }
 
-        DBHelper.getRecipeDAO().create(recipe);
+        final RecipeDAO recipeDAO = daoFor(Recipe.class);
+        recipeDAO.create(recipe);
         Toast.makeText(getActivity(), "Рецепт для '" + resultItem.getName() + "' создан!", Toast.LENGTH_LONG).show();
         getActivity().finish();
     }

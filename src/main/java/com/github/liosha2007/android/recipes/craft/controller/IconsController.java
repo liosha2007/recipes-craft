@@ -3,7 +3,7 @@ package com.github.liosha2007.android.recipes.craft.controller;
 import android.content.Intent;
 
 import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
-import com.github.liosha2007.android.recipes.craft.database.DBHelper;
+import com.github.liosha2007.android.recipes.craft.database.dao.IconDAO;
 import com.github.liosha2007.android.recipes.craft.database.domain.Icon;
 import com.github.liosha2007.android.recipes.craft.view.IconsView;
 
@@ -22,8 +22,8 @@ public class IconsController extends BaseActivityController<IconsView> {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        List<Icon> icons = DBHelper.getIconDAO().getAllIcons();
+        final IconDAO iconDAO = daoFor(Icon.class);
+        List<Icon> icons = iconDAO.getAllIcons();
         if (icons.size() == 0) {
             view.showNotFound();
         }

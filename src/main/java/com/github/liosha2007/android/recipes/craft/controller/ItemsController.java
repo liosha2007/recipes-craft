@@ -15,9 +15,11 @@ import com.github.liosha2007.android.R;
 import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.common.Constants;
-import com.github.liosha2007.android.recipes.craft.database.DBHelper;
 import com.github.liosha2007.android.recipes.craft.database.dao.FavoriteDAO;
+import com.github.liosha2007.android.recipes.craft.database.dao.IconDAO;
+import com.github.liosha2007.android.recipes.craft.database.dao.ItemDAO;
 import com.github.liosha2007.android.recipes.craft.database.domain.Favorite;
+import com.github.liosha2007.android.recipes.craft.database.domain.Icon;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.view.ItemsView;
 
@@ -103,16 +105,18 @@ public class ItemsController extends BaseActivityController<ItemsView> {
     }
 
     private void showItems() {
+        final FavoriteDAO favoriteDAO = daoFor(Favorite.class);
+        final IconDAO iconDAO = daoFor(Icon.class);
         //
         view.clearItems();
         List<Item> items = loadItems();
-        List<Favorite> favorites = DBHelper.getFavoriteDAO().getAllFavorites();
+        List<Favorite> favorites = favoriteDAO.getAllFavorites();
         try {
             for (Item item : items) {
-                DBHelper.getIconDAO().refresh(item.getIcon());
+                iconDAO.refresh(item.getIcon());
             }
             for (Favorite favorite : favorites) {
-                DBHelper.getIconDAO().refresh(favorite.getItem().getIcon());
+                iconDAO.refresh(favorite.getItem().getIcon());
             }
         } catch (Exception e) {
             Utils.err("Can't update icon: " + e.getMessage());
@@ -127,12 +131,14 @@ public class ItemsController extends BaseActivityController<ItemsView> {
     }
 
     protected List<Item> loadItems() {
+        final FavoriteDAO favoriteDAO = daoFor(Favorite.class);
+        final ItemDAO itemDAO = daoFor(Item.class);
         List<Item> items = new ArrayList<Item>();
         if (modId != -1) {
-            items = DBHelper.getItemDAO().queryForEq(Item.FIELD_MOD, modId);
+            items = itemDAO.queryForEq(Item.FIELD_MOD, modId);
             view.setTitle(modTitle);
         } else if (categoryId != -1) {
-            items = DBHelper.getItemDAO().queryForEq(Item.FIELD_CATEGORY, categoryId);
+            items = itemDAO.queryForEq(Item.FIELD_CATEGORY, categoryId);
             view.setTitle(categoryTitle);
         } else if (searchText != null) {
             // Search in title
@@ -144,17 +150,17 @@ public class ItemsController extends BaseActivityController<ItemsView> {
 
             view.setTitle(searchTitle);
         } else if (favoritesTitle != null) {
-            List<Favorite> favorites = DBHelper.getFavoriteDAO().getAllFavorites();
+            List<Favorite> favorites = favoriteDAO.getAllFavorites();
             if (favorites != null) {
                 for (Favorite favorite : favorites) {
                     Item item = favorite.getItem();
-                    DBHelper.getItemDAO().refresh(item);
+                    itemDAO.refresh(item);
                     items.add(item);
                 }
                 view.setTitle(favoritesTitle);
             }
         } else if (selectItemTitle != null) {
-            List<Item> allItems = DBHelper.getItemDAO().getAllItems();
+            List<Item> allItems = itemDAO.getAllItems();
 
             Item emptyItem = new Item();
             emptyItem.setId(-1);
@@ -164,13 +170,14 @@ public class ItemsController extends BaseActivityController<ItemsView> {
             items.addAll(allItems);
             view.setTitle(selectItemTitle);
         } else {
-            items = DBHelper.getItemDAO().getAllItems();
+            items = itemDAO.getAllItems();
         }
         return items;
     }
 
     private void searchAndAddUnique(String fieldName, String searchText, List<Item> items) {
-        for (Item foundItem : DBHelper.getItemDAO().queryForLike(fieldName, searchText)) {
+        final ItemDAO itemDAO = daoFor(Item.class);
+        for (Item foundItem : itemDAO.queryForLike(fieldName, searchText)) {
             boolean added = false;
             for (Item item : items) {
                 if (foundItem.getId().equals(item.getId())) {
@@ -201,7 +208,7 @@ public class ItemsController extends BaseActivityController<ItemsView> {
     }
 
     public void onFavoriteClicked(Item item, Boolean isAdded, int position) {
-        FavoriteDAO favoriteDAO = DBHelper.getFavoriteDAO();
+        final FavoriteDAO favoriteDAO = daoFor(Favorite.class);
         List<Favorite> favorites = favoriteDAO.queryForEq(Favorite.FIELD_ITEM, item.getId());
         if (favorites.size() == 0) {
             Favorite favorite = new Favorite();
@@ -216,6 +223,7 @@ public class ItemsController extends BaseActivityController<ItemsView> {
     }
 
     public void onSearchTextChanged(String searchText) {
+        final FavoriteDAO favoriteDAO = daoFor(Favorite.class);
         List<Item> items = loadItems();
         List<Item> filteredItems = new ArrayList<Item>(items.size());
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -226,7 +234,7 @@ public class ItemsController extends BaseActivityController<ItemsView> {
             }
         }
         view.clearItems();
-        view.showItems(filteredItems, DBHelper.getFavoriteDAO().getAllFavorites(), editMode);
+        view.showItems(filteredItems, favoriteDAO.getAllFavorites(), editMode);
     }
 
     public void onDeleteClicked(final Item item) {
@@ -237,13 +245,14 @@ public class ItemsController extends BaseActivityController<ItemsView> {
                     .setNegativeButton(android.R.string.no, null)
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
+                            final FavoriteDAO favoriteDAO = daoFor(Favorite.class);
+                            final ItemDAO itemDAO = daoFor(Item.class);
                             try {
-                                FavoriteDAO favoriteDAO = DBHelper.getFavoriteDAO();
                                 Favorite favorite = favoriteDAO.selectBy(Arrays.asList(Favorite.FIELD_ITEM), item.getId());
                                 if (favorite != null) {
                                     favoriteDAO.delete(favorite);
                                 }
-                                DBHelper.getItemDAO().delete(item);
+                                itemDAO.delete(item);
                                 Toast.makeText(ItemsController.this, "Предмет удален!", Toast.LENGTH_LONG).show();
                                 showItems();
                             } catch (SQLException e) {

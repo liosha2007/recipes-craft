@@ -10,8 +10,11 @@ import android.widget.Toast;
 import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.common.Utils;
 import com.github.liosha2007.android.recipes.craft.common.Constants;
-import com.github.liosha2007.android.recipes.craft.database.DBHelper;
+import com.github.liosha2007.android.recipes.craft.database.dao.CategoryDAO;
+import com.github.liosha2007.android.recipes.craft.database.dao.IconDAO;
+import com.github.liosha2007.android.recipes.craft.database.dao.ItemDAO;
 import com.github.liosha2007.android.recipes.craft.database.domain.Category;
+import com.github.liosha2007.android.recipes.craft.database.domain.Icon;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
 import com.github.liosha2007.android.recipes.craft.view.CategoriesView;
 
@@ -36,8 +39,11 @@ public class CategoriesController extends BaseActivityController<CategoriesView>
     }
 
     private void showCategories() {
-        List<Category> categories = DBHelper.getCategoryDAO().getAllCategories();
-        if (categories == null){
+        final IconDAO iconDAO = daoFor(Icon.class);
+        final CategoryDAO categoryDAO = daoFor(Category.class);
+
+        List<Category> categories = categoryDAO.getAllCategories();
+        if (categories == null) {
             return;
         }
         if (categories.size() == 0) {
@@ -47,7 +53,7 @@ public class CategoriesController extends BaseActivityController<CategoriesView>
         view.clearCategories();
         for (Category category : categories) {
             try {
-                DBHelper.getIconDAO().refresh(category.getIcon());
+                iconDAO.refresh(category.getIcon());
             } catch (SQLException e) {
                 Utils.err("Can't refresh icon for category: " + e.getMessage());
             }
@@ -59,9 +65,10 @@ public class CategoriesController extends BaseActivityController<CategoriesView>
 
     public void onCategoryClicked(final Integer categoryId) {
         if (categoryId != null) {
+            final CategoryDAO categoryDAO = daoFor(Category.class);
             Bundle bundle = new Bundle();
             bundle.putInt(ItemsController.CATEGORY_ID, categoryId);
-            bundle.putString(ItemsController.CATEGORY_TITLE, DBHelper.getCategoryDAO().queryForId(categoryId).getName());
+            bundle.putString(ItemsController.CATEGORY_TITLE, categoryDAO.queryForId(categoryId).getName());
             run(ItemsController.class, bundle);
         } else {
             Utils.deb("categoryId is null");
@@ -76,11 +83,13 @@ public class CategoriesController extends BaseActivityController<CategoriesView>
                     .setNegativeButton(android.R.string.no, null)
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
+                            final CategoryDAO categoryDAO = daoFor(Category.class);
+                            final ItemDAO itemDAO = daoFor(Item.class);
                             try {
-                                if (DBHelper.getItemDAO().selectBy(Arrays.asList(Item.FIELD_CATEGORY), category.getId()) != null) {
+                                if (itemDAO.selectBy(Arrays.asList(Item.FIELD_CATEGORY), category.getId()) != null) {
                                     Toast.makeText(CategoriesController.this, "Категория не пуста!", Toast.LENGTH_LONG).show();
                                 } else {
-                                    DBHelper.getCategoryDAO().delete(category);
+                                    categoryDAO.delete(category);
                                     Toast.makeText(CategoriesController.this, "Категория удалена!", Toast.LENGTH_LONG).show();
                                     showCategories();
                                 }

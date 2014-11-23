@@ -5,8 +5,10 @@ import android.widget.Toast;
 
 import com.github.liosha2007.android.library.activity.controller.BaseActivityController;
 import com.github.liosha2007.android.library.common.Utils;
-import com.github.liosha2007.android.recipes.craft.database.DBHelper;
+import com.github.liosha2007.android.recipes.craft.database.dao.CategoryDAO;
+import com.github.liosha2007.android.recipes.craft.database.dao.IconDAO;
 import com.github.liosha2007.android.recipes.craft.database.dao.ItemDAO;
+import com.github.liosha2007.android.recipes.craft.database.dao.ModDAO;
 import com.github.liosha2007.android.recipes.craft.database.domain.Category;
 import com.github.liosha2007.android.recipes.craft.database.domain.Icon;
 import com.github.liosha2007.android.recipes.craft.database.domain.Item;
@@ -34,9 +36,11 @@ public class CreateItemController extends BaseActivityController<CreateItemView>
     @Override
     public void onCreate() {
         super.onCreate();
-        List<Category> categories = DBHelper.getCategoryDAO().getAllCategories();
+        final CategoryDAO categoryDAO = daoFor(Category.class);
+        final ModDAO modDAO = daoFor(Mod.class);
+        List<Category> categories = categoryDAO.getAllCategories();
         view.showCategories(categories);
-        List<Mod> mods = DBHelper.getModDAO().getAllMods();
+        List<Mod> mods = modDAO.getAllMods();
         view.showMods(mods);
     }
 
@@ -55,28 +59,31 @@ public class CreateItemController extends BaseActivityController<CreateItemView>
                 || modName == null || modName.isEmpty()) {
             Toast.makeText(this, "Заполните все поля!", Toast.LENGTH_LONG).show();
         } else {
+            final CategoryDAO categoryDAO = daoFor(Category.class);
+            final ModDAO modDAO = daoFor(Mod.class);
+            final IconDAO iconDAO = daoFor(Icon.class);
+            final ItemDAO itemDAO = daoFor(Item.class);
             Category category = null;
             try {
-                category = DBHelper.getCategoryDAO().selectBy(asList(Category.FIELD_NAME), categoryName);
+                category = categoryDAO.selectBy(asList(Category.FIELD_NAME), categoryName);
             } catch (SQLException e) {
                 Utils.err("Can't find category for name: " + e.getMessage());
             }
             Mod mod = null;
             try {
-                mod = DBHelper.getModDAO().selectBy(asList(Category.FIELD_NAME), modName);
+                mod = modDAO.selectBy(asList(Category.FIELD_NAME), modName);
             } catch (SQLException e) {
                 Utils.err("Can't find category for name: " + e.getMessage());
             }
 
             Item item = new Item();
-            item.setIcon(iconId == -1 ? null : DBHelper.getIconDAO().queryForId(iconId));
+            item.setIcon(iconId == -1 ? null : iconDAO.queryForId(iconId));
             item.setName(title);
             item.setDescription(description);
             item.setNote(note);
             item.setCategory(category);
             item.setMod(mod);
 
-            ItemDAO itemDAO = DBHelper.getItemDAO();
             try {
                 if (itemDAO.selectBy(asList(Item.FIELD_NAME), categoryName) != null) {
                     throw new Exception("Предмет уже существует!");
@@ -103,7 +110,8 @@ public class CreateItemController extends BaseActivityController<CreateItemView>
 
     private void onIconSelected(int iconId) {
         this.iconId = iconId;
-        Icon icon = (iconId == -1 ? null : DBHelper.getIconDAO().queryForId(iconId));
+        IconDAO iconDAO = daoFor(Icon.class);
+        Icon icon = (iconId == -1 ? null : iconDAO.queryForId(iconId));
         view.setCategoryIcon(icon == null ? null : Utils.bytes2bitmap(icon.getIcon()));
     }
 
